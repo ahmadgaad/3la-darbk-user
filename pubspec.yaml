@@ -1,0 +1,74 @@
+name: ala_darbak_user
+description: "A new Flutter project."
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  cached_network_image: ^3.4.1
+  cupertino_icons: ^1.0.8
+  dartz: ^0.10.1
+  dio: ^5.7.0
+  equatable: ^2.0.7
+  firebase_core: ^3.13.0
+  firebase_messaging: ^15.2.4
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.0.0
+  flutter_local_notifications: ^19.0.0
+  flutter_polyline_points: ^2.1.0
+  flutter_rating_bar: ^4.0.1
+  flutter_screenutil: ^5.9.3
+  flutter_svg: ^2.0.10+1
+  font_awesome_flutter: ^10.8.0
+  geocoding: ^3.0.0
+  geolocator: ^14.0.0
+  get_it: ^8.0.2
+  google_maps_flutter: ^2.10.0
+  image_picker: ^1.1.2
+  jiffy: ^6.2.1
+  loading_overlay: ^0.4.2
+  localize_and_translate:
+    git: https://github.com/ziad4347/localize_and_translate.git
+  logger: ^2.5.0
+  myfatoorah_flutter: ^3.2.3
+  oktoast: ^3.4.0
+  pin_code_fields: ^8.0.1
+  regexpattern: ^2.6.0
+  shared_preferences: ^2.3.3
+  stop_watch_timer: ^3.2.0
+  url_launcher: ^6.3.1
+
+dev_dependencies:
+  flutter_launcher_icons: ^0.14.1
+  flutter_lints: ^5.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/launcher_icon.png"
+  remove_alpha_ios: true
+
+flutter_assets:
+  assets_path: assets/
+  output_path: lib/generated/
+  filename: assets.dart
+  ignore_comments: true
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/svg/
+    - lib/config/localization/lang/
+
+  fonts:
+    - family: cairo
+      fonts:
+        - asset: fonts/Cairo.ttf

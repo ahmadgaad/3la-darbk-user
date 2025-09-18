@@ -1,0 +1,151 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../../../config/routes/app_routes.dart';
+import '../../../../config/style/app_color.dart';
+import '../../../../config/style/app_text_styles.dart';
+import '../../../../core/utils/app_utils/app_strings.dart';
+import 'package:flutter/material.dart';
+import '../../../../core/widgets/app_image_view.dart';
+import '../../../orders/presentation/manager/cubit.dart';
+import '../../../profile/presentation/manager/profile_cubit/cubit.dart';
+import '../../../profile/presentation/manager/profile_cubit/state.dart';
+import '../../../profile/presentation/widgets/delete_account_dialog.dart';
+import '../../../setttings_info/presentation/manager/cubit.dart';
+
+class DrawerWidget extends StatelessWidget {
+  const DrawerWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      width: 300.w,
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          _drawerHeader(),
+          ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoute.editProfile);
+            },
+            leading: const Icon(Icons.person_pin_rounded),
+            title: const Text(AppStrings.profile2),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoute.changePassword);
+            },
+            leading: const Icon(Icons.lock_outline),
+            title: const Text(AppStrings.changePassword),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoute.historyOrders,
+                  arguments: context.read<OrdersCubit>());
+              Scaffold.of(context).closeDrawer();
+            },
+            leading: const Icon(Icons.history_rounded),
+            title: const Text(AppStrings.ordersHistory),
+          ),
+          ListTile(
+            onTap: () async {
+              final url =
+                  "tel:${context.read<SettingsInfoCubit>().state.settingsInfo?.callUs ?? "0"}";
+              if (await launchUrl(Uri.parse(url))) {}
+            },
+            leading: const Icon(Icons.support_agent),
+            title: const Text(AppStrings.callSupport),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoute.aboutUs);
+            },
+            leading: const Icon(Icons.info_outline),
+            title: const Text(AppStrings.aboutApp),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoute.termsAndCondtions);
+
+            },
+            leading: const Icon(Icons.privacy_tip_outlined),
+            title: const Text(AppStrings.termsAndCondtions),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoute.policy);
+            },
+            leading: const Icon(Icons.policy_outlined),
+            title: const Text(AppStrings.appPolicy),
+          ),
+          ListTile(
+            onTap: () {
+              context.read<ProfileCubit>().logout();
+            },
+            leading: const Icon(Icons.logout),
+            title: const Text(AppStrings.logout),
+          ),
+          ListTile(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const DeleteAccountDialog();
+                },
+              );
+            },
+            leading: const Icon(
+              Icons.delete_forever_outlined,
+              color: AppColors.red,
+            ),
+            title: const Text(
+              AppStrings.deleteAccount,
+              style: TextStyle(color: AppColors.red),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _drawerHeader() => SizedBox(
+        height: 175.w,
+        child: DrawerHeader(
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
+            decoration: const BoxDecoration(color: AppColors.primary),
+            child: BlocBuilder<ProfileCubit, ProfileState>(
+              builder: (context, state) {
+                final user = state.currentUser;
+                return Row(
+                  spacing: 10.w,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    AppImageView(
+                        width: 60.w,
+                        height: 60.w,
+                        fit: BoxFit.cover,
+                        shape: BoxShape.circle,
+                        url: user?.image ?? "asd"),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        spacing: 10.w,
+                        children: [
+                          Text(
+                            user?.name ?? "user name",
+                            style: AppTextStyle.font16white600,
+                          ),
+                          Text(
+                            user?.mobile ?? "+966",
+                            style: AppTextStyle.font14white600,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              },
+            )),
+      );
+}

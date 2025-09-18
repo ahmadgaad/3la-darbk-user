@@ -1,0 +1,96 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../config/routes/app_routes.dart';
+import '../../../../core/utils/app_utils/app_strings.dart';
+import '../../../../core/widgets/app_toaster.dart';
+import '../manager/order_cubit/cubit.dart';
+import '../manager/order_cubit/state.dart';
+import '../widgets/additional_details_field.dart';
+import '../widgets/order_images_add.dart';
+import '../widgets/order_size_select.dart';
+import '../widgets/recipient_info_form.dart';
+import '../widgets/units_field.dart';
+
+class NewOrderScreen extends StatelessWidget {
+  const NewOrderScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<OrderCubit, OrderState>(
+      builder: (context, state) {
+        final cubit = context.read<OrderCubit>();
+        final categoryModel = state.categoryModel;
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text(AppStrings.orderDescripetion),
+            centerTitle: true,
+          ),
+          body: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+            child: Form(
+                key: state.formKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,              child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                    OrderSizeSelect(
+                      onSizeTap: (int selectedSize) {
+                        cubit.onSelectOrderSize(selectedSize);
+                      },
+                      selectedSize: state.orderSize,
+                    ),
+                    25.verticalSpaceFromWidth,
+                    UnitsField(controller: state.unitsController),
+                    25.verticalSpaceFromWidth,
+                  OrderImagesAdd(
+                    onAddTap: () {
+                      cubit.pickImages();
+                    },
+                    images: state.images,
+                    onImageRemoveTap: (image) {
+                      cubit.removeImage(image);
+                    },
+                  ),
+                  25.verticalSpaceFromWidth,
+                  RecipientInfoForm(
+                    nameController: state.recipientNameController,
+                    phoneController: state.recipientMobileController,
+                  ),
+                  25.verticalSpaceFromWidth,
+                  AdditionalDetailsField(
+                    controller: state.additionalDetailsController,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.only(
+              left: 16.w,
+              right: 16.w,
+              top: 16.h,
+              bottom: 30.h,
+            ),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  final imagesValid =
+                      state.images.length >= 3 && state.images.length <= 5;
+
+                  if ((state.formKey.currentState?.validate() ?? false) &&
+                      imagesValid) {
+                    Navigator.pushNamed(context, AppRoute.pickLocation);
+                  } else if (!imagesValid) {
+                    AppToaster.show(AppStrings.mustEnterImagesBeteween3And5);
+                    return;
+                  }
+                },
+                child: const Text(AppStrings.confirm),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
