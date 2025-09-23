@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../config/routes/app_routes.dart';
+import '../../../../../core/config/routes/app_routes.dart';
 import '../../../../../core/utils/app_utils/app_strings.dart';
 import '../../../../../core/utils/heplers/image_picker.dart';
 import '../../../../../core/widgets/app_toaster.dart';

@@ -1,4 +1,4 @@
-import 'package:ala_darbak_user/core/utils/app_utils/app_strings.dart';
+import '../app_utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:myfatoorah_flutter/myfatoorah_flutter.dart';
 
@@ -39,7 +39,7 @@ class _PaymentPageState extends State<PaymentPage> {
     } catch (e) {
       print('Error initializing MFSDK: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error initializing payment system')),
+        const SnackBar(content: Text('Error initializing payment system')),
       );
     }
     setState(() {
@@ -68,7 +68,7 @@ class _PaymentPageState extends State<PaymentPage> {
       print('Error fetching payment methods: $e');
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text('Failed to load payment methods')));
+      ).showSnackBar(const SnackBar(content: Text('Failed to load payment methods')));
     }
   }
 
@@ -97,7 +97,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             width: 40,
                             height: 40,
                           ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Expanded(child: Text(method.paymentMethodEn ?? "")),
                       ],
                     ),
@@ -118,7 +118,7 @@ class _PaymentPageState extends State<PaymentPage> {
           onPressed: () async {
             if (selectedPaymentMethodId == null) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Please select a payment method')),
+                const SnackBar(content: Text('Please select a payment method')),
               );
               return;
             }

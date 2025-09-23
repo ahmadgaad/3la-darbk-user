@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/utils/extentions/extention.dart';
-import '../../../../config/routes/app_routes.dart';
-import '../../../../config/style/app_text_styles.dart';
+
+import '../../../../core/config/routes/app_routes.dart';
+import '../../../../core/config/style/app_text_styles.dart';
+import '../../../../core/utils/app_utils/app_strings.dart';
 import '../../../../core/widgets/logo.dart';
 import '../manager/login_cubit/cubit.dart';
 import '../manager/login_cubit/state.dart';
 import '../widgets/password_field.dart';
 import '../widgets/phone_number_field.dart';
-import '../../../../core/utils/app_utils/app_strings.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -22,7 +22,10 @@ class LoginView extends StatelessWidget {
       listener: (context, state) {
         if (state.isSuccess) {
           Navigator.pushNamedAndRemoveUntil(
-              context, AppRoute.home, (_) => false);
+            context,
+            AppRoute.home,
+            (_) => false,
+          );
         }
       },
       child: ListView(
@@ -42,13 +45,14 @@ class LoginView extends StatelessWidget {
                 PasswordField(controller: loginCubit.passwordController),
                 10.verticalSpaceFromWidth,
                 TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, AppRoute.forgePassword);
-                    },
-                    child: Text(
-                      AppStrings.forgetPassword,
-                      style: AppTextStyle.font16black500,
-                    )),
+                  onPressed: () {
+                    Navigator.pushNamed(context, AppRoute.forgePassword);
+                  },
+                  child: Text(
+                    AppStrings.forgetPassword,
+                    style: AppTextStyle.font16black500,
+                  ),
+                ),
               ],
             ),
           ),

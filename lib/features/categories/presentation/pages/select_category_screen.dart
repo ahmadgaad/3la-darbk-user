@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../config/routes/app_routes.dart';
+import '../../../../core/config/routes/app_routes.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
 import '../../../order/presentation/manager/order_cubit/cubit.dart';
 import '../manager/cubit.dart';

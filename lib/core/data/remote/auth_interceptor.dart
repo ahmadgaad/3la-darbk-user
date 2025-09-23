@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../../../db_injection.dart';
+import '../../dependency_injection/di.dart';
 import '../local/shared_preferences_service.dart';
 import 'api_end_points.dart';
 

@@ -1,4 +1,4 @@
-import 'package:ala_darbak_user/core/utils/notification/local_notification.dart';
+import 'local_notification.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class FirebaseNotifications {

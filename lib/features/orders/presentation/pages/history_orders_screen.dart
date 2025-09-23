@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../config/style/app_text_styles.dart';
-import '../../../../config/style/app_theme.dart';
+import '../../../../core/config/style/app_text_styles.dart';
+import '../../../../core/config/style/app_theme.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
 import '../manager/cubit.dart';
 import '../manager/state.dart';
@@ -92,7 +92,7 @@ class _HistoryOrdersScreenState extends State<HistoryOrdersScreen> {
                 onChanged: (city) {
                   cubit.applyFilter(startCity: city);
                 },
-                value: state.startCity,
+                initialValue: state.startCity,
               ),
             ),
             Expanded(
@@ -108,7 +108,7 @@ class _HistoryOrdersScreenState extends State<HistoryOrdersScreen> {
                 onChanged: (city) {
                   cubit.applyFilter(destenationCity: city);
                 },
-                value: state.destinationCity,
+                initialValue: state.destinationCity,
               ),
             ),
           ],
@@ -129,7 +129,7 @@ class _HistoryOrdersScreenState extends State<HistoryOrdersScreen> {
                 onChanged: (status) {
                   cubit.applyFilter(status: status);
                 },
-                value: state.status,
+                initialValue: state.status,
               ),
             ),
             Expanded(

@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../config/style/app_color.dart';
-import '../../../../config/style/app_text_styles.dart';
+import '../../../../core/config/style/app_color.dart';
+import '../../../../core/config/style/app_text_styles.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
 
 class OrderImagesAdd extends StatelessWidget {

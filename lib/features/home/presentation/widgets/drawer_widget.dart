@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../../config/routes/app_routes.dart';
-import '../../../../config/style/app_color.dart';
-import '../../../../config/style/app_text_styles.dart';
+import '../../../../core/config/routes/app_routes.dart';
+import '../../../../core/config/style/app_color.dart';
+import '../../../../core/config/style/app_text_styles.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/widgets/app_image_view.dart';

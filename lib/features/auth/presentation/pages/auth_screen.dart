@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
 import '../../../../core/utils/app_utils/app_strings.dart';
-import '../../../../db_injection.dart';
+import '../../../../core/dependency_injection/di.dart';
 import '../manager/login_cubit/cubit.dart';
 import '../manager/login_cubit/state.dart';
 import '../manager/register_cubit/cubit.dart';

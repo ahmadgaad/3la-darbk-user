@@ -1,16 +1,16 @@
-import 'package:ala_darbak_user/features/notifications/presentation/manager/notifications_cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../config/routes/app_routes.dart';
-import '../../../../config/style/app_theme.dart';
+import '../../../../core/config/routes/app_routes.dart';
+import '../../../../core/config/style/app_theme.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
+import '../../../notifications/presentation/manager/notifications_cubit/cubit.dart';
 import '../../../notifications/presentation/manager/notifications_cubit/state.dart';
-import '../../../profile/presentation/manager/profile_cubit/cubit.dart';
-import '../widgets/drawer_widget.dart';
 import '../../../orders/presentation/pages/active_orders_view.dart';
+import '../../../profile/presentation/manager/profile_cubit/cubit.dart';
 import '../../../trips/presentation/pages/trips_view.dart';
+import '../widgets/drawer_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

@@ -1,4 +1,4 @@
-import 'package:ala_darbak_user/core/utils/notification/firebase_notification.dart';
+import '../../../core/utils/notification/firebase_notification.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../core/data/exceptions/exceptions.dart';

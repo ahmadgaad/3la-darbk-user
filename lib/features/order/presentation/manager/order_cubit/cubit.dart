@@ -1,9 +1,9 @@
 import 'dart:io' show File;
 
-import 'package:ala_darbak_user/features/trips/repositories/model/trip_model.dart';
+import '../../../../trips/repositories/model/trip_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../config/routes/app_routes.dart';
+import '../../../../../core/config/routes/app_routes.dart';
 import '../../../../../core/utils/heplers/image_picker.dart';
 import '../../../../categories/repositories/models/category_model.dart';
 import '../../../../map/repositories/models/order_location_model.dart';

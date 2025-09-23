@@ -1,4 +1,4 @@
-import 'package:ala_darbak_user/core/utils/payment/myfatoraah.dart';
+import 'myfatoraah.dart';
 import 'package:flutter/material.dart';
 
 class Payment {

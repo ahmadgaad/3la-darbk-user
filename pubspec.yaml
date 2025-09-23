@@ -66,9 +66,9 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
-    - lib/config/localization/lang/
+    # - lib/config/localization/lang/
 
   fonts:
     - family: cairo
       fonts:
-        - asset: fonts/Cairo.ttf
+        - asset: assets/fonts/Cairo.ttf

@@ -1,18 +1,16 @@
-import 'package:ala_darbak_user/features/setttings_info/presentation/manager/cubit.dart';
+import '../../../setttings_info/presentation/manager/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../../config/routes/app_routes.dart';
-import '../../../../config/style/app_color.dart';
-import '../../../../config/style/app_text_styles.dart';
+import '../../../../core/config/style/app_color.dart';
+import '../../../../core/config/style/app_text_styles.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
 import '../../../../core/utils/heplers/map_utils.dart';
-import '../../../../db_injection.dart';
 import '../../../map/presentation/widgets/order_map.dart';
 import '../manager/order_cubit/cubit.dart';
 import '../manager/order_cubit/state.dart';
-import '../widgets/order_pick_locations.dart';
+import '../components/order_pick_locations.dart';
 
 class OrderLocationPickupScreen extends StatelessWidget {
   const OrderLocationPickupScreen({super.key});

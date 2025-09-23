@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_overlay/loading_overlay.dart';
-import '../../../../../core/utils/extentions/extention.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
 import '../../../../core/widgets/app_image_view.dart';
 import '../../../auth/presentation/widgets/name_field.dart';

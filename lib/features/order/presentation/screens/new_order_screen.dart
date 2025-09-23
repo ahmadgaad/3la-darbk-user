@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../config/routes/app_routes.dart';
+import '../../../../core/config/routes/app_routes.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
 import '../../../../core/widgets/app_toaster.dart';
 import '../manager/order_cubit/cubit.dart';
 import '../manager/order_cubit/state.dart';
-import '../widgets/additional_details_field.dart';
-import '../widgets/order_images_add.dart';
-import '../widgets/order_size_select.dart';
-import '../widgets/recipient_info_form.dart';
-import '../widgets/units_field.dart';
+import '../components/additional_details_field.dart';
+import '../components/order_images_add.dart';
+import '../components/order_size_select.dart';
+import '../components/recipient_info_form.dart';
+import '../components/units_field.dart';
 
 class NewOrderScreen extends StatelessWidget {
   const NewOrderScreen({super.key});
@@ -20,7 +20,7 @@ class NewOrderScreen extends StatelessWidget {
     return BlocBuilder<OrderCubit, OrderState>(
       builder: (context, state) {
         final cubit = context.read<OrderCubit>();
-        final categoryModel = state.categoryModel;
+        // final categoryModel = state.categoryModel;
         return Scaffold(
           appBar: AppBar(
             title: const Text(AppStrings.orderDescripetion),

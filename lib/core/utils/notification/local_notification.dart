@@ -1,19 +1,21 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class LocalNotifications {
-  static final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  static final FlutterLocalNotificationsPlugin
+  _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  static NotificationAppLaunchDetails? _notificationAppLaunchDetails;
+  static NotificationAppLaunchDetails? notificationAppLaunchDetails;
 
   static Future initialize() async {
-    _notificationAppLaunchDetails =
-        await _flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+    notificationAppLaunchDetails =
+        await _flutterLocalNotificationsPlugin
+            .getNotificationAppLaunchDetails();
 
-    var initializationSettingsAndroid =
-        const AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettingsAndroid = const AndroidInitializationSettings(
+      '@mipmap/ic_launcher',
+    );
 
-    var initializationSettingsIOS = DarwinInitializationSettings(
+    var initializationSettingsIOS = const DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
       requestSoundPermission: true,
@@ -22,8 +24,10 @@ class LocalNotifications {
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,
     );
-    await _flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: (value) async {});
+    await _flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: (value) async {},
+    );
   }
 
   static AndroidNotificationSound sound =
@@ -33,22 +37,33 @@ class LocalNotifications {
     await initialize();
   }
 
-  static Future<void> show(
-      {required int id, required String title, required String body}) async {
+  static Future<void> show({
+    required int id,
+    required String title,
+    required String body,
+  }) async {
     var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
       'you_can_name_it_whatever',
-      'flutterfcm', channelDescription: 'flutterfcm',
+      'flutterfcm',
+      channelDescription: 'flutterfcm',
       // playSound: true,
       // sound: RawResourceAndroidNotificationSound('yourmp3files.mp3'),
       importance: Importance.max,
       priority: Priority.high,
     );
-    var iOSPlatformChannelSpecifics =
-        const DarwinNotificationDetails(presentSound: true, presentAlert: true);
+    var iOSPlatformChannelSpecifics = const DarwinNotificationDetails(
+      presentSound: true,
+      presentAlert: true,
+    );
     var platformChannelSpecifics = NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
+      android: androidPlatformChannelSpecifics,
+      iOS: iOSPlatformChannelSpecifics,
+    );
     await _flutterLocalNotificationsPlugin.show(
-        id, title, body, platformChannelSpecifics);
+      id,
+      title,
+      body,
+      platformChannelSpecifics,
+    );
   }
 }

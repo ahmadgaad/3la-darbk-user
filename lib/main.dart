@@ -3,23 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'app.dart';
-import 'blocobserve.dart';
-import 'config/localization/localization.dart';
-import 'config/style/app_status_bar.dart';
-import 'db_injection.dart';
-
+import 'ala_darbk_user_app.dart';
+import 'core/config/localization/localization.dart';
+import 'core/config/style/app_status_bar.dart';
+import 'core/dependency_injection/di.dart';
+import 'core/observer/bloc_observe.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
   Bloc.observer = MyBlocObserver();
-  await AppLocalization.init();
-  DpInjection.init();
+
+  await Future.wait([
+    Firebase.initializeApp(),
+    AppLocalization.init(),
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]),
+  ]);
+
+  InjectionContainer.init();
   AppStatusBar.setStatusBarStyle();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown
-  ]).then(
-      (value) => runApp(const MyApp()));
+
+  runApp(const AlaDarbkUserApp());
 }

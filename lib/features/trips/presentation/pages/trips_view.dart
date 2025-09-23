@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../config/style/app_text_styles.dart';
+import '../../../../core/config/style/app_text_styles.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
 import '../../../../core/utils/extentions/extention.dart';
-import '../../../../db_injection.dart';
+import '../../../../core/dependency_injection/di.dart';
 import '../../repositories/model/city_model.dart';
 import '../manager/cities/cubit.dart';
 import '../manager/cities/state.dart';
@@ -115,7 +115,7 @@ class TripsView extends StatelessWidget {
                   onChanged: (city) {
                     context.read<TripsCubit>().applyFilter(startCity: city);
                   },
-                  value: state.startCity,
+                  initialValue: state.startCity,
                 ),
               ),
               Expanded(
@@ -135,7 +135,7 @@ class TripsView extends StatelessWidget {
                       destenationCity: city,
                     );
                   },
-                  value: state.destenationCity,
+                  initialValue: state.destenationCity,
                 ),
               ),
             ],

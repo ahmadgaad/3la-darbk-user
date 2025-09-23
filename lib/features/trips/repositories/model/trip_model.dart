@@ -1,7 +1,6 @@
 
 
 
-import '../../../auth/repositories/models/user_model.dart';
 import '../../../order/repositories/model/driver_model.dart';
 import 'city_model.dart';
 

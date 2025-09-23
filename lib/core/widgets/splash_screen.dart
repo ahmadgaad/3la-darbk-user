@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../../config/routes/app_routes.dart';
-import '../../config/style/app_status_bar.dart';
-import '../../db_injection.dart';
+import '../config/routes/app_routes.dart';
+import '../config/style/app_status_bar.dart';
+import '../dependency_injection/di.dart';
 import '../data/local/shared_preferences_service.dart';
 import '../utils/notification/firebase_notification.dart';
-import '../widgets/logo.dart';
+import 'logo.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

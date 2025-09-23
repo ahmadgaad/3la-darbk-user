@@ -5,9 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../config/routes/app_routes.dart';
-import '../../../../config/style/app_color.dart';
-import '../../../../config/style/app_text_styles.dart';
+import '../../../../core/config/routes/app_routes.dart';
+import '../../../../core/config/style/app_color.dart';
+import '../../../../core/config/style/app_text_styles.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
 import '../../../../core/utils/payment/payment_dialog.dart';
 import '../../../../core/widgets/app_image_view.dart';
@@ -17,10 +17,10 @@ import '../../../setttings_info/presentation/manager/cubit.dart';
 import '../../repositories/model/driver_model.dart';
 import '../manager/order_cubit/cubit.dart';
 import '../manager/order_cubit/state.dart';
-import '../widgets/order_images.dart';
-import '../widgets/order_locations.dart';
-import '../widgets/order_track.dart';
-import '../widgets/price_raise.dart';
+import '../components/order_images.dart';
+import '../components/order_locations.dart';
+import '../components/order_track.dart';
+import '../components/price_raise.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
   final int orderId;
@@ -46,9 +46,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
         settingsCubit.state.settingsInfo?.averageOrderPrice;
     final minOrderPrice = settingsCubit.state.settingsInfo?.minOrderPrice;
     final maxOrderPrice = settingsCubit.state.settingsInfo?.maxOrderPrice;
-    final averageTripPrice = settingsCubit.state.settingsInfo?.averageTripPrice;
-    final minTripPrice = settingsCubit.state.settingsInfo?.minTripPrice;
-    final maxTripPrice = settingsCubit.state.settingsInfo?.maxTripPrice;
+    // final averageTripPrice = settingsCubit.state.settingsInfo?.averageTripPrice;
+    // final minTripPrice = settingsCubit.state.settingsInfo?.minTripPrice;
+    // final maxTripPrice = settingsCubit.state.settingsInfo?.maxTripPrice;
 
     return BlocConsumer<OrderCubit, OrderState>(
       builder: (context, state) {
@@ -176,20 +176,24 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       ),
                     },
                     10.verticalSpaceFromWidth,
-                   if( (state.orderModel?.images ?? []).isNotEmpty)...{ const Divider(),
-                    10.verticalSpaceFromWidth,
-                    OrderImages(images: state.orderModel?.images ?? []),
-                    10.verticalSpaceFromWidth,},
+                    if ((state.orderModel?.images ?? []).isNotEmpty) ...{
+                      const Divider(),
+                      10.verticalSpaceFromWidth,
+                      OrderImages(images: state.orderModel?.images ?? []),
+                      10.verticalSpaceFromWidth,
+                    },
                     const Divider(),
                     10.verticalSpaceFromWidth,
                     _textBuilder(
                       AppStrings.addtionalDetails,
                       state.orderModel?.note ?? "",
                     ),
-                 if(!isPerson)...{   10.verticalSpaceFromWidth,
-                    const Divider(),
-                    10.verticalSpaceFromWidth,
-                    _buildRecipientInfo(state),}
+                    if (!isPerson) ...{
+                      10.verticalSpaceFromWidth,
+                      const Divider(),
+                      10.verticalSpaceFromWidth,
+                      _buildRecipientInfo(state),
+                    },
                   ],
                 ),
               ),
@@ -208,9 +212,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     if (status == 0)
                       PriceRaise(
                         historicalAverage:
-                             double.tryParse(averageOrderPrice ?? "0")
-                            ??
-                            0,
+                            double.tryParse(averageOrderPrice ?? "0") ?? 0,
                         marketMin: double.tryParse(minOrderPrice ?? "0") ?? 0,
                         marketMax: double.tryParse(maxOrderPrice ?? "0") ?? 0,
                       ),
@@ -255,39 +257,43 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                     style: AppTextStyle.font14black600,
                                   ),
                                 ),
-                                if(state.selectedPaymentMethod == 1)
-                                TextButton(onPressed: (){Payment.pay(
-                                context,
-                                num.tryParse(
-                                  orderCubit.state.orderModel?.price ?? "0",
-                                ),
-                              ).then((value) {
-                                if (value is bool) {
-                                  if (value) {
-                                    print("Payment Success");
-                                    orderCubit.payOrder();
-                                    AppToaster.show(
-                                      "Payment Success",
-                                      isError: false,
-                                    );
-                                  } else {
-
-                                    print("Payment Failed");
-                                    AppToaster.show("Payment Failed");
-                                  }
-                                }
-                              });}, child: const Text(AppStrings.payNow))
+                                if (state.selectedPaymentMethod == 1)
+                                  TextButton(
+                                    onPressed: () {
+                                      Payment.pay(
+                                        context,
+                                        num.tryParse(
+                                          orderCubit.state.orderModel?.price ??
+                                              "0",
+                                        ),
+                                      ).then((value) {
+                                        if (value is bool) {
+                                          if (value) {
+                                            print("Payment Success");
+                                            orderCubit.payOrder();
+                                            AppToaster.show(
+                                              "Payment Success",
+                                              isError: false,
+                                            );
+                                          } else {
+                                            print("Payment Failed");
+                                            AppToaster.show("Payment Failed");
+                                          }
+                                        }
+                                      });
+                                    },
+                                    child: const Text(AppStrings.payNow),
+                                  ),
                               ],
                             ),
                             value: 1,
-                            
+
                             groupValue: state.selectedPaymentMethod,
                             onChanged: (value) {
                               context.read<OrderCubit>().selectPaymentMethod(
                                 value,
                                 context,
                               );
-                              
                             },
                           ),
                         ],
