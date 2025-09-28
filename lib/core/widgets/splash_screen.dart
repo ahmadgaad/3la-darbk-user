@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _loading() {
-    FirebaseNotifications.init();
+    // FirebaseNotifications.init();
     Timer(const Duration(seconds: 3), () {
        if (sl<SharedPreferencesService>().token != null) {
         Navigator.pushNamedAndRemoveUntil(

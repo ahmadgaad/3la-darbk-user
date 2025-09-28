@@ -11,9 +11,13 @@ import 'models/place_model.dart';
 import 'models/route_model.dart';
 import 'models/suggestion_model.dart';
 
-abstract  class MapRepo {
+abstract class MapRepo {
   Future<List<SuggestionModel>> fetchSuggestions(
-      String input, String lang, lat, lng);
+    String input,
+    String lang,
+    lat,
+    lng,
+  );
   Future<RouteModel?> getRoute(LatLng origin, LatLng destination);
   Future<PlaceModel> getPlaceDetailFromId(String placeId);
   Future<String> getAddress(LatLng location);
@@ -47,7 +51,11 @@ class MapRepoImp implements MapRepo {
 
   @override
   Future<List<SuggestionModel>> fetchSuggestions(
-      String input, String lang, lat, lng) async {
+    String input,
+    String lang,
+    lat,
+    lng,
+  ) async {
     final request =
         '$baseurl/place/autocomplete/json?input=$input&radius=50000&location=$lat,$lng&language=$lang&components=country:sa&key=${AppConfig.mapKey}';
 
@@ -59,7 +67,8 @@ class MapRepoImp implements MapRepo {
       if (result['status'] == 'OK') {
         return result['predictions']
             .map<SuggestionModel>(
-                (p) => SuggestionModel(p['place_id'], p['description']))
+              (p) => SuggestionModel(p['place_id'], p['description']),
+            )
             .toList();
       }
       if (result['status'] == 'ZERO_RESULTS') {

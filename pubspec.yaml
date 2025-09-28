@@ -17,7 +17,7 @@ dependencies:
   firebase_messaging: ^15.2.4
   flutter:
     sdk: flutter
-  flutter_bloc: ^9.0.0
+  flutter_bloc: ^9.1.1
   flutter_local_notifications: ^19.0.0
   flutter_polyline_points: ^2.1.0
   flutter_rating_bar: ^4.0.1
@@ -27,7 +27,7 @@ dependencies:
   geocoding: ^3.0.0
   geolocator: ^14.0.0
   get_it: ^8.0.2
-  google_maps_flutter: ^2.10.0
+  google_maps_flutter: ^2.13.1
   image_picker: ^1.1.2
   jiffy: ^6.2.1
   loading_overlay: ^0.4.2
@@ -66,7 +66,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
-    # - lib/config/localization/lang/
+    - assets/localization/
 
   fonts:
     - family: cairo

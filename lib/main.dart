@@ -12,10 +12,10 @@ import 'core/observer/bloc_observe.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
+  // await AppLocalization.init();
 
   await Future.wait([
-    Firebase.initializeApp(),
-    AppLocalization.init(),
+    // Firebase.initializeApp(),
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,

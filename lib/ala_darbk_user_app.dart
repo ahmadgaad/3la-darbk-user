@@ -26,35 +26,33 @@ class AlaDarbkUserApp extends StatelessWidget {
       splitScreenMode: true,
       builder:
           (_, child) => OKToast(
-            child: LocalizedApp(
-              child: MultiBlocProvider(
-                providers: [
-                  BlocProvider(create: (context) => AppCubit()),
-                  BlocProvider(create: (context) => OrderCubit(sl())),
-                  BlocProvider(
-                    create: (context) => ProfileCubit(sl()),
-                    lazy: false,
-                  ),
-                  BlocProvider(
-                    create:
-                        (context) => SettingsInfoCubit(sl())..getSettingInfo(),
-                    lazy: false,
-                  ),
-                ],
-                child: MaterialApp(
-                  title: 'علي دربك',
-                  debugShowCheckedModeBanner: false,
-                  theme: appTheme,
-                  themeMode: ThemeMode.light,
-                  color: AppColors.backGround,
-                  home: const SplashScreen(),
-                  navigatorKey: AppRoute.navigatorKey,
-                  onGenerateRoute: AppRoute.generateRoute,
-                  builder: LocalizeAndTranslate.directionBuilder,
-                  locale: context.locale,
-                  localizationsDelegates: context.delegates,
-                  supportedLocales: context.supportedLocales,
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (context) => AppCubit()),
+                BlocProvider(create: (context) => OrderCubit(sl())),
+                BlocProvider(
+                  create: (context) => ProfileCubit(sl()),
+                  lazy: false,
                 ),
+                BlocProvider(
+                  create:
+                      (context) => SettingsInfoCubit(sl())..getSettingInfo(),
+                  lazy: false,
+                ),
+              ],
+              child: MaterialApp(
+                title: 'علي دربك',
+                debugShowCheckedModeBanner: false,
+                theme: appTheme,
+                themeMode: ThemeMode.light,
+                color: AppColors.backGround,
+                home: const SplashScreen(),
+                navigatorKey: AppRoute.navigatorKey,
+                onGenerateRoute: AppRoute.generateRoute,
+                // builder: LocalizeAndTranslate.directionBuilder,
+                // locale: context.locale,
+                // localizationsDelegates: context.delegates,
+                // supportedLocales: context.supportedLocales,
               ),
             ),
           ),
