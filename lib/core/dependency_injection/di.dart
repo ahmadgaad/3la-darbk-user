@@ -1,3 +1,4 @@
+import 'package:ala_darbak_user/features/profile/presentation/manager/profile_cubit/cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' show Client;
@@ -21,7 +22,7 @@ import '../data/remote/auth_interceptor.dart';
 final sl = GetIt.instance;
 
 class InjectionContainer {
-  static void init() async {
+  static Future<void> init() async {
     ///Services
     await _initSharedPref();
     _serviceInit();
@@ -38,6 +39,9 @@ class InjectionContainer {
 
     _categoriesRepoInit();
     _setttingsInfoRepoInit();
+
+
+    sl.registerFactory(()=> ProfileCubit(sl<ProfileRepository>()));
   }
 
   static Future<void> _initSharedPref() async {

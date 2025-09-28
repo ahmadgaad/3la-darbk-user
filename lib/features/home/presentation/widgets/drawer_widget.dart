@@ -1,3 +1,4 @@
+import 'package:ala_darbak_user/core/dependency_injection/di.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -80,7 +81,7 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              context.read<ProfileCubit>().logout();
+              sl<ProfileCubit>().logout();
             },
             leading: const Icon(Icons.logout),
             title: const Text(AppStrings.logout),

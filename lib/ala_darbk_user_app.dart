@@ -31,7 +31,7 @@ class AlaDarbkUserApp extends StatelessWidget {
                 BlocProvider(create: (context) => AppCubit()),
                 BlocProvider(create: (context) => OrderCubit(sl())),
                 BlocProvider(
-                  create: (context) => ProfileCubit(sl()),
+                  create: (context) => sl<ProfileCubit>(),
                   lazy: false,
                 ),
                 BlocProvider(
