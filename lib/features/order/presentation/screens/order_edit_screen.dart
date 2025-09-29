@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/config/style/app_color.dart';
-import '../../../../core/utils/app_utils/app_strings.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../manager/order_cubit/cubit.dart';
 import '../manager/order_cubit/state.dart';
 import '../components/additional_details_field.dart';

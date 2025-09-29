@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/utils/app_utils/app_strings.dart';
+import '../../../../../core/utils/app_strings.dart';
 import '../../../../../core/widgets/app_toaster.dart';
 import '../../../data/repository/repository.dart';
 import 'state.dart';

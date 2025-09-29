@@ -72,7 +72,7 @@ class ApiClient {
 
       return ApiResponseModel.fromJson(response.data);
     } on DioException catch (error) {
-      _logger.e("POST request failed: $error");
+      // _logger.e("POST request failed: $error");
       throw handleDioExceptions(error, showErrorMessage);
     } on SocketException {
       throw AppException('No Internet connection');

@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
 import '../../../../core/dependency_injection/di.dart';
-import '../../../../core/utils/app_utils/app_strings.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/app_toaster.dart';
 import '../manager/change_password/cubit.dart';
 import '../manager/change_password/state.dart';

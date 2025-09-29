@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../core/config/style/app_color.dart';
 import '../../../../core/config/style/app_text_styles.dart';
-import '../../../../core/utils/app_utils/app_strings.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../../../../core/heplers/map_utils.dart';
 import '../../../map/presentation/widgets/order_map.dart';
 import '../manager/order_cubit/cubit.dart';

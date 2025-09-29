@@ -5,13 +5,14 @@ import 'package:ala_darbak_user/core/extensions/navigation.dart';
 import 'package:ala_darbak_user/core/heplers/image_picker.dart';
 import 'package:ala_darbak_user/core/heplers/regex.dart';
 import 'package:ala_darbak_user/core/heplers/saudi_number_formater.dart';
+import 'package:ala_darbak_user/features/auth/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/config/style/app_text_styles.dart';
-import '../../../../core/utils/app_utils/app_strings.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/app_image_view.dart';
 import '../../../../core/widgets/app_toaster.dart';
 import '../../../../core/widgets/custom_text_form_field.dart';
@@ -184,6 +185,7 @@ class _RegisterViewState extends State<RegisterView>
             ),
           ),
           30.verticalSpaceFromWidth,
+
           BlocListener<RegisterCubit, RegisterState>(
             listener: (context, state) {
               if (state.success) {
@@ -200,10 +202,12 @@ class _RegisterViewState extends State<RegisterView>
                 if (formKey.currentState!.validate() &&
                     isPrivacyPolicyAccepted) {
                   context.read<RegisterCubit>().register(
-                    nameController: nameController,
-                    phoneController: phoneController,
-                    passwordController: passwordController,
-                    image: image,
+                    user: UserModel(
+                      imageFile: image,
+                      name: nameController.text,
+                      password: passwordController.text,
+                      mobile: phoneController.text,
+                    ),
                   );
                 } else if (!isPrivacyPolicyAccepted) {
                   AppToaster.show(AppStrings.acceptPrivacyPolicy);

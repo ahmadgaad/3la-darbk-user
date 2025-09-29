@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/config/style/app_text_styles.dart';
 import '../../../../core/heplers/regex.dart';
-import '../../../../core/utils/app_utils/app_strings.dart';
+import '../../../../core/utils/app_strings.dart';
 
 class RecipientInfoForm extends StatelessWidget {
   final TextEditingController? nameController;

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/config/style/app_text_styles.dart';
-import '../../../../core/utils/app_utils/app_strings.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../../repositories/model/city_model.dart';
 import '../manager/cities/cubit.dart';
 import '../manager/cities/state.dart';

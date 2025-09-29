@@ -10,7 +10,7 @@ import 'package:loading_overlay/loading_overlay.dart';
 
 import '../../../../core/config/style/app_text_styles.dart';
 import '../../../../core/dependency_injection/di.dart';
-import '../../../../core/utils/app_utils/app_strings.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/logo.dart';
 import '../../../../core/widgets/timer_widget.dart';
 import '../view_model/forget_password_cubit/cubit.dart';

@@ -1,4 +1,4 @@
-import '../utils/app_utils/app_strings.dart';
+import '../utils/app_strings.dart';
 
 class Regex {
   static bool isNameValid(String? name) {

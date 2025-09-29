@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/heplers/image_picker.dart';
-import '../../../../../core/utils/app_utils/app_strings.dart';
+import '../../../../../core/utils/app_strings.dart';
 import '../../../../../core/widgets/app_toaster.dart';
 import '../../../repositories/repositories.dart';
 import 'state.dart';
@@ -33,11 +33,14 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   void logout() async {
     final result = await _profileRepository.logout();
-    result.fold((l) {
-      // TODO: navigate to auth screen with context from listeners
-      // context.pushNamedAndRemoveUntil(AppRoutes.auth);
-      emit(state.copyWith(isSuccess: true, isLogedOut: true, loading: false));
-    }, (r) => emit(state.copyWith(loading: false, isSuccess: false)));
+    result.fold(
+      (l) {
+        emit(state.copyWith(isSuccess: true, isLogedOut: true, loading: false));
+      },
+      (r) {
+        emit(state.copyWith(loading: false, isSuccess: false));
+      },
+    );
   }
 
   void delete() async {
@@ -45,9 +48,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     final result = await _profileRepository.delete();
     result.fold((value) {
       AppToaster.show(AppStrings.deletedSuccessfully, isError: false);
-      // TODO: navigate to auth screen with context from listeners
-      // AppRouter.pushNamedAndRemoveUntil(AppRoutes.auth);
-      emit(state.copyWith(isSuccess: true, loading: false));
+      emit(state.copyWith(isSuccess: true, isDeleted: true, loading: false));
     }, (r) => emit(state.copyWith(loading: false, isSuccess: false)));
   }
 

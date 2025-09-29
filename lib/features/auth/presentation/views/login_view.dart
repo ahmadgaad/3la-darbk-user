@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/config/style/app_text_styles.dart';
-import '../../../../core/utils/app_utils/app_strings.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/logo.dart';
 import '../view_model/login_cubit/cubit.dart';
 import '../view_model/login_cubit/state.dart';
@@ -44,11 +44,10 @@ class _LoginViewState extends State<LoginView>
       child: ListView(
         padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
         children: [
-          30.verticalSpaceFromWidth,
+          15.verticalSpace,
           const Logo(size: 100),
-          25.verticalSpaceFromWidth,
+          25.verticalSpace,
           Form(
-            autovalidateMode: AutovalidateMode.onUserInteraction,
             key: loginCubit.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -64,9 +63,11 @@ class _LoginViewState extends State<LoginView>
                   hintText: AppStrings.phoneNumber,
                   suffixIcon: Text("966+", style: AppTextStyle.font16black500),
                   prefixIcon: const Icon(Icons.phone, size: 25),
-                  validator: (value) {
-                    if (!Regex.isPhoneNumberValid(value)) {
-                      return "أدخل رقم سعودي صحيح يبدأ بـ 5 ويتكون من 9 أرقام";
+                  validator: (phoneNumber) {
+                    if (phoneNumber == null || phoneNumber.isEmpty) {
+                      return "من فضلك أدخل رقم الجوال";
+                    } else if (!Regex.isPhoneNumberValid(phoneNumber)) {
+                      return "من فضلك أدخل رقم جوال صحيح";
                     }
                     return null;
                   },
@@ -75,7 +76,7 @@ class _LoginViewState extends State<LoginView>
                 CustomTextFormField(
                   controller: loginCubit.passwordController,
                   keyboardType: TextInputType.visiblePassword,
-                  obscureText: isPasswordVisible,
+                  obscureText: !isPasswordVisible,
                   hintText: AppStrings.password,
                   prefixIcon: const Icon(Icons.lock, size: 25),
                   suffixIcon: IconButton(
@@ -91,9 +92,9 @@ class _LoginViewState extends State<LoginView>
                       size: 25,
                     ),
                   ),
-                  validator: (value) {
-                    if (!Regex.isPasswordValid(value)) {
-                      return "كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير وصغير ورقم ورمز خاص";
+                  validator: (password) {
+                    if (password == null || password.isEmpty) {
+                      return "من فضلك أدخل كلمة المرور";
                     }
                     return null;
                   },

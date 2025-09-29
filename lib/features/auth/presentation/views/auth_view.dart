@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
-import '../../../../core/utils/app_utils/app_strings.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../view_model/login_cubit/cubit.dart';
 import '../view_model/login_cubit/state.dart';
 import '../view_model/register_cubit/register_cubit.dart';

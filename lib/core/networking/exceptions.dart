@@ -24,9 +24,9 @@ class ServerException extends AppException {
 final logger = Logger();
 
 handleDioExceptions(DioException error, bool showErrorMessage) {
-  logger.e("Error IS: $error");
-  logger.e("Type IS: ${error.type}");
-  logger.e("Response IS: ${error.response}");
+  // logger.e("Error IS: $error");
+  // logger.e("Type IS: ${error.type}");
+  // logger.e("Response IS: ${error.response}");
 
   switch (error.type) {
     case DioExceptionType.connectionTimeout:

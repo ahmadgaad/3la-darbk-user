@@ -1,4 +1,4 @@
-import '../app_utils/app_strings.dart';
+import '../../utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:myfatoorah_flutter/myfatoorah_flutter.dart';
 

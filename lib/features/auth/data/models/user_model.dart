@@ -3,34 +3,33 @@ import 'dart:io';
 import '../../../../core/heplers/file_utils.dart';
 
 class UserModel {
-  final String? name;
+  final String name;
   final String? password;
-  final String? mobile;
+  final String mobile;
   final String? image;
   final File? imageFile;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
   const UserModel({
-    this.name,
-    this.password,
-    this.mobile,
+    required this.name,
+    required this.password,
+    required this.mobile,
     this.image,
     this.imageFile,
     this.createdAt,
     this.updatedAt,
   });
 
-
-  const UserModel.register({
-    required this.imageFile,
-    required this.name,
-    required this.password,
-    required this.mobile,
-    this.image,
-    this.createdAt,
-    this.updatedAt,
-  });
+  // const UserModel.register({
+  //   required this.imageFile,
+  //   required this.name,
+  //   required this.password,
+  //   required this.mobile,
+  //   this.image,
+  //   this.createdAt,
+  //   this.updatedAt,
+  // });
 
   UserModel copyWith({
     String? name,
@@ -50,22 +49,29 @@ class UserModel {
     updatedAt: updatedAt ?? this.updatedAt,
   );
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-    name: json["name"],
-    password: json["password"],
-    mobile: json["mobile"],
-    image: json["image"],
-    createdAt:
-        json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt:
-        json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-  );
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      name: json["name"],
+      password: json["password"] as String?,
+      mobile: json["mobile"],
+      image: json["image"],
+      createdAt:
+          json["created_at"] == null
+              ? null
+              : DateTime.parse(json["created_at"]),
+      updatedAt:
+          json["updated_at"] == null
+              ? null
+              : DateTime.parse(json["updated_at"]),
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-    if (name != null) "name": name,
-    if (password != null) "password": password,
-    if (mobile != null) "mobile": mobile,
-    if (imageFile != null)
-      "image": imageFile != null ? FileUtils.getMultiPartFile(imageFile) : null,
-  };
+  Map<String, dynamic> toJson() {
+    return {
+      "name": name,
+      "password": password,
+      "mobile": mobile,
+      if (imageFile != null) "image": FileUtils.getMultiPartFile(imageFile),
+    };
+  }
 }

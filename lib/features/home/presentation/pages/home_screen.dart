@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/config/style/app_theme.dart';
-import '../../../../core/utils/app_utils/app_strings.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../../../notifications/presentation/manager/notifications_cubit/cubit.dart';
 import '../../../notifications/presentation/manager/notifications_cubit/state.dart';
 import '../../../orders/presentation/pages/active_orders_view.dart';

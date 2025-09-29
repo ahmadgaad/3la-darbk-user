@@ -1,5 +1,5 @@
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
-import 'package:ala_darbak_user/core/dependency_injection/di.dart';
+import 'package:ala_darbak_user/core/extensions/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/config/style/app_color.dart';
 import '../../../../core/config/style/app_text_styles.dart';
-import '../../../../core/utils/app_utils/app_strings.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/app_image_view.dart';
 import '../../../orders/presentation/manager/cubit.dart';
 import '../../../profile/presentation/manager/profile_cubit/cubit.dart';
@@ -82,29 +82,43 @@ class DrawerWidget extends StatelessWidget {
             leading: const Icon(Icons.policy_outlined),
             title: const Text(AppStrings.appPolicy),
           ),
-          ListTile(
-            onTap: () {
-              sl<ProfileCubit>().logout();
+          BlocListener<ProfileCubit, ProfileState>(
+            listener: (context, state) {
+              if (state.isLogedOut) {
+                context.pushNamedAndRemoveUntil(AppRoutes.auth, (_) => false);
+              }
             },
-            leading: const Icon(Icons.logout),
-            title: const Text(AppStrings.logout),
-          ),
-          ListTile(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return const DeleteAccountDialog();
-                },
-              );
-            },
-            leading: const Icon(
-              Icons.delete_forever_outlined,
-              color: AppColors.red,
+            child: ListTile(
+              onTap: () {
+                context.read<ProfileCubit>().logout();
+              },
+              leading: const Icon(Icons.logout),
+              title: const Text(AppStrings.logout),
             ),
-            title: const Text(
-              AppStrings.deleteAccount,
-              style: TextStyle(color: AppColors.red),
+          ),
+          BlocListener<ProfileCubit, ProfileState>(
+            listener: (context, state) {
+              if (state.isDeleted) {
+                context.pushNamedAndRemoveUntil(AppRoutes.auth, (_) => false);
+              }
+            },
+            child: ListTile(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const DeleteAccountDialog();
+                  },
+                );
+              },
+              leading: const Icon(
+                Icons.delete_forever_outlined,
+                color: AppColors.red,
+              ),
+              title: const Text(
+                AppStrings.deleteAccount,
+                style: TextStyle(color: AppColors.red),
+              ),
             ),
           ),
         ],

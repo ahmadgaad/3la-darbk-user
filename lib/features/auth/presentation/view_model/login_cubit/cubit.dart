@@ -19,10 +19,8 @@ class LoginCubit extends Cubit<LoginState> {
    
     if (formKey.currentState!.validate()) {
       emit(state.copyWith(loading: true));
-     
       final result = await _authRepository.login(
           mobile: phoneController.text, password: passwordController.text);
-
       result.fold((l) => emit(state.copyWith(isSuccess: true, loading: false)),
           (r) => emit(state.copyWith(loading: false)));
     }
