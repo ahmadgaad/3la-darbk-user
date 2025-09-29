@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
-import 'package:ala_darbak_user/core/dependency_injection/di.dart';
 import 'package:ala_darbak_user/core/extensions/navigation.dart';
+import 'package:ala_darbak_user/core/heplers/image_picker.dart';
+import 'package:ala_darbak_user/core/heplers/regex.dart';
+import 'package:ala_darbak_user/core/heplers/saudi_number_formater.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,13 +14,10 @@ import '../../../../core/config/style/app_text_styles.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
 import '../../../../core/widgets/app_image_view.dart';
 import '../../../../core/widgets/app_toaster.dart';
+import '../../../../core/widgets/custom_text_form_field.dart';
 import '../../../../core/widgets/logo.dart';
 import '../view_model/register_cubit/register_cubit.dart';
 import '../view_model/register_cubit/register_states.dart';
-import 'components/confirm_password_field.dart';
-import 'components/name_field.dart';
-import 'components/password_field.dart';
-import 'components/phone_number_field.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -26,6 +28,24 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView>
     with AutomaticKeepAliveClientMixin {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late TextEditingController nameController;
+  late TextEditingController phoneController;
+  late TextEditingController passwordController;
+  late TextEditingController confirmPasswordController;
+  File? image;
+  bool isPrivacyPolicyAccepted = false;
+  bool isPasswordVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    nameController = TextEditingController();
+    phoneController = TextEditingController();
+    passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+  }
+
   @override
   bool get wantKeepAlive => true;
 
@@ -40,20 +60,21 @@ class _RegisterViewState extends State<RegisterView>
           const Logo(size: 100),
           15.verticalSpace,
           Form(
-            key: sl<RegisterCubit>().formKey,
+            key: formKey,
             child: Column(
               spacing: 22.h,
               children: [
                 IconButton(
-                  onPressed: () {
-                    sl<RegisterCubit>().pickImage();
+                  onPressed: () async {
+                    image = await ImagePickerUtils.getImage();
+                    setState(() {});
                   },
                   icon: Stack(
                     alignment: Alignment.center,
                     children: [
                       AppImageView(
                         shape: BoxShape.circle,
-                        file: sl<RegisterCubit>().image,
+                        file: image,
                         width: 80.w,
                         height: 80.w,
                         fit: BoxFit.cover,
@@ -66,16 +87,77 @@ class _RegisterViewState extends State<RegisterView>
                     ],
                   ),
                 ),
-                NameField(controller: sl<RegisterCubit>().nameController),
-                PhoneNumberTextFornField(
-                  controller: sl<RegisterCubit>().phoneController,
+                CustomTextFormField(
+                  controller: nameController,
+                  keyboardType: TextInputType.name,
+                  hintText: AppStrings.name,
+                  prefixIcon: const Icon(Icons.person, size: 25),
+                  validator: (value) {
+                    if (!Regex.isNameValid(value)) {
+                      return "من فضلك أدخل الاسم كاملًا (الاسم الأول واسم العائلة)";
+                    }
+                    return null;
+                  },
                 ),
-                PasswordField(
-                  controller: sl<RegisterCubit>().passwordController,
+                CustomTextFormField(
+                  controller: phoneController,
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(9),
+                    SaudiNumberFormatter(),
+                  ],
+                  hintText: AppStrings.phoneNumber,
+                  suffixIcon: Text("966+", style: AppTextStyle.font16black500),
+                  prefixIcon: const Icon(Icons.phone, size: 25),
+                  validator: (value) {
+                    if (!Regex.isPhoneNumberValid(value)) {
+                      return "أدخل رقم سعودي صحيح يبدأ بـ 5 ويتكون من 9 أرقام";
+                    }
+                    return null;
+                  },
                 ),
-                ConfirmPasswordField(
-                  controller: sl<RegisterCubit>().confirmPasswordController,
-                  password: sl<RegisterCubit>().passwordController,
+                CustomTextFormField(
+                  controller: passwordController,
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: !isPasswordVisible,
+                  hintText: AppStrings.password,
+                  prefixIcon: const Icon(Icons.lock, size: 25),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isPasswordVisible = !isPasswordVisible;
+                      });
+                    },
+                    icon: Icon(
+                      isPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      size: 25,
+                    ),
+                  ),
+                  validator: (value) {
+                    if (!Regex.isPasswordValid(value)) {
+                      return "كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير وصغير ورقم ورمز خاص";
+                    }
+                    return null;
+                  },
+                ),
+                CustomTextFormField(
+                  controller: confirmPasswordController,
+                  keyboardType: TextInputType.visiblePassword,
+                  hintText: AppStrings.confirmPassword,
+                  obscureText: true,
+                  prefixIcon: const Icon(Icons.lock, size: 25),
+                  validator: (value) {
+                    if (!Regex.isConfirmPasswordValid(
+                      passwordController.text,
+                      value,
+                    )) {
+                      return "كلمة المرور غير متطابقة";
+                    }
+                    return null;
+                  },
                 ),
                 CheckboxListTile(
                   contentPadding: EdgeInsets.zero,
@@ -90,8 +172,12 @@ class _RegisterViewState extends State<RegisterView>
                       ),
                     ),
                   ),
-                  value: sl<RegisterCubit>().isPrivacyPolicyAccepted,
-                  onChanged: sl<RegisterCubit>().checkPrivacyPolicy,
+                  value: isPrivacyPolicyAccepted,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      isPrivacyPolicyAccepted = !isPrivacyPolicyAccepted;
+                    });
+                  },
                   controlAffinity: ListTileControlAffinity.leading,
                 ),
               ],
@@ -110,7 +196,19 @@ class _RegisterViewState extends State<RegisterView>
               }
             },
             child: ElevatedButton(
-              onPressed: sl<RegisterCubit>().register,
+              onPressed: () {
+                if (formKey.currentState!.validate() &&
+                    isPrivacyPolicyAccepted) {
+                  context.read<RegisterCubit>().register(
+                    nameController: nameController,
+                    phoneController: phoneController,
+                    passwordController: passwordController,
+                    image: image,
+                  );
+                } else if (!isPrivacyPolicyAccepted) {
+                  AppToaster.show(AppStrings.acceptPrivacyPolicy);
+                }
+              },
               child: const Text(AppStrings.signUp),
             ),
           ),

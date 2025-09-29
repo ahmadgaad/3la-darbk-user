@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/app_utils/app_strings.dart';
-import '../../../../../core/heplers/image_picker.dart';
 import '../../../../../core/widgets/app_toaster.dart';
 import '../../../data/models/user_model.dart';
 import '../../../data/repository/repository.dart';
@@ -15,27 +14,12 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   RegisterCubit(this._authRepository) : super(const RegisterState());
 
+  // pickImage() async {
+  //   image = await ImagePickerUtils.getImage();
+  //   emit(state.copyWith());
+  // }
 
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
-  bool isPrivacyPolicyAccepted = false;
-  File? image;
-  
-  pickImage() async {
-    image = await ImagePickerUtils.getImage();
-    emit(state.copyWith());
-  }
-
-  checkPrivacyPolicy(bool? v) {
-    isPrivacyPolicyAccepted = !isPrivacyPolicyAccepted;
-    emit(state.copyWith());
-  }
-
-  void checkUser() async {
+  void checkUser({required TextEditingController phoneController}) async {
     emit(state.copyWith(loading: true));
     final result = await _authRepository.checkUserExists(
       mobile: phoneController.text,
@@ -50,21 +34,24 @@ class RegisterCubit extends Cubit<RegisterState> {
     }, (r) => emit(state.copyWith(loading: false, success: false)));
   }
 
-  void register() async {
-    if (formKey.currentState!.validate()&&isPrivacyPolicyAccepted) {
-      emit(state.copyWith(loading: true));
-
-      final result = await _authRepository.register(UserModel.register(
+  void register({
+    required TextEditingController nameController,
+    required TextEditingController phoneController,
+    required TextEditingController passwordController,
+    File? image,
+  }) async {
+    emit(state.copyWith(loading: true));
+    final result = await _authRepository.register(
+      UserModel.register(
         imageFile: image,
         name: nameController.text,
         password: passwordController.text,
         mobile: phoneController.text,
-      ));
-      result.fold((l) => emit(state.copyWith(success: true, loading: false)),
-          (r) => emit(state.copyWith(loading: false)));
-    }
-    else if(!isPrivacyPolicyAccepted){
-      AppToaster.show(AppStrings.acceptPrivacyPolicy);
-    }
+      ),
+    );
+    result.fold(
+      (l) => emit(state.copyWith(success: true, loading: false)),
+      (r) => emit(state.copyWith(loading: false)),
+    );
   }
 }

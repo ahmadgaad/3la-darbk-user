@@ -4,14 +4,14 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../../../core/config/style/app_color.dart';
 import '../../../../../core/config/style/app_text_styles.dart';
-import '../../../../../core/heplers/validation_form.dart';
+import '../../../../../core/heplers/regex.dart';
 
-class CodeField extends StatelessWidget {
+class CustomPinCodeField extends StatelessWidget {
   final TextEditingController? controller;
   final String? code;
   final VoidCallback onCompleted;
 
-  const CodeField({
+  const CustomPinCodeField({
     super.key,
     this.controller,
     this.code,

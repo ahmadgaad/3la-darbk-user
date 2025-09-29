@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/config/style/app_text_styles.dart';
+import '../../../../core/heplers/regex.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
-import '../../../../core/heplers/validation_form.dart';
 
 class RecipientInfoForm extends StatelessWidget {
   final TextEditingController? nameController;
@@ -25,7 +25,12 @@ class RecipientInfoForm extends StatelessWidget {
         TextFormField(
           controller: nameController,
           keyboardType: TextInputType.name,
-          validator: Regex.nameValidator,
+          validator: (value) {
+            if (!Regex.isNameValid(value)) {
+              return "من فضلك أدخل الاسم كاملًا (الاسم الأول واسم العائلة)";
+            }
+            return null;
+          },
           decoration: InputDecoration(
             hintText: AppStrings.name,
             border: const OutlineInputBorder(),
@@ -41,7 +46,12 @@ class RecipientInfoForm extends StatelessWidget {
         TextFormField(
           controller: phoneController,
           keyboardType: TextInputType.phone,
-          validator: Regex.saudiPhoneValidator,
+          validator: (value) {
+            if (!Regex.isPhoneNumberValid(value)) {
+              return "أدخل رقم سعودي صحيح يبدأ بـ 5 ويتكون من 9 أرقام";
+            }
+            return null;
+          },
           inputFormatters: [LengthLimitingTextInputFormatter(11)],
           decoration: InputDecoration(
             hintText: AppStrings.phoneNumber,

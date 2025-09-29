@@ -1,12 +1,15 @@
+import 'package:ala_darbak_user/core/config/style/app_text_styles.dart';
+import 'package:ala_darbak_user/core/heplers/regex.dart';
+import 'package:ala_darbak_user/core/heplers/saudi_number_formater.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
 import '../../../../core/utils/app_utils/app_strings.dart';
 import '../../../../core/widgets/app_image_view.dart';
-import '../../../auth/presentation/views/components/name_field.dart';
-import '../../../auth/presentation/views/components/phone_number_field.dart';
+import '../../../../core/widgets/custom_text_form_field.dart';
 import '../manager/profile_cubit/cubit.dart';
 import '../manager/profile_cubit/state.dart';
 
@@ -56,9 +59,27 @@ class EditProfileScreen extends StatelessWidget {
                   child: Column(
                     spacing: 10.h,
                     children: [
-                      NameField(controller: cubit.nameController),
-                      PhoneNumberTextFornField(
+                      CustomTextFormField(controller: cubit.nameController),
+                      CustomTextFormField(
                         controller: cubit.phoneController,
+                        keyboardType: TextInputType.phone,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(9),
+                          SaudiNumberFormatter(),
+                        ],
+                        hintText: AppStrings.phoneNumber,
+                        suffixIcon: Text(
+                          "966+",
+                          style: AppTextStyle.font16black500,
+                        ),
+                        prefixIcon: const Icon(Icons.phone, size: 25),
+                        validator: (value) {
+                          if (!Regex.isPhoneNumberValid(value)) {
+                            return "أدخل رقم سعودي صحيح يبدأ بـ 5 ويتكون من 9 أرقام";
+                          }
+                          return null;
+                        },
                       ),
                     ],
                   ),
