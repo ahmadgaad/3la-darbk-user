@@ -4,8 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/config/style/app_text_styles.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
-import '../../../../core/utils/extentions/extention.dart';
-import '../../../../core/dependency_injection/di.dart';
 import '../../repositories/model/city_model.dart';
 import '../manager/cities/cubit.dart';
 import '../manager/cities/state.dart';
@@ -24,14 +22,15 @@ class TripsView extends StatelessWidget {
             state.activeTrips
                 .where(
                   (element) =>
-                   state.startCity?.id==null&&
-                      state.destenationCity?.id == null?true:
-                  state.startCity?.id!=null&&
-                      state.destenationCity?.id != null?(
-                      element.cityFromId == state.startCity?.id &&
-                      element.cityToId == state.destenationCity?.id):(
-                      element.cityFromId == state.startCity?.id ||
-                      element.cityToId == state.destenationCity?.id),
+                      state.startCity?.id == null &&
+                              state.destenationCity?.id == null
+                          ? true
+                          : state.startCity?.id != null &&
+                              state.destenationCity?.id != null
+                          ? (element.cityFromId == state.startCity?.id &&
+                              element.cityToId == state.destenationCity?.id)
+                          : (element.cityFromId == state.startCity?.id ||
+                              element.cityToId == state.destenationCity?.id),
                 )
                 .toList();
         return RefreshIndicator(

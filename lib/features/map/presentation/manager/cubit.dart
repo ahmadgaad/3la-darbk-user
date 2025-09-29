@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../../core/utils/heplers/map_utils.dart';
+import '../../../../core/heplers/map_utils.dart';
 import '../../repositories/map_repo.dart';
 import '../../repositories/models/suggestion_model.dart';
 import '../widgets/search_google_map.dart';

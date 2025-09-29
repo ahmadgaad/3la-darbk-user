@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import '../../../core/data/exceptions/exceptions.dart';
-import '../../../core/data/remote/api_end_points.dart';
-import '../../../core/data/remote/api_client.dart';
+import '../../../core/networking/exceptions.dart';
+import '../../../core/networking/api_end_points.dart';
+import '../../../core/networking/api_client.dart';
 import 'model/city_model.dart';
 import 'model/trip_model.dart';
 

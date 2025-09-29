@@ -1,6 +1,6 @@
 
 
-import '../../../../auth/repositories/models/user_model.dart';
+import '../../../../auth/data/models/user_model.dart';
 
 class ProfileState  {
   final bool loading;

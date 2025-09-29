@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../core/config/style/app_color.dart';
 import '../../../../core/config/style/app_text_styles.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
-import '../../../../core/utils/heplers/map_utils.dart';
+import '../../../../core/heplers/map_utils.dart';
 import '../../../map/repositories/models/order_location_model.dart';
 
 class OrderLocations extends StatelessWidget {

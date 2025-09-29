@@ -1,15 +1,14 @@
+import 'package:ala_darbak_user/core/config/router/app_routes.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../core/config/routes/app_routes.dart';
+import '../../../../core/dependency_injection/di.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
 import '../../../../core/widgets/app_toaster.dart';
-import '../../../../core/dependency_injection/di.dart';
-import '../../../auth/presentation/widgets/confirm_password_field.dart';
-import '../../../auth/presentation/widgets/password_field.dart';
+import '../../../auth/presentation/views/components/confirm_password_field.dart';
+import '../../../auth/presentation/views/components/password_field.dart';
 import '../manager/change_password/cubit.dart';
 import '../manager/change_password/state.dart';
 
@@ -25,16 +24,19 @@ class ChangePasswordScreen extends StatelessWidget {
           title: const Text(AppStrings.changePassword),
           centerTitle: true,
         ),
-        body:  BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
+        body: BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
           listener: (context, state) {
             if (state.isSuccess) {
               AppToaster.show(AppStrings.passwordChanged, isError: false);
               Navigator.pushNamedAndRemoveUntil(
-                  context, AppRoute.home, (_) => false);
+                context,
+                AppRoutes.home,
+                (_) => false,
+              );
             }
           },
           builder: (context, state) {
-            final cubit= context.read<ChangePasswordCubit>();
+            final cubit = context.read<ChangePasswordCubit>();
             return LoadingOverlay(
               isLoading: state.loading,
               child: ListView(
@@ -46,11 +48,15 @@ class ChangePasswordScreen extends StatelessWidget {
                     child: Column(
                       spacing: 20.w,
                       children: [
-                        PasswordField(controller: cubit.oldPasswordController,hintText: AppStrings.oldPassword,),
+                        PasswordField(
+                          controller: cubit.oldPasswordController,
+                          hintText: AppStrings.oldPassword,
+                        ),
                         PasswordField(controller: cubit.passwordController),
                         ConfirmPasswordField(
-                            controller: cubit.confirmPasswordController,
-                            password: cubit.passwordController)
+                          controller: cubit.confirmPasswordController,
+                          password: cubit.passwordController,
+                        ),
                       ],
                     ),
                   ),

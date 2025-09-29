@@ -1,14 +1,12 @@
+import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:oktoast/oktoast.dart';
-
-import 'core/config/routes/app_routes.dart';
 import 'core/config/style/app_color.dart';
 import 'core/config/style/app_theme.dart';
+import 'core/controller/app_cubit.dart';
 import 'core/dependency_injection/di.dart';
-import 'core/manager/app_cubit.dart';
 import 'core/widgets/splash_screen.dart';
 import 'features/order/presentation/manager/order_cubit/cubit.dart';
 import 'features/profile/presentation/manager/profile_cubit/cubit.dart';
@@ -47,8 +45,8 @@ class AlaDarbkUserApp extends StatelessWidget {
                 themeMode: ThemeMode.light,
                 color: AppColors.backGround,
                 home: const SplashScreen(),
-                navigatorKey: AppRoute.navigatorKey,
-                onGenerateRoute: AppRoute.generateRoute,
+                navigatorKey: AppRouter.navigatorKey,
+                onGenerateRoute: AppRouter.generateRoute,
                 // builder: LocalizeAndTranslate.directionBuilder,
                 // locale: context.locale,
                 // localizationsDelegates: context.delegates,

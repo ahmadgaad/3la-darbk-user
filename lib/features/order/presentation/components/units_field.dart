@@ -1,9 +1,9 @@
-import '../../../../core/utils/heplers/validation_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/config/style/app_text_styles.dart';
+import '../../../../core/heplers/validation_form.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
 
 class UnitsField extends StatelessWidget {
@@ -15,24 +15,26 @@ class UnitsField extends StatelessWidget {
     return Row(
       spacing: 10.w,
       children: [
-        Text(
-          AppStrings.unitsNumber,
-          style: AppTextStyle.font16black500,
-        ),
+        Text(AppStrings.unitsNumber, style: AppTextStyle.font16black500),
         Flexible(
           child: TextFormField(
             controller: controller,
-            inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,
-            ],
-            keyboardType: TextInputType.number,validator: ValidationForm.unitsValidator,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            keyboardType: TextInputType.number,
+            validator: Regex.unitsValidator,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
               enabledBorder: const OutlineInputBorder(),
               focusedBorder: const OutlineInputBorder(),
-              contentPadding:
-                  EdgeInsets.only(top: 10.h, left: 10.w, right: 10.w),
-              suffixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+              contentPadding: EdgeInsets.only(
+                top: 10.h,
+                left: 10.w,
+                right: 10.w,
+              ),
+              suffixIconConstraints: const BoxConstraints(
+                minWidth: 0,
+                minHeight: 0,
+              ),
             ),
           ),
         ),
@@ -41,10 +43,10 @@ class UnitsField extends StatelessWidget {
   }
 }
 
-class _CustomMinValueFormatter extends TextInputFormatter {
+class CustomMinValueFormatter extends TextInputFormatter {
   final int minValue;
 
-  _CustomMinValueFormatter({required this.minValue});
+  CustomMinValueFormatter({required this.minValue});
 
   @override
   TextEditingValue formatEditUpdate(

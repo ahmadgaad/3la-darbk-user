@@ -1,8 +1,8 @@
+import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/config/routes/app_routes.dart';
 import '../../../../core/config/style/app_theme.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
 import '../../../notifications/presentation/manager/notifications_cubit/cubit.dart';
@@ -56,16 +56,19 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         IconButton(
           icon: BlocBuilder<NotificationsCubit, NotificationsState>(
-           
             builder: (context, state) {
               return Badge.count(
-                count: state.notifications.where((x) => x.isRead==0).length,
+                count: state.notifications.where((x) => x.isRead == 0).length,
                 child: const Icon(Icons.notifications),
               );
             },
           ),
           onPressed: () {
-            Navigator.pushNamed(context, AppRoute.notifications, arguments: context.read<NotificationsCubit>());
+            Navigator.pushNamed(
+              context,
+              AppRoutes.notifications,
+              arguments: context.read<NotificationsCubit>(),
+            );
           },
         ),
         const Text(AppStrings.home),

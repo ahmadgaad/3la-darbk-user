@@ -1,12 +1,13 @@
+import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:ala_darbak_user/core/dependency_injection/di.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../../core/config/routes/app_routes.dart';
+
 import '../../../../core/config/style/app_color.dart';
 import '../../../../core/config/style/app_text_styles.dart';
 import '../../../../core/utils/app_utils/app_strings.dart';
-import 'package:flutter/material.dart';
 import '../../../../core/widgets/app_image_view.dart';
 import '../../../orders/presentation/manager/cubit.dart';
 import '../../../profile/presentation/manager/profile_cubit/cubit.dart';
@@ -27,22 +28,25 @@ class DrawerWidget extends StatelessWidget {
           _drawerHeader(),
           ListTile(
             onTap: () {
-              Navigator.pushNamed(context, AppRoute.editProfile);
+              Navigator.pushNamed(context, AppRoutes.editProfile);
             },
             leading: const Icon(Icons.person_pin_rounded),
             title: const Text(AppStrings.profile2),
           ),
           ListTile(
             onTap: () {
-              Navigator.pushNamed(context, AppRoute.changePassword);
+              Navigator.pushNamed(context, AppRoutes.changePassword);
             },
             leading: const Icon(Icons.lock_outline),
             title: const Text(AppStrings.changePassword),
           ),
           ListTile(
             onTap: () {
-              Navigator.pushNamed(context, AppRoute.historyOrders,
-                  arguments: context.read<OrdersCubit>());
+              Navigator.pushNamed(
+                context,
+                AppRoutes.historyOrders,
+                arguments: context.read<OrdersCubit>(),
+              );
               Scaffold.of(context).closeDrawer();
             },
             leading: const Icon(Icons.history_rounded),
@@ -59,22 +63,21 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.pushNamed(context, AppRoute.aboutUs);
+              Navigator.pushNamed(context, AppRoutes.aboutUs);
             },
             leading: const Icon(Icons.info_outline),
             title: const Text(AppStrings.aboutApp),
           ),
           ListTile(
             onTap: () {
-              Navigator.pushNamed(context, AppRoute.termsAndCondtions);
-
+              Navigator.pushNamed(context, AppRoutes.termsAndCondtions);
             },
             leading: const Icon(Icons.privacy_tip_outlined),
             title: const Text(AppStrings.termsAndCondtions),
           ),
           ListTile(
             onTap: () {
-              Navigator.pushNamed(context, AppRoute.policy);
+              Navigator.pushNamed(context, AppRoutes.policy);
             },
             leading: const Icon(Icons.policy_outlined),
             title: const Text(AppStrings.appPolicy),
@@ -110,43 +113,45 @@ class DrawerWidget extends StatelessWidget {
   }
 
   Widget _drawerHeader() => SizedBox(
-        height: 175.w,
-        child: DrawerHeader(
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
-            decoration: const BoxDecoration(color: AppColors.primary),
-            child: BlocBuilder<ProfileCubit, ProfileState>(
-              builder: (context, state) {
-                final user = state.currentUser;
-                return Row(
+    height: 175.w,
+    child: DrawerHeader(
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
+      decoration: const BoxDecoration(color: AppColors.primary),
+      child: BlocBuilder<ProfileCubit, ProfileState>(
+        builder: (context, state) {
+          final user = state.currentUser;
+          return Row(
+            spacing: 10.w,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              AppImageView(
+                width: 60.w,
+                height: 60.w,
+                fit: BoxFit.cover,
+                shape: BoxShape.circle,
+                url: user?.image ?? "asd",
+              ),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   spacing: 10.w,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    AppImageView(
-                        width: 60.w,
-                        height: 60.w,
-                        fit: BoxFit.cover,
-                        shape: BoxShape.circle,
-                        url: user?.image ?? "asd"),
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        spacing: 10.w,
-                        children: [
-                          Text(
-                            user?.name ?? "user name",
-                            style: AppTextStyle.font16white600,
-                          ),
-                          Text(
-                            user?.mobile ?? "+966",
-                            style: AppTextStyle.font14white600,
-                          ),
-                        ],
-                      ),
+                    Text(
+                      user?.name ?? "user name",
+                      style: AppTextStyle.font16white600,
+                    ),
+                    Text(
+                      user?.mobile ?? "+966",
+                      style: AppTextStyle.font14white600,
                     ),
                   ],
-                );
-              },
-            )),
-      );
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    ),
+  );
 }

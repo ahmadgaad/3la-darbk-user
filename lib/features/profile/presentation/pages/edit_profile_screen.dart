@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+
 import '../../../../core/utils/app_utils/app_strings.dart';
 import '../../../../core/widgets/app_image_view.dart';
-import '../../../auth/presentation/widgets/name_field.dart';
-import '../../../auth/presentation/widgets/phone_number_field.dart';
+import '../../../auth/presentation/views/components/name_field.dart';
+import '../../../auth/presentation/views/components/phone_number_field.dart';
 import '../manager/profile_cubit/cubit.dart';
 import '../manager/profile_cubit/state.dart';
 
@@ -15,10 +16,7 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(AppStrings.profile2),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text(AppStrings.profile2), centerTitle: true),
       body: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
           final cubit = context.read<ProfileCubit>();
@@ -43,12 +41,11 @@ class EditProfileScreen extends StatelessWidget {
                           height: 80.h,
                           fit: BoxFit.cover,
                           foregroundDecoration: const BoxDecoration(
-                              color: Colors.black26, shape: BoxShape.circle),
+                            color: Colors.black26,
+                            shape: BoxShape.circle,
+                          ),
                         ),
-                        const Icon(
-                          Icons.camera_alt,
-                          color: Colors.white,
-                        )
+                        const Icon(Icons.camera_alt, color: Colors.white),
                       ],
                     ),
                   ),
@@ -60,13 +57,15 @@ class EditProfileScreen extends StatelessWidget {
                     spacing: 10.h,
                     children: [
                       NameField(controller: cubit.nameController),
-                      PhoneNumberField(controller: cubit.phoneController),
+                      PhoneNumberTextFornField(
+                        controller: cubit.phoneController,
+                      ),
                     ],
                   ),
                 ),
                 20.verticalSpaceFromWidth,
                 ElevatedButton(
-                  onPressed:cubit.updateData,
+                  onPressed: cubit.updateData,
                   child: const Text(AppStrings.confirm),
                 ),
               ],

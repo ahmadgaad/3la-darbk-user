@@ -1,14 +1,17 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
-import 'package:flutter_bloc/flutter_bloc.dart' show Bloc, BlocBase, BlocObserver, Change, Transition;
+import 'package:flutter_bloc/flutter_bloc.dart'
+    show Bloc, BlocBase, BlocObserver, Change, Transition;
 
 class MyBlocObserver extends BlocObserver {
   @override
   void onCreate(BlocBase bloc) {
     super.onCreate(bloc);
     if (kDebugMode) {
-      print('onCreate -- ${bloc.runtimeType}');
+      log('onCreate -- ${bloc.runtimeType}');
     }
   }
 
@@ -16,7 +19,7 @@ class MyBlocObserver extends BlocObserver {
   void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
     if (kDebugMode) {
-      print('onEvent -- ${bloc.runtimeType}, $event');
+      log('onEvent -- ${bloc.runtimeType}, $event');
     }
   }
 
@@ -24,7 +27,7 @@ class MyBlocObserver extends BlocObserver {
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
     if (kDebugMode) {
-      print('onChange -- ${bloc.runtimeType}, $change');
+      log('onChange -- ${bloc.runtimeType}, $change');
     }
   }
 
@@ -32,14 +35,14 @@ class MyBlocObserver extends BlocObserver {
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
     if (kDebugMode) {
-      print('onTransition -- ${bloc.runtimeType}, $transition');
+      log('onTransition -- ${bloc.runtimeType}, $transition');
     }
   }
 
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
     if (kDebugMode) {
-      print('onError -- ${bloc.runtimeType}, $error');
+      log('onError -- ${bloc.runtimeType}, $error');
     }
     super.onError(bloc, error, stackTrace);
   }
@@ -48,7 +51,7 @@ class MyBlocObserver extends BlocObserver {
   void onClose(BlocBase bloc) {
     super.onClose(bloc);
     if (kDebugMode) {
-      print('onClose -- ${bloc.runtimeType}');
+      log('onClose -- ${bloc.runtimeType}');
     }
   }
 }
