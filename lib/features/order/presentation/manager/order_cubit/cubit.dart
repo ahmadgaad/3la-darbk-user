@@ -1,14 +1,15 @@
 import 'dart:io' show File;
 
-import '../../../../trips/repositories/model/trip_model.dart';
+import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/config/routes/app_routes.dart';
-import '../../../../../core/utils/heplers/image_picker.dart';
+
+import '../../../../../core/heplers/image_picker.dart';
 import '../../../../categories/repositories/models/category_model.dart';
 import '../../../../map/repositories/models/order_location_model.dart';
 import '../../../../setttings_info/presentation/manager/cubit.dart'
     show SettingsInfoCubit;
+import '../../../../trips/repositories/model/trip_model.dart';
 import '../../../repositories/model/order_model.dart';
 import '../../../repositories/repositories.dart';
 import 'state.dart';
@@ -30,7 +31,7 @@ class OrderCubit extends Cubit<OrderState> {
     emit(
       OrderState(
         formKey: GlobalKey<FormState>(),
-        
+
         unitsController: TextEditingController(),
         recipientMobileController: TextEditingController(),
         recipientNameController: TextEditingController(),
@@ -122,7 +123,7 @@ class OrderCubit extends Cubit<OrderState> {
         emit(state.copyWith(loading: false, success: true, orderModel: order));
         Navigator.pushNamedAndRemoveUntil(
           context,
-          AppRoute.orderDetails,
+          AppRoutes.orderDetails,
           arguments: state.orderModel?.id,
           (route) => route.isFirst,
         );
@@ -159,7 +160,7 @@ class OrderCubit extends Cubit<OrderState> {
           success: true,
           orderModel: order,
           formKey: GlobalKey<FormState>(),
-          selectedPaymentMethod: int.tryParse(order?.paymentMethod??"0"),
+          selectedPaymentMethod: int.tryParse(order?.paymentMethod ?? "0"),
           recipientMobileController: TextEditingController(
             text: order?.recipientMobile,
           ),

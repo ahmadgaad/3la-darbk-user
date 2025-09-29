@@ -1,4 +1,4 @@
-import '../core/utils/app_utils/app_strings.dart';
+import '../core/utils/app_strings.dart';
 
 const List<String> cities = [
   "الرياض",

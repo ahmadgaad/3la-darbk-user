@@ -1,3 +1,4 @@
+import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -5,22 +6,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../core/config/routes/app_routes.dart';
 import '../../../../core/config/style/app_color.dart';
 import '../../../../core/config/style/app_text_styles.dart';
-import '../../../../core/utils/app_utils/app_strings.dart';
-import '../../../../core/utils/payment/payment_dialog.dart';
+import '../../../../core/utils/app_strings.dart';
+import '../../../../core/services/payment/payment_dialog.dart';
 import '../../../../core/widgets/app_image_view.dart';
 import '../../../../core/widgets/app_toaster.dart';
 import '../../../../temp/app_temp.dart';
 import '../../../setttings_info/presentation/manager/cubit.dart';
 import '../../repositories/model/driver_model.dart';
-import '../manager/order_cubit/cubit.dart';
-import '../manager/order_cubit/state.dart';
 import '../components/order_images.dart';
 import '../components/order_locations.dart';
 import '../components/order_track.dart';
 import '../components/price_raise.dart';
+import '../manager/order_cubit/cubit.dart';
+import '../manager/order_cubit/state.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
   final int orderId;
@@ -69,7 +69,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         : [
                           IconButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, AppRoute.orderEdit);
+                              Navigator.pushNamed(context, AppRoutes.orderEdit);
                             },
                             icon: const Icon(FontAwesomeIcons.penToSquare),
                           ),
@@ -124,7 +124,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       state.orderModel?.category?.name ?? "",
                     ),
                     10.verticalSpaceFromWidth,
-                    if (!isPerson) ...{
+                    if (!isPerson) ...[
                       const Divider(),
                       _textBuilder(
                         AppStrings.orderSize,
@@ -135,7 +135,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         AppStrings.unitsNumber,
                         '${state.orderModel?.quantity ?? 1}',
                       ),
-                    },
+                    ],
                     const Divider(),
                     _textBuilder(
                       AppStrings.orderPrice,

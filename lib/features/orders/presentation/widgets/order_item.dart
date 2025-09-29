@@ -1,13 +1,12 @@
-
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../core/config/routes/app_routes.dart';
+import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../../../../core/config/style/app_color.dart';
 import '../../../../core/config/style/app_text_styles.dart';
-import '../../../../core/utils/app_utils/app_strings.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../../../order/presentation/manager/order_cubit/cubit.dart';
 import '../../../order/repositories/model/order_model.dart';
 
@@ -24,8 +23,9 @@ class OrderItem extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-              border: Border.all(color: AppColors.desSelected, width: 1),
-              borderRadius: BorderRadius.circular(10)),
+            border: Border.all(color: AppColors.desSelected, width: 1),
+            borderRadius: BorderRadius.circular(10),
+          ),
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.w),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -40,7 +40,7 @@ class OrderItem extends StatelessWidget {
                     height: 55.w,
                     color: AppColors.desSelected,
                   ),
-                  const Icon(Icons.gps_not_fixed)
+                  const Icon(Icons.gps_not_fixed),
                 ],
               ),
               10.horizontalSpace,
@@ -83,48 +83,56 @@ class OrderItem extends StatelessWidget {
                     onPressed: () {
                       if (orderModel != null) {
                         context.read<OrderCubit>().setOrderModel(orderModel!);
-                        Navigator.pushNamed(context, AppRoute.orderDetails,
-                            arguments: orderModel?.id ?? 1);
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.orderDetails,
+                          arguments: orderModel?.id ?? 1,
+                        );
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                        fixedSize: Size.fromHeight(40.w)),
+                      fixedSize: Size.fromHeight(40.w),
+                    ),
                     child: const Text(AppStrings.details),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),
         Container(
           decoration: BoxDecoration(
-              color: status == 0
-                  ? AppColors.pending
-                  : status == 1
-                      ? AppColors.accepted
-                      : status == 2
-                          ? AppColors.picked
-                          : status == 3
-                              ? AppColors.delivered
-                              :
-                               AppColors.canceled,
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10))),
+            color:
+                status == 0
+                    ? AppColors.pending
+                    : status == 1
+                    ? AppColors.accepted
+                    : status == 2
+                    ? AppColors.picked
+                    : status == 3
+                    ? AppColors.delivered
+                    : AppColors.canceled,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
+          ),
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.w),
           child: Text(
             status == 0
                 ? AppStrings.pending
                 : status == 1
-                    ? AppStrings.accepted
-                    : status == 2
-                        ? AppStrings.picked
-                        : status == 3
-                            ? AppStrings.delivered
-                            :status == 4? AppStrings.notApproved: AppStrings.canceled,
+                ? AppStrings.accepted
+                : status == 2
+                ? AppStrings.picked
+                : status == 3
+                ? AppStrings.delivered
+                : status == 4
+                ? AppStrings.notApproved
+                : AppStrings.canceled,
             style: AppTextStyle.font12white600,
           ),
-        )
+        ),
       ],
     );
   }

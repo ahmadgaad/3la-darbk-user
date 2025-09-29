@@ -1,16 +1,17 @@
+import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/config/routes/app_routes.dart';
-import '../../../../core/utils/app_utils/app_strings.dart';
+
+import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/app_toaster.dart';
-import '../manager/order_cubit/cubit.dart';
-import '../manager/order_cubit/state.dart';
 import '../components/additional_details_field.dart';
 import '../components/order_images_add.dart';
 import '../components/order_size_select.dart';
 import '../components/recipient_info_form.dart';
 import '../components/units_field.dart';
+import '../manager/order_cubit/cubit.dart';
+import '../manager/order_cubit/state.dart';
 
 class NewOrderScreen extends StatelessWidget {
   const NewOrderScreen({super.key});
@@ -27,20 +28,22 @@ class NewOrderScreen extends StatelessWidget {
             centerTitle: true,
           ),
           body: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
             child: Form(
-                key: state.formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,              child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+              key: state.formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                    OrderSizeSelect(
-                      onSizeTap: (int selectedSize) {
-                        cubit.onSelectOrderSize(selectedSize);
-                      },
-                      selectedSize: state.orderSize,
-                    ),
-                    25.verticalSpaceFromWidth,
-                    UnitsField(controller: state.unitsController),
-                    25.verticalSpaceFromWidth,
+                  OrderSizeSelect(
+                    onSizeTap: (int selectedSize) {
+                      cubit.onSelectOrderSize(selectedSize);
+                    },
+                    selectedSize: state.orderSize,
+                  ),
+                  25.verticalSpaceFromWidth,
+                  UnitsField(controller: state.unitsController),
+                  25.verticalSpaceFromWidth,
                   OrderImagesAdd(
                     onAddTap: () {
                       cubit.pickImages();
@@ -79,7 +82,7 @@ class NewOrderScreen extends StatelessWidget {
 
                   if ((state.formKey.currentState?.validate() ?? false) &&
                       imagesValid) {
-                    Navigator.pushNamed(context, AppRoute.pickLocation);
+                    Navigator.pushNamed(context, AppRoutes.pickLocation);
                   } else if (!imagesValid) {
                     AppToaster.show(AppStrings.mustEnterImagesBeteween3And5);
                     return;

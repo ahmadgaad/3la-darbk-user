@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/utils/app_utils/app_strings.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../manager/profile_cubit/cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

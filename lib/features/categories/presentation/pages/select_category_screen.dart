@@ -1,8 +1,9 @@
+import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/config/routes/app_routes.dart';
-import '../../../../core/utils/app_utils/app_strings.dart';
+
+import '../../../../core/utils/app_strings.dart';
 import '../../../order/presentation/manager/order_cubit/cubit.dart';
 import '../manager/cubit.dart';
 import '../manager/state.dart';
@@ -46,13 +47,10 @@ class SelectCategoryScreen extends StatelessWidget {
                         context.read<OrderCubit>().setCategory(
                           categoryModel: state.categories[index],
                         );
-                        if(state.categories[index].isPerson??false){
-                             Navigator.pushNamed(context, AppRoute.pickLocation);
-                        }else {
-                          Navigator.pushNamed(
-                          context,
-                          AppRoute.newOrder,
-                        );
+                        if (state.categories[index].isPerson ?? false) {
+                          Navigator.pushNamed(context, AppRoutes.pickLocation);
+                        } else {
+                          Navigator.pushNamed(context, AppRoutes.newOrder);
                         }
                       },
                       child: CategoryItem(

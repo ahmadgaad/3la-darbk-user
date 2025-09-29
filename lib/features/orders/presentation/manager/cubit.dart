@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/utils/app_utils/app_strings.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../../../order/repositories/model/order_model.dart';
 import '../../repositories/repositories.dart';
 import 'state.dart';
