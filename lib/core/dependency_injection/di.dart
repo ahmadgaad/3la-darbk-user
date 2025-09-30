@@ -13,9 +13,9 @@ import '../../features/categories/repositories/repositories.dart';
 import '../../features/map/repositories/map_repo.dart';
 import '../../features/notifications/repositories/repositories.dart';
 import '../../features/order/repositories/repositories.dart';
-import '../../features/orders/repositories/repositories.dart';
 import '../../features/profile/repositories/repositories.dart';
 import '../../features/setttings_info/repositories/repositories.dart';
+import '../../features/shipments/data/shipments_repository.dart';
 import '../../features/trips/repositories/repositories.dart';
 import '../config/app_config.dart';
 import '../heplers/shared_preferences_service.dart';
@@ -49,21 +49,6 @@ class InjectionContainer {
     sl.registerFactory(() => RegisterCubit(sl<AuthRepository>()));
     sl.registerFactory(() => LoginCubit(sl<AuthRepository>()));
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   static Future<void> _initSharedPref() async {
     final sharedPreferences = await SharedPreferences.getInstance();
@@ -107,8 +92,8 @@ class InjectionContainer {
   }
 
   static _historyOrderRepoInit() {
-    sl.registerLazySingleton<OrdersRepository>(
-      () => OrdersRepositoryImpl(sl()),
+    sl.registerLazySingleton<ShipmentsRepository>(
+      () => ShipmentsRepositoryImpl(sl()),
     );
   }
 

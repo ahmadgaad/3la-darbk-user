@@ -5,35 +5,33 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/app_strings.dart';
 import '../../../order/presentation/manager/order_cubit/cubit.dart';
-import '../manager/cubit.dart';
-import '../manager/state.dart';
-import '../widgets/order_item.dart';
+import '../view_model/shipments_cubit.dart';
+import '../view_model/shipments_states.dart';
+import 'components/order_item.dart';
 
-class ActiveOrdersView extends StatelessWidget {
-  const ActiveOrdersView({super.key});
+class ActiveShipmentsView extends StatelessWidget {
+  const ActiveShipmentsView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<OrdersCubit, OrdersState>(
+      body: BlocBuilder<ShipmentsCubit, ShipmentsStates>(
         builder: (context, state) {
-          final activeOrders = state.activeOrders;
+          final activeShipments = state.activeOrders;
           return RefreshIndicator(
             onRefresh: () async {
-              return await context.read<OrdersCubit>().getActiveOrders();
+              await context.read<ShipmentsCubit>().getActiveShipments();
             },
             child:
                 state.activeOrders.isEmpty
-                    ? ListView(
-                      padding: EdgeInsets.only(
-                        left: 20.w,
-                        right: 20.w,
-                        top: 24.h,
-                        bottom: 115,
+                    ? const Center(
+                      child: Text(
+                        AppStrings.noOrders,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                      children: [
-                        const Center(child: Text(AppStrings.noOrders)),
-                      ],
                     )
                     : ListView.separated(
                       padding: EdgeInsets.only(
@@ -48,7 +46,7 @@ class ActiveOrdersView extends StatelessWidget {
                       separatorBuilder:
                           (BuildContext context, int index) =>
                               15.verticalSpaceFromWidth,
-                      itemCount: activeOrders.length,
+                      itemCount: activeShipments.length,
                     ),
           );
         },

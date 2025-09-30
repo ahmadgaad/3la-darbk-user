@@ -1,16 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../core/utils/app_strings.dart';
-import '../../../order/repositories/model/order_model.dart';
-import '../../repositories/repositories.dart';
-import 'state.dart';
 import '../../../../temp/app_temp.dart';
+import '../../../order/repositories/model/order_model.dart';
+import '../../data/shipments_repository.dart';
+import 'shipments_states.dart';
 
-class OrdersCubit extends Cubit<OrdersState> {
-  final OrdersRepository _ordersRepository;
+class ShipmentsCubit extends Cubit<ShipmentsStates> {
+  final ShipmentsRepository _shipmentsRepository;
 
-  OrdersCubit(this._ordersRepository)
+  ShipmentsCubit(this._shipmentsRepository)
     : super(
-        const OrdersState(
+        const ShipmentsStates(
           startCities: cities,
           destenationCities: cities,
           dates: dates,
@@ -24,7 +25,7 @@ class OrdersCubit extends Cubit<OrdersState> {
           ],
         ),
       ) {
-    getActiveOrders();
+    getActiveShipments();
     getHistoryOrders();
   }
 
@@ -44,7 +45,7 @@ class OrdersCubit extends Cubit<OrdersState> {
     );
   }
 
-  removeFilters() {
+  void removeFilters() {
     emit(
       state.copyWith(
         startCity: null,
@@ -55,26 +56,47 @@ class OrdersCubit extends Cubit<OrdersState> {
     );
   }
 
-  getHistoryOrders() async {
-    final result = await _ordersRepository.getHistoryOrders();
+  Future<void> getHistoryOrders() async {
+    final result = await _shipmentsRepository.getHistoryOrders();
     result.fold(
-      (l) {
-        emit(state.copyWith(loading: false, success: true, historyOrders: l));
+      (failure) {
+        emit(
+          state.copyWith(
+            loading: false,
+            error: failure.message,
+            success: false,
+          ),
+        );
       },
-      (r) {
-        emit(state.copyWith(loading: false, error: r.message, success: false));
+      (orders) {
+        emit(
+          state.copyWith(loading: false, success: true, historyOrders: orders),
+        );
       },
     );
   }
 
-  getActiveOrders() async {
-    final result = await _ordersRepository.getActiveOrders();
+  Future<void> getActiveShipments() async {
+    state.copyWith(loading: true, activeOrders: []);
+    final result = await _shipmentsRepository.getActiveShpiments();
     result.fold(
-      (l) {
-        emit(state.copyWith(loading: false, success: true, activeOrders: l));
+      (failure) {
+        emit(
+          state.copyWith(
+            loading: false,
+            error: failure.message,
+            success: false,
+          ),
+        );
       },
-      (r) {
-        emit(state.copyWith(loading: false, error: r.message, success: false));
+      (shpiments) {
+        emit(
+          state.copyWith(
+            loading: false,
+            success: true,
+            activeOrders: shpiments,
+          ),
+        );
       },
     );
   }

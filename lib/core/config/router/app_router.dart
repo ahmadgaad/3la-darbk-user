@@ -26,7 +26,7 @@ class AppRouter {
         return _animateRouteBuilder(
           MultiBlocProvider(
             providers: [
-              BlocProvider(create: (context) => OrdersCubit(sl())),
+              BlocProvider(create: (context) => ShipmentsCubit(sl())),
               BlocProvider(create: (context) => NotificationsCubit(sl())),
               BlocProvider(create: (context) => TripsCubit(sl())),
               BlocProvider(create: (context) => CitiesCubit(sl())),
@@ -68,7 +68,7 @@ class AppRouter {
       case AppRoutes.historyOrders:
         return _animateRouteBuilder(
           BlocProvider.value(
-            value: args as OrdersCubit,
+            value: args as ShipmentsCubit,
             child: const HistoryOrdersScreen(),
           ),
           x: 1,

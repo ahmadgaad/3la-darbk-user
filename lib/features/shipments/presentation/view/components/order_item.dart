@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../core/config/style/app_color.dart';
-import '../../../../core/config/style/app_text_styles.dart';
-import '../../../../core/utils/app_strings.dart';
-import '../../../order/presentation/manager/order_cubit/cubit.dart';
-import '../../../order/repositories/model/order_model.dart';
+import '../../../../../core/config/style/app_color.dart';
+import '../../../../../core/config/style/app_text_styles.dart';
+import '../../../../../core/utils/app_strings.dart';
+import '../../../../order/presentation/manager/order_cubit/cubit.dart';
+import '../../../../order/repositories/model/order_model.dart';
 
 class OrderItem extends StatelessWidget {
   final OrderModel? orderModel;

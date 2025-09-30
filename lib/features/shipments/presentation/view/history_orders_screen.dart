@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/config/style/app_theme.dart';
 import '../../../../core/utils/app_strings.dart';
-import '../manager/cubit.dart';
-import '../manager/state.dart';
-import '../widgets/order_item.dart';
+import '../view_model/shipments_cubit.dart';
+import '../view_model/shipments_states.dart';
+import 'components/order_item.dart';
 
 class HistoryOrdersScreen extends StatefulWidget {
   const HistoryOrdersScreen({super.key});
@@ -19,7 +19,7 @@ class _HistoryOrdersScreenState extends State<HistoryOrdersScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<OrdersCubit>().getHistoryOrders();
+    context.read<ShipmentsCubit>().getHistoryOrders();
   }
 
   @override
@@ -28,11 +28,11 @@ class _HistoryOrdersScreenState extends State<HistoryOrdersScreen> {
       data: homeTheme,
       child: Scaffold(
         appBar: AppBar(title: const Text(AppStrings.ordersHistory)),
-        body: BlocBuilder<OrdersCubit, OrdersState>(
+        body: BlocBuilder<ShipmentsCubit, ShipmentsStates>(
           builder: (context, state) {
             return RefreshIndicator(
               onRefresh: () async {
-                return await context.read<OrdersCubit>().getHistoryOrders();
+                return await context.read<ShipmentsCubit>().getHistoryOrders();
               },
               child: CustomScrollView(
                 slivers: [

@@ -5,18 +5,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../core/config/style/app_color.dart';
-import '../../../../core/config/style/app_text_styles.dart';
-import '../../../../core/utils/app_strings.dart';
-import '../../../../core/widgets/app_image_view.dart';
-import '../../../orders/presentation/manager/cubit.dart';
-import '../../../profile/presentation/manager/profile_cubit/cubit.dart';
-import '../../../profile/presentation/manager/profile_cubit/state.dart';
-import '../../../profile/presentation/widgets/delete_account_dialog.dart';
-import '../../../setttings_info/presentation/manager/cubit.dart';
+import '../../../core/config/style/app_color.dart';
+import '../../../core/config/style/app_text_styles.dart';
+import '../../../core/utils/app_strings.dart';
+import '../../../core/widgets/app_image_view.dart';
+import '../../profile/presentation/manager/profile_cubit/cubit.dart';
+import '../../profile/presentation/manager/profile_cubit/state.dart';
+import '../../profile/presentation/widgets/delete_account_dialog.dart';
+import '../../setttings_info/presentation/manager/cubit.dart';
+import '../../shipments/presentation/view_model/shipments_cubit.dart';
 
-class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({super.key});
+class CustomDrawerMenu extends StatelessWidget {
+  const CustomDrawerMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class DrawerWidget extends StatelessWidget {
               Navigator.pushNamed(
                 context,
                 AppRoutes.historyOrders,
-                arguments: context.read<OrdersCubit>(),
+                arguments: context.read<ShipmentsCubit>(),
               );
               Scaffold.of(context).closeDrawer();
             },
