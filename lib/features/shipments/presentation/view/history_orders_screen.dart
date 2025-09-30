@@ -28,7 +28,7 @@ class _HistoryOrdersScreenState extends State<HistoryOrdersScreen> {
       data: homeTheme,
       child: Scaffold(
         appBar: AppBar(title: const Text(AppStrings.ordersHistory)),
-        body: BlocBuilder<ShipmentsCubit, ShipmentsStates>(
+        body: BlocBuilder<ShipmentsCubit, ShipmentsState>(
           builder: (context, state) {
             return RefreshIndicator(
               onRefresh: () async {
@@ -50,11 +50,11 @@ class _HistoryOrdersScreenState extends State<HistoryOrdersScreen> {
                     sliver: SliverList.separated(
                       itemBuilder:
                           (BuildContext context, int index) =>
-                              OrderItem(orderModel: state.historyOrders[index]),
+                              OrderItem(orderModel: state.shipmentsHistory[index]),
                       separatorBuilder:
                           (BuildContext context, int index) =>
                               15.verticalSpaceFromWidth,
-                      itemCount: state.historyOrders.length,
+                      itemCount: state.shipmentsHistory.length,
                     ),
                   ),
                 ],

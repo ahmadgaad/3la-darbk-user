@@ -15,20 +15,27 @@ class ActiveShipmentsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<ShipmentsCubit, ShipmentsStates>(
+      body: BlocBuilder<ShipmentsCubit, ShipmentsState>(
         builder: (context, state) {
-          final activeShipments = state.activeOrders;
+          final activeShipments = state.activeShipments;
           return RefreshIndicator(
             onRefresh: () async {
               await context.read<ShipmentsCubit>().getActiveShipments();
             },
-            child:
-                state.activeOrders.isEmpty
+            child: switch (state.status) {
+              ShipmentsStatus.initial || ShipmentsStatus.loading =>
+                const Center(child: CircularProgressIndicator.adaptive()),
+              ShipmentsStatus.error => Center(
+                child: Text(state.errorMessage ?? ""),
+              ),
+
+              ShipmentsStatus.success =>
+                activeShipments.isEmpty
                     ? const Center(
                       child: Text(
                         AppStrings.noOrders,
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 18,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -42,12 +49,13 @@ class ActiveShipmentsView extends StatelessWidget {
                       ),
                       itemBuilder:
                           (BuildContext context, int index) =>
-                              OrderItem(orderModel: state.activeOrders[index]),
+                              OrderItem(orderModel: activeShipments[index]),
                       separatorBuilder:
                           (BuildContext context, int index) =>
                               15.verticalSpaceFromWidth,
                       itemCount: activeShipments.length,
                     ),
+            },
           );
         },
       ),

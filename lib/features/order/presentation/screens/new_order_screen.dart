@@ -1,4 +1,5 @@
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
+import 'package:ala_darbak_user/core/extensions/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -82,7 +83,7 @@ class NewOrderScreen extends StatelessWidget {
 
                   if ((state.formKey.currentState?.validate() ?? false) &&
                       imagesValid) {
-                    Navigator.pushNamed(context, AppRoutes.pickLocation);
+                    context.pushNamed(AppRoutes.pickLocation);
                   } else if (!imagesValid) {
                     AppToaster.show(AppStrings.mustEnterImagesBeteween3And5);
                     return;

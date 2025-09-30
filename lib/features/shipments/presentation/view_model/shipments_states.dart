@@ -2,88 +2,35 @@ import 'package:equatable/equatable.dart';
 
 import '../../../order/repositories/model/order_model.dart';
 
-class ShipmentsStates extends Equatable {
-  final List<String> trips;
-  final List<String> startCities;
-  final List<String> destenationCities;
-  final List<String> dates;
-  final String? startCity;
-  final String? destinationCity;
-  final List<MapEntry<int, String>> statuses;
-  final String? date;
-  final int? status;
-  final bool loading;
-  final String? error;
-  final bool success;
-  final List<OrderModel> historyOrders;
-  final List<OrderModel> activeOrders;
+enum ShipmentsStatus { initial, loading, success, error }
 
-  const ShipmentsStates({
-    this.trips = const [],
-    this.historyOrders = const [],
-    this.activeOrders = const [],
-    this.startCities = const [],
-    this.destenationCities = const [],
-    this.dates = const [],
-    this.statuses = const [],
-    this.startCity,
-    this.destinationCity,
-    this.status,
-    this.date,
-    this.loading = false,
-    this.success = false,
-    this.error,
+class ShipmentsState extends Equatable {
+  final List<OrderModel> activeShipments;
+  final List<OrderModel> shipmentsHistory;
+  final ShipmentsStatus status;
+  final String? errorMessage;
+
+  const ShipmentsState({
+    this.activeShipments = const [],
+    this.shipmentsHistory = const [],
+    this.status = ShipmentsStatus.initial,
+    this.errorMessage,
   });
 
-  ShipmentsStates copyWith({
-    List<String>? trips,
-    List<String>? startCities,
-    List<OrderModel>? historyOrders,
-    List<OrderModel>? activeOrders,
-    List<String>? destenationCities,
-    List<String>? dates,
-    List<MapEntry<int, String>>? statuses,
-    String? startCity,
-    String? destinationCity,
-    int? status,
-    String? date,
-    bool? loading,
-    bool? success,
-    String? error,
+  ShipmentsState copyWith({
+    List<OrderModel>? activeShipments,
+    List<OrderModel>? shipmentsHistory,
+    ShipmentsStatus? status,
+    String? errorMessage,
   }) {
-    return ShipmentsStates(
-      trips: trips ?? this.trips,
-      success: success ?? this.success,
-      historyOrders: historyOrders ?? this.historyOrders,
-      activeOrders: activeOrders ?? this.activeOrders,
-      startCities: startCities ?? this.startCities,
-      destenationCities: destenationCities ?? this.destenationCities,
-      dates: dates ?? this.dates,
-      statuses: statuses ?? this.statuses,
-      startCity: startCity,
-      status: status,
-      destinationCity: destinationCity,
-      date: date,
-      loading: loading ?? this.loading,
-      error: error ?? this.error,
+    return ShipmentsState(
+      activeShipments: activeShipments ?? this.activeShipments,
+      shipmentsHistory: shipmentsHistory ?? this.shipmentsHistory,
+      status: status ?? this.status,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
   @override
-  List<Object?> get props => [
-    trips,
-    historyOrders,
-    success,
-    startCities,
-    destenationCities,
-    dates,
-    startCity,
-    destinationCity,
-    statuses,
-    status,
-    date,
-    loading,
-    activeOrders,
-    error,
-  ];
+  List<Object?> get props => [activeShipments, shipmentsHistory, status, errorMessage];
 }

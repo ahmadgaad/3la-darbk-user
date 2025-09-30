@@ -1,60 +1,44 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/utils/app_strings.dart';
-import '../../../../temp/app_temp.dart';
 import '../../../order/repositories/model/order_model.dart';
 import '../../data/shipments_repository.dart';
 import 'shipments_states.dart';
 
-class ShipmentsCubit extends Cubit<ShipmentsStates> {
+class ShipmentsCubit extends Cubit<ShipmentsState> {
   final ShipmentsRepository _shipmentsRepository;
 
   ShipmentsCubit(this._shipmentsRepository)
-    : super(
-        const ShipmentsStates(
-          startCities: cities,
-          destenationCities: cities,
-          dates: dates,
-          statuses: [
-            MapEntry(0, AppStrings.pending),
-            MapEntry(1, AppStrings.accepted),
-            MapEntry(2, AppStrings.picked),
-            MapEntry(3, AppStrings.delivered),
-            MapEntry(4, AppStrings.notApproved),
-            MapEntry(5, AppStrings.canceled),
-          ],
-        ),
-      ) {
+    : super(const ShipmentsState(status: ShipmentsStatus.initial)) {
     getActiveShipments();
     getHistoryOrders();
   }
 
-  applyFilter({
-    String? startCity,
-    String? destenationCity,
-    String? date,
-    int? status,
-  }) {
-    emit(
-      state.copyWith(
-        startCity: startCity ?? state.startCity,
-        destinationCity: destenationCity ?? state.destinationCity,
-        status: status ?? state.status,
-        date: date ?? state.date,
-      ),
-    );
-  }
+  // applyFilter({
+  //   String? startCity,
+  //   String? destenationCity,
+  //   String? date,
+  //   int? status,
+  // }) {
+  //   emit(
+  //     state.copyWith(
+  //       startCity: startCity ?? state.startCity,
+  //       destinationCity: destenationCity ?? state.destinationCity,
+  //       status: status ?? state.status,
+  //       date: date ?? state.date,
+  //     ),
+  //   );
+  // }
 
-  void removeFilters() {
-    emit(
-      state.copyWith(
-        startCity: null,
-        destinationCity: null,
-        date: null,
-        status: null,
-      ),
-    );
-  }
+  // void removeFilters() {
+  //   emit(
+  //     state.copyWith(
+  //       startCity: null,
+  //       destinationCity: null,
+  //       date: null,
+  //       status: null,
+  //     ),
+  //   );
+  // }
 
   Future<void> getHistoryOrders() async {
     final result = await _shipmentsRepository.getHistoryOrders();
@@ -62,39 +46,39 @@ class ShipmentsCubit extends Cubit<ShipmentsStates> {
       (failure) {
         emit(
           state.copyWith(
-            loading: false,
-            error: failure.message,
-            success: false,
+            status: ShipmentsStatus.error,
+            errorMessage: failure.message,
           ),
         );
       },
-      (orders) {
+      (history) {
         emit(
-          state.copyWith(loading: false, success: true, historyOrders: orders),
+          state.copyWith(
+            status: ShipmentsStatus.success,
+            shipmentsHistory: history,
+          ),
         );
       },
     );
   }
 
   Future<void> getActiveShipments() async {
-    state.copyWith(loading: true, activeOrders: []);
+    emit(state.copyWith(status: ShipmentsStatus.loading));
     final result = await _shipmentsRepository.getActiveShpiments();
     result.fold(
       (failure) {
         emit(
           state.copyWith(
-            loading: false,
-            error: failure.message,
-            success: false,
+            errorMessage: failure.message,
+            status: ShipmentsStatus.error,
           ),
         );
       },
       (shpiments) {
         emit(
           state.copyWith(
-            loading: false,
-            success: true,
-            activeOrders: shpiments,
+            status: ShipmentsStatus.success,
+            activeShipments: shpiments,
           ),
         );
       },
@@ -104,12 +88,12 @@ class ShipmentsCubit extends Cubit<ShipmentsStates> {
   updateOrderFromOrders(OrderModel order) async {
     emit(
       state.copyWith(
-        activeOrders:
-            state.activeOrders
+        activeShipments:
+            state.activeShipments
                 .map((e) => e.id == order.id ? order : e)
                 .toList(),
-        historyOrders:
-            state.historyOrders
+        shipmentsHistory:
+            state.shipmentsHistory
                 .map((e) => e.id == order.id ? order : e)
                 .toList(),
       ),

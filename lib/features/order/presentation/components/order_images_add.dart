@@ -11,8 +11,12 @@ class OrderImagesAdd extends StatelessWidget {
   final Function() onAddTap;
   final Function(File image) onImageRemoveTap;
   final List<File> images;
-  const OrderImagesAdd(
-      {super.key, required this.onAddTap, required this.images, required this.onImageRemoveTap});
+  const OrderImagesAdd({
+    super.key,
+    required this.onAddTap,
+    required this.images,
+    required this.onImageRemoveTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +26,15 @@ class OrderImagesAdd extends StatelessWidget {
       children: [
         RichText(
           text: TextSpan(
-              text: AppStrings.enterOrderImages,
-              style: AppTextStyle.font16black500,
-              children: [
-                TextSpan(
-                    text: '   ${AppStrings.minimum3ImagesAndMax5Images}',
-                    style: AppTextStyle.font12desSelected600),
-              ]),
+            text: AppStrings.enterOrderImages,
+            style: AppTextStyle.font16black500,
+            children: [
+              TextSpan(
+                text: '   ${AppStrings.minimum3ImagesAndMax5Images}',
+                style: AppTextStyle.font12desSelected600,
+              ),
+            ],
+          ),
         ),
         Wrap(
           spacing: 10.w,
@@ -43,46 +49,42 @@ class OrderImagesAdd extends StatelessWidget {
               ),
               child: InkWell(
                 onTap: onAddTap,
-                child: const Icon(
-                  Icons.add,
-                  size: 30,
-                ),
+                child: const Icon(Icons.add, size: 30),
               ),
             ),
             ...List.generate(
-                images.length,
-                (index) => Stack(alignment: Alignment.center,
-                      children: [
-                        Container(
-                          width: 65.w,
-                          height: 65.w,
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          foregroundDecoration: BoxDecoration(
-                            color: Colors.black26,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: AppColors.desSelected, width: 1),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Image.file(
-                            images[index],
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        IconButton(
-                            onPressed: () {
-                              onImageRemoveTap.call(images[index]);
-                            },
-                            icon: const Icon(
-                              Icons.remove_circle,
-                              color: AppColors.red,
-                            ))
-                      ],
-                    ))
+              images.length,
+              (index) => Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    width: 65.w,
+                    height: 65.w,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    foregroundDecoration: BoxDecoration(
+                      color: Colors.black26,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColors.desSelected,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Image.file(images[index], fit: BoxFit.cover),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      onImageRemoveTap.call(images[index]);
+                    },
+                    icon: const Icon(Icons.remove_circle, color: AppColors.red),
+                  ),
+                ],
+              ),
+            ),
           ],
-        )
+        ),
       ],
     );
   }
