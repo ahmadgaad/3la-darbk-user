@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiffy/jiffy.dart';
 
-import '../../repositories/model/notifications_model.dart';
+import '../../../data/model/notifications_model.dart';
 
 
 class NotificationItem extends StatelessWidget {

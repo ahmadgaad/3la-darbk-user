@@ -1,11 +1,12 @@
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
+import 'package:ala_darbak_user/core/extensions/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/utils/app_strings.dart';
-import '../../notifications/presentation/manager/notifications_cubit/cubit.dart';
-import '../../notifications/presentation/manager/notifications_cubit/state.dart';
+import '../../notifications/presentation/view_model/notification_states.dart';
+import '../../notifications/presentation/view_model/notifications_cubit.dart';
 
 class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomHomeAppBar({
@@ -31,14 +32,14 @@ class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             icon: BlocBuilder<NotificationsCubit, NotificationsState>(
               builder: (context, state) {
                 return Badge.count(
+                  isLabelVisible: state.notifications.isNotEmpty,
                   count: state.notifications.where((x) => x.isRead == 0).length,
                   child: const Icon(Icons.notifications),
                 );
               },
             ),
             onPressed: () {
-              Navigator.pushNamed(
-                context,
+              context.pushNamed(
                 AppRoutes.notifications,
                 arguments: context.read<NotificationsCubit>(),
               );

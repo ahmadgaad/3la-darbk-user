@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../features/auth/data/repository/repository.dart';
 import '../../features/categories/repositories/repositories.dart';
 import '../../features/map/repositories/map_repo.dart';
-import '../../features/notifications/repositories/repositories.dart';
+import '../../features/notifications/data/repository/notification_repository.dart';
 import '../../features/order/repositories/repositories.dart';
 import '../../features/profile/repositories/repositories.dart';
 import '../../features/setttings_info/repositories/repositories.dart';
