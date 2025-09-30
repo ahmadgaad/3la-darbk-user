@@ -18,6 +18,9 @@ class UnitsField extends StatelessWidget {
         Text(AppStrings.unitsNumber, style: AppTextStyle.font16black500),
         Flexible(
           child: TextFormField(
+            onTapOutside: (event) {
+              FocusScope.of(context).unfocus();
+            },
             controller: controller,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             keyboardType: TextInputType.number,

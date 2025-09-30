@@ -12,9 +12,9 @@ import 'state.dart';
 class OrderMapCubit extends Cubit<OrderMapState> {
   final MapRepo _mapRepo;
   OrderMapCubit(this._mapRepo)
-      : super( OrderMapState(polyline: {}, markers: {}));
+    : super(OrderMapState(polyline: {}, markers: {}));
 
-  static OrderMapCubit get(BuildContext context, ) =>
+  static OrderMapCubit get(BuildContext context) =>
       context.read<OrderMapCubit>();
 
   Completer<GoogleMapController> controller = Completer<GoogleMapController>();
@@ -38,7 +38,7 @@ class OrderMapCubit extends Cubit<OrderMapState> {
   }
 
   double distance = 0;
-  void setMarkersAndPolylines(OrderLocationModel orderLocationModel)  {
+  void setMarkersAndPolylines(OrderLocationModel orderLocationModel) {
     if (orderLocationModel.pickupLocation != null) {
       setPickUpMarker(location: orderLocationModel.pickupLocation!);
     }
@@ -58,11 +58,12 @@ class OrderMapCubit extends Cubit<OrderMapState> {
     final marker = markers[markerId];
     if (marker == null) {
       markers[markerId] = Marker(
-          markerId: markerId,
-          position: location,
-          onTap: () {
-            // _moveCamera(location);
-          });
+        markerId: markerId,
+        position: location,
+        onTap: () {
+          // _moveCamera(location);
+        },
+      );
     } else {
       markers[markerId] = marker.copyWith(positionParam: location);
     }
@@ -76,11 +77,12 @@ class OrderMapCubit extends Cubit<OrderMapState> {
     final marker = markers[markerId];
     if (marker == null) {
       markers[markerId] = Marker(
-          markerId: markerId,
-          position: location,
-          onTap: () {
-            // _moveCamera(location);
-          });
+        markerId: markerId,
+        position: location,
+        onTap: () {
+          // _moveCamera(location);
+        },
+      );
     } else {
       markers[markerId] = marker.copyWith(positionParam: location);
     }
@@ -109,21 +111,26 @@ class OrderMapCubit extends Cubit<OrderMapState> {
       if (route != null) {
         distance = route.totalDistanceValue / 1000;
         polyline[polylineId] = await MapUtils.createPolyline(
-            polylineId: polylineId,
-            points: route.polylinePoints
-                .map((e) => LatLng(e.latitude, e.longitude))
-                .toList());
+          polylineId: polylineId,
+          points:
+              route.polylinePoints
+                  .map((e) => LatLng(e.latitude, e.longitude))
+                  .toList(),
+        );
       } else {
         polyline.remove(polylineId);
-        distance =
-            MapUtils.calculateDistance(fromLocation: origin, toLocation: destination);
+        distance = MapUtils.calculateDistance(
+          fromLocation: origin,
+          toLocation: destination,
+        );
       }
       emit(state.copyWith(polyline: polyline));
       MapUtils.cameraMoveBounds(
-          bounds: route?.bounds,
-          fromLocation: origin,
-          toLocation: destination,
-          controller: controller);
+        bounds: route?.bounds,
+        fromLocation: origin,
+        toLocation: destination,
+        controller: controller,
+      );
     }
   }
 }

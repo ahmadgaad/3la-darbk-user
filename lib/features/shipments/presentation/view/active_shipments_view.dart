@@ -1,3 +1,4 @@
+
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,8 +10,15 @@ import '../view_model/shipments_cubit.dart';
 import '../view_model/shipments_states.dart';
 import 'components/order_item.dart';
 
-class ActiveShipmentsView extends StatelessWidget {
+class ActiveShipmentsView extends StatefulWidget {
   const ActiveShipmentsView({super.key});
+
+  @override
+  State<ActiveShipmentsView> createState() => _ActiveShipmentsViewState();
+}
+
+class _ActiveShipmentsViewState extends State<ActiveShipmentsView> {
+
 
   @override
   Widget build(BuildContext context) {
