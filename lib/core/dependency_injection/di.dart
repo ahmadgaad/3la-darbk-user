@@ -14,7 +14,7 @@ import '../../features/map/data/repository/map_repo.dart';
 import '../../features/notifications/data/repository/notification_repository.dart';
 import '../../features/order/repositories/repositories.dart';
 import '../../features/profile/repositories/repositories.dart';
-import '../../features/setttings_info/repositories/repositories.dart';
+import '../../features/settings/repositories/repositories.dart';
 import '../../features/shipments/data/shipments_repository.dart';
 import '../../features/trips/data/repositories.dart';
 import '../config/app_config.dart';

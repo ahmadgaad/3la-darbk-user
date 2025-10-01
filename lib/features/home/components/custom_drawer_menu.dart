@@ -12,7 +12,7 @@ import '../../../core/widgets/app_image_view.dart';
 import '../../profile/presentation/manager/profile_cubit/cubit.dart';
 import '../../profile/presentation/manager/profile_cubit/state.dart';
 import '../../profile/presentation/widgets/delete_account_dialog.dart';
-import '../../setttings_info/presentation/manager/cubit.dart';
+import '../../settings/presentation/manager/cubit.dart';
 import '../../shipments/presentation/view_model/shipments_cubit.dart';
 
 class CustomDrawerMenu extends StatelessWidget {

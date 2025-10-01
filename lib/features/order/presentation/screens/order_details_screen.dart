@@ -12,7 +12,7 @@ import '../../../../core/services/payment/payment_dialog.dart';
 import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/app_image_view.dart';
 import '../../../../core/widgets/app_toaster.dart';
-import '../../../setttings_info/presentation/manager/cubit.dart';
+import '../../../settings/presentation/manager/cubit.dart';
 import '../../repositories/model/driver_model.dart';
 import '../components/order_images.dart';
 import '../components/order_locations.dart';

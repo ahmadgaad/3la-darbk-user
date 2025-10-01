@@ -19,9 +19,9 @@ import '../../../features/shipments/presentation/view_model/shipments_cubit.dart
 import '../../../features/shipments/presentation/view/history_orders_screen.dart';
 import '../../../features/profile/presentation/pages/change_password_screen.dart';
 import '../../../features/profile/presentation/pages/edit_profile_screen.dart';
-import '../../../features/setttings_info/presentation/pages/about_us_screen.dart';
-import '../../../features/setttings_info/presentation/pages/policy_screen.dart';
-import '../../../features/setttings_info/presentation/pages/terms_condtions_screen.dart';
+import '../../../features/settings/presentation/pages/about_us_screen.dart';
+import '../../../features/settings/presentation/pages/policy_screen.dart';
+import '../../../features/settings/presentation/pages/terms_condtions_screen.dart';
 import '../../../features/trips/presentation/view_model/cities/cubit.dart';
 import '../../../features/trips/presentation/view_model/trips/trips_cubit.dart';
 import '../../dependency_injection/di.dart';

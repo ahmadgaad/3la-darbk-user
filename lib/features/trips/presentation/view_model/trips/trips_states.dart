@@ -7,7 +7,6 @@ import '../../../data/model/trip_model.dart';
 class TripsState extends Equatable {
   final CityModel? startCity;
   final CityModel? destenationCity;
-  final String? date;
   final List<TripModel> activeTrips;
   final List<OrderModel> orders;
   final bool loading;
@@ -18,9 +17,9 @@ class TripsState extends Equatable {
     this.activeTrips = const [],
     this.startCity,
     this.destenationCity,
-    this.date,
+
     this.loading = false,
-    this.error=false,
+    this.error = false,
   });
 
   TripsState copyWith({
@@ -37,7 +36,7 @@ class TripsState extends Equatable {
       orders: orders ?? this.orders,
       startCity: startCity,
       destenationCity: destenationCity,
-      date: date,
+
       loading: loading ?? this.loading,
       error: error ?? this.error,
     );
@@ -45,12 +44,11 @@ class TripsState extends Equatable {
 
   @override
   List<Object?> get props => [
-        activeTrips,
-        startCity,
-        destenationCity,
-        orders,
-        date,
-        loading,
-        error,
-      ];
+    activeTrips,
+    startCity,
+    destenationCity,
+    orders,
+    loading,
+    error,
+  ];
 }

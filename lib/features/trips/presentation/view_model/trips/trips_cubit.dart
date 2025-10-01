@@ -10,16 +10,11 @@ class TripsCubit extends Cubit<TripsState> {
     getActiveTrips();
   }
 
-  applyFilter({
-    CityModel? startCity,
-    CityModel? destenationCity,
-    String? date,
-  }) {
+  applyFilter({CityModel? startCity, CityModel? destenationCity}) {
     emit(
       state.copyWith(
         startCity: startCity ?? state.startCity,
         destenationCity: destenationCity ?? state.destenationCity,
-        date: date ?? state.date,
       ),
     );
   }
@@ -29,6 +24,7 @@ class TripsCubit extends Cubit<TripsState> {
   }
 
   getActiveTrips() async {
+    emit(state.copyWith(loading: true));
     final result = await _tripsRepository.getActiveTrips();
     result.fold(
       (trips) {

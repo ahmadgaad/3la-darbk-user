@@ -12,7 +12,7 @@ import 'core/dependency_injection/di.dart';
 import 'core/widgets/splash_screen.dart';
 import 'features/order/presentation/manager/order_cubit/cubit.dart';
 import 'features/profile/presentation/manager/profile_cubit/cubit.dart';
-import 'features/setttings_info/presentation/manager/cubit.dart';
+import 'features/settings/presentation/manager/cubit.dart';
 
 class AlaDarbkUserApp extends StatelessWidget {
   const AlaDarbkUserApp({super.key});
