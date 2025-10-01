@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/config/style/app_theme.dart';
 import '../../shipments/presentation/view/active_shipments_view.dart';
 import '../../profile/presentation/manager/profile_cubit/cubit.dart';
-import '../../trips/presentation/pages/trips_view.dart';
+import '../../trips/presentation/view/trips_view.dart';
 import '../components/custom_drawer_menu.dart';
 
 class HomeScreen extends StatefulWidget {

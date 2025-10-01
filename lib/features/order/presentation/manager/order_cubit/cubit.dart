@@ -9,7 +9,7 @@ import '../../../../categories/repositories/models/category_model.dart';
 import '../../../../map/data/models/order_location_model.dart';
 import '../../../../setttings_info/presentation/manager/cubit.dart'
     show SettingsInfoCubit;
-import '../../../../trips/repositories/model/trip_model.dart';
+import '../../../../trips/data/model/trip_model.dart';
 import '../../../repositories/model/order_model.dart';
 import '../../../repositories/repositories.dart';
 import 'state.dart';

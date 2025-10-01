@@ -8,11 +8,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/config/style/app_color.dart';
 import '../../../../core/config/style/app_text_styles.dart';
-import '../../../../core/utils/app_strings.dart';
 import '../../../../core/services/payment/payment_dialog.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/app_image_view.dart';
 import '../../../../core/widgets/app_toaster.dart';
-import '../../../../temp/app_temp.dart';
 import '../../../setttings_info/presentation/manager/cubit.dart';
 import '../../repositories/model/driver_model.dart';
 import '../components/order_images.dart';
@@ -32,6 +31,11 @@ class OrderDetailsScreen extends StatefulWidget {
 }
 
 class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
+  final List<String> sizes = [
+    AppStrings.small,
+    AppStrings.medium,
+    AppStrings.larage,
+  ];
   @override
   void initState() {
     super.initState();

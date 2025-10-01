@@ -1,7 +1,7 @@
 
 import 'package:equatable/equatable.dart';
 
-import '../../../repositories/model/city_model.dart';
+import '../../../data/model/city_model.dart';
 
 class CitiesState extends Equatable {
   final List<CityModel> cities;

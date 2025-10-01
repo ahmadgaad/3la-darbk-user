@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/config/style/app_text_styles.dart';
 import '../../../../core/utils/app_strings.dart';
-import '../../repositories/model/city_model.dart';
-import '../manager/cities/cubit.dart';
-import '../manager/cities/state.dart';
-import '../manager/trips/cubit.dart';
-import '../manager/trips/state.dart';
-import '../widgets/trip_item.dart';
+import '../../data/model/city_model.dart';
+import '../view_model/cities/cubit.dart';
+import '../view_model/cities/state.dart';
+import '../view_model/trips/trips_cubit.dart';
+import '../view_model/trips/trips_states.dart';
+import 'components/trip_item.dart';
 
 class TripsView extends StatelessWidget {
   const TripsView({super.key});

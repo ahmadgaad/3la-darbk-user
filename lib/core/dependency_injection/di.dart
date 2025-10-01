@@ -16,7 +16,7 @@ import '../../features/order/repositories/repositories.dart';
 import '../../features/profile/repositories/repositories.dart';
 import '../../features/setttings_info/repositories/repositories.dart';
 import '../../features/shipments/data/shipments_repository.dart';
-import '../../features/trips/repositories/repositories.dart';
+import '../../features/trips/data/repositories.dart';
 import '../config/app_config.dart';
 import '../heplers/shared_preferences_service.dart';
 import '../networking/api_client.dart';

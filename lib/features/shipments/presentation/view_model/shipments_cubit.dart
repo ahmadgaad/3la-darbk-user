@@ -52,12 +52,7 @@ class ShipmentsCubit extends Cubit<ShipmentsState> {
         );
       },
       (history) {
-        emit(
-          state.copyWith(
-            status: ShipmentsStatus.success,
-            shipmentsHistory: history,
-          ),
-        );
+        emit(state.copyWith(shipmentsHistory: history));
       },
     );
   }

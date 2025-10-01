@@ -22,8 +22,8 @@ import '../../../features/profile/presentation/pages/edit_profile_screen.dart';
 import '../../../features/setttings_info/presentation/pages/about_us_screen.dart';
 import '../../../features/setttings_info/presentation/pages/policy_screen.dart';
 import '../../../features/setttings_info/presentation/pages/terms_condtions_screen.dart';
-import '../../../features/trips/presentation/manager/cities/cubit.dart';
-import '../../../features/trips/presentation/manager/trips/cubit.dart';
+import '../../../features/trips/presentation/view_model/cities/cubit.dart';
+import '../../../features/trips/presentation/view_model/trips/trips_cubit.dart';
 import '../../dependency_injection/di.dart';
 
 part 'app_router.dart';

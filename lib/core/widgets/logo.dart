@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../generated/assets.dart';
+import '../utils/assets.dart';
 
 class Logo extends StatelessWidget {
   final double size;

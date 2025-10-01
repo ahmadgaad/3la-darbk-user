@@ -4,7 +4,7 @@
 
 import 'dart:io';
 
-import 'package:ala_darbak_user/features/trips/repositories/model/trip_model.dart';
+import 'package:ala_darbak_user/features/trips/data/model/trip_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../core/heplers/file_utils.dart';

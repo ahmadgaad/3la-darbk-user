@@ -1,4 +1,3 @@
-
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,14 +17,11 @@ class ActiveShipmentsView extends StatefulWidget {
 }
 
 class _ActiveShipmentsViewState extends State<ActiveShipmentsView> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<ShipmentsCubit, ShipmentsState>(
         builder: (context, state) {
-          final activeShipments = state.activeShipments;
           return RefreshIndicator(
             onRefresh: () async {
               await context.read<ShipmentsCubit>().getActiveShipments();
@@ -36,10 +32,8 @@ class _ActiveShipmentsViewState extends State<ActiveShipmentsView> {
               ShipmentsStatus.error => Center(
                 child: Text(state.errorMessage ?? ""),
               ),
-
-              ShipmentsStatus.success =>
-                activeShipments.isEmpty
-                    ? const Center(
+              ShipmentsStatus.success => state.activeShipments.isEmpty
+                  ? const Center(
                       child: Text(
                         AppStrings.noOrders,
                         style: TextStyle(
@@ -48,20 +42,18 @@ class _ActiveShipmentsViewState extends State<ActiveShipmentsView> {
                         ),
                       ),
                     )
-                    : ListView.separated(
+                  : ListView.separated(
                       padding: EdgeInsets.only(
                         left: 20.w,
                         right: 20.w,
                         top: 24.h,
                         bottom: 115,
                       ),
-                      itemBuilder:
-                          (BuildContext context, int index) =>
-                              OrderItem(orderModel: activeShipments[index]),
-                      separatorBuilder:
-                          (BuildContext context, int index) =>
-                              15.verticalSpaceFromWidth,
-                      itemCount: activeShipments.length,
+                      itemBuilder: (BuildContext context, int index) =>
+                          OrderItem(orderModel: state.activeShipments[index]),
+                      separatorBuilder: (BuildContext context, int index) =>
+                          15.verticalSpaceFromWidth,
+                      itemCount: state.activeShipments.length,
                     ),
             },
           );

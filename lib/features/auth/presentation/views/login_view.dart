@@ -1,4 +1,5 @@
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
+import 'package:ala_darbak_user/core/extensions/navigation.dart';
 import 'package:ala_darbak_user/core/heplers/regex.dart';
 import 'package:ala_darbak_user/core/heplers/saudi_number_formater.dart';
 import 'package:ala_darbak_user/core/widgets/custom_text_form_field.dart';
@@ -34,11 +35,7 @@ class _LoginViewState extends State<LoginView>
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state.isSuccess) {
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            AppRoutes.home,
-            (_) => false,
-          );
+          context.pushNamedAndRemoveUntil(AppRoutes.home, (_) => false);
         }
       },
       child: ListView(
@@ -102,7 +99,7 @@ class _LoginViewState extends State<LoginView>
                 10.verticalSpaceFromWidth,
                 TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, AppRoutes.forgePassword);
+                    context.pushNamed(AppRoutes.forgePassword);
                   },
                   child: Text(
                     AppStrings.forgetPassword,
