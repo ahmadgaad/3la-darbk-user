@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import '../../../../categories/repositories/models/category_model.dart';
-import '../../../../map/repositories/models/order_location_model.dart';
-import '../../../../trips/repositories/model/trip_model.dart';
+import '../../../../map/data/models/order_location_model.dart';
+import '../../../../trips/data/model/trip_model.dart';
 import '../../../repositories/model/order_model.dart';
 
 class OrderState extends Equatable {

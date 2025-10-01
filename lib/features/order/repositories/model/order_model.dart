@@ -4,13 +4,13 @@
 
 import 'dart:io';
 
-import 'package:ala_darbak_user/features/trips/repositories/model/trip_model.dart';
+import 'package:ala_darbak_user/features/trips/data/model/trip_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../core/heplers/file_utils.dart';
 import '../../../auth/data/models/user_model.dart';
 import '../../../categories/repositories/models/category_model.dart';
-import '../../../map/repositories/models/order_location_model.dart';
+import '../../../map/data/models/order_location_model.dart';
 import 'driver_model.dart';
 
 class OrderModel {

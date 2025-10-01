@@ -5,7 +5,7 @@ import '../../../../core/config/style/app_color.dart';
 import '../../../../core/config/style/app_text_styles.dart';
 import '../../../../core/utils/app_strings.dart';
 import '../../../../core/heplers/map_utils.dart';
-import '../../../map/repositories/models/order_location_model.dart';
+import '../../../map/data/models/order_location_model.dart';
 
 class OrderLocations extends StatelessWidget {
   final OrderLocationModel? orderLocationModel;

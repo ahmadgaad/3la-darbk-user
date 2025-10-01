@@ -6,10 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/heplers/image_picker.dart';
 import '../../../../categories/repositories/models/category_model.dart';
-import '../../../../map/repositories/models/order_location_model.dart';
-import '../../../../setttings_info/presentation/manager/cubit.dart'
+import '../../../../map/data/models/order_location_model.dart';
+import '../../../../settings/presentation/manager/cubit.dart'
     show SettingsInfoCubit;
-import '../../../../trips/repositories/model/trip_model.dart';
+import '../../../../trips/data/model/trip_model.dart';
 import '../../../repositories/model/order_model.dart';
 import '../../../repositories/repositories.dart';
 import 'state.dart';

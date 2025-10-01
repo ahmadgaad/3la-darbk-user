@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
+import 'package:ala_darbak_user/core/extensions/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
 
 import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/app_toaster.dart';
@@ -13,8 +17,25 @@ import '../components/units_field.dart';
 import '../manager/order_cubit/cubit.dart';
 import '../manager/order_cubit/state.dart';
 
-class NewOrderScreen extends StatelessWidget {
+class NewOrderScreen extends StatefulWidget {
   const NewOrderScreen({super.key});
+
+  @override
+  State<NewOrderScreen> createState() => _NewOrderScreenState();
+}
+
+class _NewOrderScreenState extends State<NewOrderScreen> {
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isAndroid) {
+      /// The first time a map is shown,
+      /// the Google Maps SDK may briefly block the main thread,
+      /// which could cause UI jank.
+      /// If you prefer to control when this happens,
+      GoogleMapsFlutterAndroid().warmup();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +103,7 @@ class NewOrderScreen extends StatelessWidget {
 
                   if ((state.formKey.currentState?.validate() ?? false) &&
                       imagesValid) {
-                    Navigator.pushNamed(context, AppRoutes.pickLocation);
+                    context.pushNamed(AppRoutes.pickLocation);
                   } else if (!imagesValid) {
                     AppToaster.show(AppStrings.mustEnterImagesBeteween3And5);
                     return;
