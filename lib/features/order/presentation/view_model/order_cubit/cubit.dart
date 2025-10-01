@@ -10,8 +10,8 @@ import '../../../../map/data/models/order_location_model.dart';
 import '../../../../settings/presentation/manager/cubit.dart'
     show SettingsInfoCubit;
 import '../../../../trips/data/model/trip_model.dart';
-import '../../../repositories/model/order_model.dart';
-import '../../../repositories/repositories.dart';
+import '../../../data/model/order_model.dart';
+import '../../../data/repository/order_repository.dart';
 import 'state.dart';
 
 class OrderCubit extends Cubit<OrderState> {

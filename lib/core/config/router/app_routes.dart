@@ -10,11 +10,11 @@ import '../../../features/categories/presentation/pages/select_category_screen.d
 import '../../../features/home/view/home_screen.dart';
 import '../../../features/notifications/presentation/view_model/notifications_cubit.dart';
 import '../../../features/notifications/presentation/view/notifications_screen.dart';
-import '../../../features/order/presentation/manager/order_map_cubit/cubit.dart';
-import '../../../features/order/presentation/screens/new_order_screen.dart';
-import '../../../features/order/presentation/screens/order_details_screen.dart';
-import '../../../features/order/presentation/screens/order_edit_screen.dart';
-import '../../../features/order/presentation/screens/order_location_pickup_screen.dart';
+import '../../../features/order/presentation/view_model/order_map_cubit/cubit.dart';
+import '../../../features/order/presentation/view/new_order_screen.dart';
+import '../../../features/order/presentation/view/order_details_screen.dart';
+import '../../../features/order/presentation/view/order_edit_screen.dart';
+import '../../../features/order/presentation/view/order_location_pickup_screen.dart';
 import '../../../features/shipments/presentation/view_model/shipments_cubit.dart';
 import '../../../features/shipments/presentation/view/history_orders_screen.dart';
 import '../../../features/profile/presentation/pages/change_password_screen.dart';

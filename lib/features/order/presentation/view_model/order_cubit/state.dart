@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../categories/repositories/models/category_model.dart';
 import '../../../../map/data/models/order_location_model.dart';
 import '../../../../trips/data/model/trip_model.dart';
-import '../../../repositories/model/order_model.dart';
+import '../../../data/model/order_model.dart';
 
 class OrderState extends Equatable {
   final int orderSize;

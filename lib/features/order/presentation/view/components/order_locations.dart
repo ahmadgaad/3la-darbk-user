@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../../core/config/style/app_color.dart';
-import '../../../../core/config/style/app_text_styles.dart';
-import '../../../../core/utils/app_strings.dart';
-import '../../../../core/heplers/map_utils.dart';
-import '../../../map/data/models/order_location_model.dart';
+import '../../../../../core/config/style/app_color.dart';
+import '../../../../../core/config/style/app_text_styles.dart';
+import '../../../../../core/utils/app_strings.dart';
+import '../../../../../core/heplers/map_utils.dart';
+import '../../../../map/data/models/order_location_model.dart';
 
 class OrderLocations extends StatelessWidget {
   final OrderLocationModel? orderLocationModel;

@@ -1,11 +1,11 @@
-import '../../../../core/config/style/app_color.dart';
+import '../../../../../core/config/style/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/config/style/app_text_styles.dart';
-import '../../../../core/utils/app_strings.dart';
-import '../manager/order_cubit/cubit.dart';
-import '../manager/order_cubit/state.dart';
+import '../../../../../core/config/style/app_text_styles.dart';
+import '../../../../../core/utils/app_strings.dart';
+import '../../view_model/order_cubit/cubit.dart';
+import '../../view_model/order_cubit/state.dart';
 
 class PriceRaise extends StatelessWidget {
   final double historicalAverage;

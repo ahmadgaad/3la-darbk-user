@@ -7,8 +7,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../../core/config/style/app_color.dart';
 import '../../../../../core/config/style/app_text_styles.dart';
 import '../../../../../core/utils/app_strings.dart';
-import '../../../../order/presentation/manager/order_cubit/cubit.dart';
-import '../../../../order/repositories/model/order_model.dart';
+import '../../../../order/presentation/view_model/order_cubit/cubit.dart';
+import '../../../../order/data/model/order_model.dart';
 
 class OrderItem extends StatelessWidget {
   final OrderModel? orderModel;

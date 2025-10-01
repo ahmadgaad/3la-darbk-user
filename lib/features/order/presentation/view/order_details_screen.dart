@@ -13,13 +13,13 @@ import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/app_image_view.dart';
 import '../../../../core/widgets/app_toaster.dart';
 import '../../../settings/presentation/manager/cubit.dart';
-import '../../repositories/model/driver_model.dart';
-import '../components/order_images.dart';
-import '../components/order_locations.dart';
-import '../components/order_track.dart';
-import '../components/price_raise.dart';
-import '../manager/order_cubit/cubit.dart';
-import '../manager/order_cubit/state.dart';
+import '../../data/model/driver_model.dart';
+import 'components/order_images.dart';
+import 'components/order_locations.dart';
+import 'components/order_track.dart';
+import 'components/price_raise.dart';
+import '../view_model/order_cubit/cubit.dart';
+import '../view_model/order_cubit/state.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
   final int orderId;

@@ -9,13 +9,13 @@ import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
 
 import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/app_toaster.dart';
-import '../components/additional_details_field.dart';
-import '../components/order_images_add.dart';
-import '../components/order_size_select.dart';
-import '../components/recipient_info_form.dart';
-import '../components/units_field.dart';
-import '../manager/order_cubit/cubit.dart';
-import '../manager/order_cubit/state.dart';
+import 'components/additional_details_field.dart';
+import 'components/order_images_add.dart';
+import 'components/order_size_select.dart';
+import 'components/recipient_info_form.dart';
+import 'components/units_field.dart';
+import '../view_model/order_cubit/cubit.dart';
+import '../view_model/order_cubit/state.dart';
 
 class NewOrderScreen extends StatefulWidget {
   const NewOrderScreen({super.key});

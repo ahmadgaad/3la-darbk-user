@@ -10,7 +10,7 @@ import 'core/config/style/app_theme.dart';
 import 'core/controller/app_cubit.dart';
 import 'core/dependency_injection/di.dart';
 import 'core/widgets/splash_screen.dart';
-import 'features/order/presentation/manager/order_cubit/cubit.dart';
+import 'features/order/presentation/view_model/order_cubit/cubit.dart';
 import 'features/profile/presentation/manager/profile_cubit/cubit.dart';
 import 'features/settings/presentation/manager/cubit.dart';
 
