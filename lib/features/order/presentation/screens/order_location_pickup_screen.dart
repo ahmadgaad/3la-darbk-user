@@ -7,7 +7,7 @@ import '../../../../core/config/style/app_color.dart';
 import '../../../../core/config/style/app_text_styles.dart';
 import '../../../../core/utils/app_strings.dart';
 import '../../../../core/heplers/map_utils.dart';
-import '../../../map/presentation/widgets/order_map.dart';
+import '../../../map/presentation/view/components/order_map.dart';
 import '../manager/order_cubit/cubit.dart';
 import '../manager/order_cubit/state.dart';
 import '../components/order_pick_locations.dart';

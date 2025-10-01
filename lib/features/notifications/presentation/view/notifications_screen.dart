@@ -38,7 +38,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         builder: (context, state) {
           return RefreshIndicator(
             onRefresh: () async {
-              await context.read<NotificationsCubit>().getNotifications();
+              await context.read<NotificationsCubit>().getNotifications(forceRefresh: true);
             },
             child: switch (state.status) {
               NotificationStatus.initial || NotificationStatus.loading =>

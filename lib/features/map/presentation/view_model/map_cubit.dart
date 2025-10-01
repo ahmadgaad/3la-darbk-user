@@ -6,10 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../core/heplers/map_utils.dart';
-import '../../repositories/map_repo.dart';
-import '../../repositories/models/suggestion_model.dart';
-import '../widgets/search_google_map.dart';
-import 'state.dart';
+import '../../data/repository/map_repo.dart';
+import '../../data/models/suggestion_model.dart';
+import '../view/components/search_google_map.dart';
+import 'map_states.dart';
 
 class PickLocationCubit extends Cubit<PickLocationState> {
   final MapRepo _mapRepo;

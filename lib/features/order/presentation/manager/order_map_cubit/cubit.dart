@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../../core/heplers/map_utils.dart';
-import '../../../../map/repositories/map_repo.dart';
-import '../../../../map/repositories/models/order_location_model.dart';
+import '../../../../map/data/repository/map_repo.dart';
+import '../../../../map/data/models/order_location_model.dart';
 import 'state.dart';
 
 class OrderMapCubit extends Cubit<OrderMapState> {

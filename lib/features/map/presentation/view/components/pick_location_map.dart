@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../../core/config/style/app_color.dart';
-import '../manager/cubit.dart';
-import '../manager/state.dart';
+import '../../../../../core/config/style/app_color.dart';
+import '../../view_model/map_cubit.dart';
+import '../../view_model/map_states.dart';
 
 class PickLocationMap extends StatelessWidget {
   const PickLocationMap({super.key});

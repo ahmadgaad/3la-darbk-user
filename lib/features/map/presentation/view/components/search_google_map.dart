@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 
-import '../../../../core/config/style/app_color.dart';
-import '../../../../core/config/style/app_text_styles.dart';
-import '../../repositories/map_repo.dart';
-import '../../repositories/models/suggestion_model.dart';
+import '../../../../../core/config/style/app_color.dart';
+import '../../../../../core/config/style/app_text_styles.dart';
+import '../../../data/repository/map_repo.dart';
+import '../../../data/models/suggestion_model.dart';
 
 class AddressSearch extends SearchDelegate<SuggestionModel> {
   final LatLng _position;

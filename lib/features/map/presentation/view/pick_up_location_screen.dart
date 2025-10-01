@@ -5,9 +5,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../core/config/style/app_color.dart';
 import '../../../../core/utils/app_strings.dart';
 import '../../../../core/dependency_injection/di.dart';
-import '../manager/cubit.dart';
-import '../manager/state.dart';
-import '../widgets/pick_location_map.dart';
+import '../view_model/map_cubit.dart';
+import '../view_model/map_states.dart';
+import 'components/pick_location_map.dart';
 
 class PickLocationScreen extends StatelessWidget {
   final LatLng? initialLocation;

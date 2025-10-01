@@ -5,11 +5,11 @@ import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' show Client;
 
-import '../../../core/config/app_config.dart';
-import '../../../core/dependency_injection/di.dart';
-import 'models/place_model.dart';
-import 'models/route_model.dart';
-import 'models/suggestion_model.dart';
+import '../../../../core/config/app_config.dart';
+import '../../../../core/dependency_injection/di.dart';
+import '../models/place_model.dart';
+import '../models/route_model.dart';
+import '../models/suggestion_model.dart';
 
 abstract class MapRepo {
   Future<List<SuggestionModel>> fetchSuggestions(

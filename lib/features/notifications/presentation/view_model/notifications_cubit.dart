@@ -8,7 +8,9 @@ class NotificationsCubit extends Cubit<NotificationsState> {
   NotificationsCubit(this._notificationsRepo)
     : super(const NotificationsState(status: NotificationStatus.initial));
 
-  Future<void> getNotifications() async {
+  Future<void> getNotifications({bool forceRefresh = false}) async {
+    if (state.notifications.isNotEmpty && !forceRefresh) return;
+
     emit(state.copyWith(status: NotificationStatus.loading, notifications: []));
     final result = await _notificationsRepo.getNotifications();
     result.fold(

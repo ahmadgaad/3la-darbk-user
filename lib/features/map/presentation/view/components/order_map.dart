@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../order/presentation/manager/order_map_cubit/cubit.dart';
-import '../../../order/presentation/manager/order_map_cubit/state.dart';
+import '../../../../order/presentation/manager/order_map_cubit/cubit.dart';
+import '../../../../order/presentation/manager/order_map_cubit/state.dart';
 
 class OrderGoogleMap extends StatelessWidget {
   const OrderGoogleMap({super.key});

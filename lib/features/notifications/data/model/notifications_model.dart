@@ -8,15 +8,16 @@ class NotificationsModel {
   String? createdAt;
   String? updatedAt;
 
-  NotificationsModel(
-      {this.id,
-      this.title,
-      this.body,
-      this.isRead,
-      this.readAt,
-      this.driverId,
-      this.createdAt,
-      this.updatedAt});
+  NotificationsModel({
+    this.id,
+    this.title,
+    this.body,
+    this.isRead,
+    this.readAt,
+    this.driverId,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   NotificationsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -28,7 +29,7 @@ class NotificationsModel {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
- NotificationsModel copyWith({
+  NotificationsModel copyWith({
     int? id,
     String? title,
     String? body,
@@ -37,7 +38,7 @@ class NotificationsModel {
     int? driverId,
     String? createdAt,
     String? updatedAt,
-    }) {
+  }) {
     return NotificationsModel(
       id: id ?? this.id,
       title: title ?? this.title,
@@ -48,7 +49,8 @@ class NotificationsModel {
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
-    }
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
