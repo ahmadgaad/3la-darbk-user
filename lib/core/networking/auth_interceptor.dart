@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 import '../dependency_injection/di.dart';
-import '../heplers/shared_preferences_service.dart';
+import '../heplers/shared_preferences_helper.dart';
 import 'api_end_points.dart';
 
 class AuthInterceptor extends Interceptor {
@@ -10,7 +10,6 @@ class AuthInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    
     final listOfPaths = <String>[
       ApiEndPoints.login,
       ApiEndPoints.register,
@@ -18,14 +17,16 @@ class AuthInterceptor extends Interceptor {
       ApiEndPoints.forgetPassword,
       ApiEndPoints.categories,
       ApiEndPoints.cities,
-      ApiEndPoints.settingsInfo
+      ApiEndPoints.settingsInfo,
     ];
 
     if (listOfPaths.contains(options.path.toString())) {
       return handler.next(options);
     }
 
-    options.headers.addAll({'Authorization': "Bearer ${sl<SharedPreferencesService>().token}"});
+    options.headers.addAll({
+      'Authorization': "Bearer ${sl<SharedPreferencesHelper>().token}",
+    });
     return handler.next(options);
   }
 

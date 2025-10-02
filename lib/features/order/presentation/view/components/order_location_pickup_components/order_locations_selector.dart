@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../../../core/config/style/app_color.dart';
 import '../../../../../../core/config/style/app_text_styles.dart';
 import '../../../../../../core/utils/app_strings.dart';
-import '../../../../../map/presentation/view/pick_up_location_screen.dart';
+import '../../../../../map/presentation/view/location_selection_screen.dart';
 import '../../../view_model/order_cubit/cubit.dart';
 import '../../../view_model/order_cubit/state.dart';
 import '../../../view_model/order_map_cubit/cubit.dart';
@@ -59,7 +59,7 @@ class OrderLocationSelector extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder:
-                                (context) => PickLocationScreen(
+                                (context) => LocationSelectionScreen(
                                   initialLocation:
                                       orderLocationModel.pickupLocation,
                                   isDestination: false,
@@ -101,7 +101,7 @@ class OrderLocationSelector extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder:
-                                (context) => PickLocationScreen(
+                                (context) => LocationSelectionScreen(
                                   initialLocation:
                                       orderLocationModel.destinationLocation ??
                                       orderLocationModel.pickupLocation,

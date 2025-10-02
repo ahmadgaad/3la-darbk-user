@@ -1,6 +1,6 @@
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:ala_darbak_user/core/extensions/navigation.dart';
-import 'package:ala_darbak_user/core/heplers/regex.dart';
+import 'package:ala_darbak_user/core/heplers/regex_helper.dart';
 import 'package:ala_darbak_user/core/heplers/saudi_number_formater.dart';
 import 'package:ala_darbak_user/core/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +63,7 @@ class _LoginViewState extends State<LoginView>
                   validator: (phoneNumber) {
                     if (phoneNumber == null || phoneNumber.isEmpty) {
                       return "من فضلك أدخل رقم الجوال";
-                    } else if (!Regex.isPhoneNumberValid(phoneNumber)) {
+                    } else if (!RegexHelper.isPhoneNumberValid(phoneNumber)) {
                       return "من فضلك أدخل رقم جوال صحيح";
                     }
                     return null;

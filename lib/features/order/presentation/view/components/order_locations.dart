@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../../../../../core/config/style/app_color.dart';
 import '../../../../../core/config/style/app_text_styles.dart';
+import '../../../../../core/heplers/location_helper.dart';
 import '../../../../../core/utils/app_strings.dart';
-import '../../../../../core/heplers/map_utils.dart';
 import '../../../../map/data/models/order_location_model.dart';
 
 class OrderLocations extends StatelessWidget {
@@ -18,13 +19,13 @@ class OrderLocations extends StatelessWidget {
       onTap: () {
         final orderLocationModel = this.orderLocationModel;
         if (orderLocationModel != null) {
-          MapUtils.launchDirections(
-              fromLocation: orderLocationModel.pickupLocation!,
-              toLocation: orderLocationModel.destinationLocation!);
+          LocationHelper.launchDirections(
+            fromLocation: orderLocationModel.pickupLocation!,
+            toLocation: orderLocationModel.destinationLocation!,
+          );
         }
       },
       child: Padding(
-        
         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.w),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -42,7 +43,7 @@ class OrderLocations extends StatelessWidget {
                   height: 50.w,
                   color: AppColors.desSelected,
                 ),
-                const Icon(Icons.gps_not_fixed)
+                const Icon(Icons.gps_not_fixed),
               ],
             ),
             Expanded(

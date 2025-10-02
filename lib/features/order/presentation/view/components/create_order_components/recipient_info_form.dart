@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../core/config/style/app_text_styles.dart';
-import '../../../../../../core/heplers/regex.dart';
+import '../../../../../../core/heplers/regex_helper.dart';
 import '../../../../../../core/utils/app_strings.dart';
 
 class RecipientInfoForm extends StatelessWidget {
@@ -26,7 +26,7 @@ class RecipientInfoForm extends StatelessWidget {
           controller: nameController,
           keyboardType: TextInputType.name,
           validator: (value) {
-            if (!Regex.isNameValid(value)) {
+            if (!RegexHelper.isNameValid(value)) {
               return "من فضلك أدخل الاسم كاملًا (الاسم الأول واسم العائلة)";
             }
             return null;
@@ -47,7 +47,7 @@ class RecipientInfoForm extends StatelessWidget {
           controller: phoneController,
           keyboardType: TextInputType.phone,
           validator: (value) {
-            if (!Regex.isPhoneNumberValid(value)) {
+            if (!RegexHelper.isPhoneNumberValid(value)) {
               return "أدخل رقم سعودي صحيح يبدأ بـ 5 ويتكون من 9 أرقام";
             }
             return null;

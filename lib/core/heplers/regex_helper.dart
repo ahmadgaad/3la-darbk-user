@@ -1,6 +1,6 @@
 import '../utils/app_strings.dart';
 
-class Regex {
+class RegexHelper {
   static bool isNameValid(String? name) {
     if (name == null || name.trim().isEmpty) return false;
 

@@ -1,11 +1,12 @@
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../networking/exceptions.dart';
 
-class SharedPreferencesService {
+class SharedPreferencesHelper {
   final SharedPreferences _sharedPreferences;
 
-  SharedPreferencesService({required SharedPreferences sharedPreferences})
-      : _sharedPreferences = sharedPreferences;
+  SharedPreferencesHelper({required SharedPreferences sharedPreferences})
+    : _sharedPreferences = sharedPreferences;
 
   dynamic getData({required String key}) {
     return _sharedPreferences.get(key);
@@ -44,11 +45,13 @@ class SharedPreferencesService {
       throw AppException("Error in clearing data");
     }
   }
-     String? get token => getData(key: 'token');
-   setToken(String? token) async {
-     await saveData(key: 'token', value: token as String);
+
+  String? get token => getData(key: 'token');
+  setToken(String? token) async {
+    await saveData(key: 'token', value: token as String);
   }
-   removeToken() async {
-     await removeData('token');
+
+  removeToken() async {
+    await removeData('token');
   }
 }

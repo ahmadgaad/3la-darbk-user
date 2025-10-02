@@ -11,7 +11,7 @@ class AddressSearch extends SearchDelegate<SuggestionModel> {
 
   AddressSearch(this._position, this._mapRepo);
 
-  final MapRepo _mapRepo;
+  final MapRepository _mapRepo;
 
   @override
   List<Widget> buildActions(BuildContext context) {

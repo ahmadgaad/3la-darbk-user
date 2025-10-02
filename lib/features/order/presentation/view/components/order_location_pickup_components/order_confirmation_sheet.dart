@@ -1,6 +1,6 @@
 import 'package:ala_darbak_user/core/config/style/app_color.dart';
 import 'package:ala_darbak_user/core/config/style/app_text_styles.dart';
-import 'package:ala_darbak_user/core/heplers/map_utils.dart';
+import 'package:ala_darbak_user/core/heplers/location_helper.dart';
 import 'package:ala_darbak_user/core/utils/app_strings.dart';
 import 'package:ala_darbak_user/features/order/presentation/view_model/order_cubit/cubit.dart';
 import 'package:ala_darbak_user/features/order/presentation/view_model/order_cubit/state.dart';
@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 
 class OrderConfirmationSheet extends StatefulWidget {
   final OrderState state;
@@ -93,7 +92,7 @@ class _OrderConfirmationSheetState extends State<OrderConfirmationSheet> {
               ),
               IconButton(
                 onPressed: () {
-                  MapUtils.launchDirections(
+                  LocationHelper.launchDirections(
                     fromLocation:
                         widget.state.orderLocationModel.pickupLocation!,
                     toLocation:

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../core/heplers/shared_preferences_service.dart';
+import '../../../core/heplers/shared_preferences_helper.dart';
 import '../../../core/networking/api_client.dart';
 import '../../../core/networking/api_end_points.dart';
 import '../../../core/networking/exceptions.dart';
@@ -21,7 +21,7 @@ abstract class ProfileRepository {
 
 class ProfileRepositoryImpl implements ProfileRepository {
   final ApiClient _apiClient;
-  final SharedPreferencesService _sharedPreferences;
+  final SharedPreferencesHelper _sharedPreferences;
 
   ProfileRepositoryImpl(this._apiClient, this._sharedPreferences);
 

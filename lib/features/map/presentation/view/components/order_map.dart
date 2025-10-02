@@ -12,27 +12,29 @@ class OrderGoogleMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OrderMapCubit,OrderMapState>(
-      builder: (context,state) {
-        final cubit=OrderMapCubit.get(context);
+    return BlocBuilder<OrderMapCubit, OrderMapState>(
+      builder: (context, state) {
+        final cubit = OrderMapCubit.get(context);
         return GoogleMap(
           markers: Set<Marker>.of(state.markers.values),
           polylines: Set<Polyline>.of(state.polyline.values),
-          initialCameraPosition:cubit.initialCameraPosition,
+          initialCameraPosition: cubit.initialCameraPosition,
           onMapCreated: cubit.onMapCreate,
           myLocationEnabled: true,
           mapType: MapType.normal, // Use MapType.none for minimal rendering
           trafficEnabled: false,
           buildingsEnabled: false,
           indoorViewEnabled: false,
-          padding: const EdgeInsets.only(bottom: 140,),
+          padding: const EdgeInsets.only(bottom: 140),
           minMaxZoomPreference: const MinMaxZoomPreference(5, 20),
-          
-          cameraTargetBounds: CameraTargetBounds(   LatLngBounds(
-            southwest: const LatLng(16.3475, 34.4959), // SW boundary
-            northeast: const LatLng(32.1540, 55.6667), // NE boundary
-          ),),
-                    zoomGesturesEnabled: true,
+
+          cameraTargetBounds: CameraTargetBounds(
+            LatLngBounds(
+              southwest: const LatLng(16.3475, 34.4959), // SW boundary
+              northeast: const LatLng(32.1540, 55.6667), // NE boundary
+            ),
+          ),
+          zoomGesturesEnabled: true,
           scrollGesturesEnabled: true,
           rotateGesturesEnabled: true,
           tiltGesturesEnabled: true,
@@ -43,7 +45,7 @@ class OrderGoogleMap extends StatelessWidget {
           // gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{}..add(
           //     Factory<EagerGestureRecognizer>(() => EagerGestureRecognizer())),
         );
-      }
+      },
     );
   }
 }

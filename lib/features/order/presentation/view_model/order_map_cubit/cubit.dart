@@ -4,13 +4,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../../../core/heplers/map_utils.dart';
-import '../../../../map/data/repository/map_repo.dart';
+import '../../../../../core/heplers/location_helper.dart';
 import '../../../../map/data/models/order_location_model.dart';
+import '../../../../map/data/repository/map_repo.dart';
 import 'state.dart';
 
 class OrderMapCubit extends Cubit<OrderMapState> {
-  final MapRepo _mapRepo;
+  final MapRepository _mapRepo;
   OrderMapCubit(this._mapRepo)
     : super(OrderMapState(polyline: {}, markers: {}));
 
@@ -90,7 +90,11 @@ class OrderMapCubit extends Cubit<OrderMapState> {
   }
 
   _moveCamera(position) {
-    MapUtils.moveCamera(controller: controller, target: position, zoom: 15);
+    LocationHelper.moveCamera(
+      controller: controller,
+      target: position,
+      zoom: 15,
+    );
   }
 
   _setPickUpToDestinationPolyline() async {
@@ -110,7 +114,7 @@ class OrderMapCubit extends Cubit<OrderMapState> {
       final route = await _mapRepo.getRoute(origin, destination);
       if (route != null) {
         distance = route.totalDistanceValue / 1000;
-        polyline[polylineId] = await MapUtils.createPolyline(
+        polyline[polylineId] = await LocationHelper.createPolyline(
           polylineId: polylineId,
           points:
               route.polylinePoints
@@ -119,13 +123,13 @@ class OrderMapCubit extends Cubit<OrderMapState> {
         );
       } else {
         polyline.remove(polylineId);
-        distance = MapUtils.calculateDistance(
+        distance = LocationHelper.calculateDistance(
           fromLocation: origin,
           toLocation: destination,
         );
       }
       emit(state.copyWith(polyline: polyline));
-      MapUtils.cameraMoveBounds(
+      LocationHelper.cameraMoveBounds(
         bounds: route?.bounds,
         fromLocation: origin,
         toLocation: destination,

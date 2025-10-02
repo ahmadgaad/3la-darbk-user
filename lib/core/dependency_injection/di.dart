@@ -18,7 +18,7 @@ import '../../features/settings/repositories/repositories.dart';
 import '../../features/shipments/data/shipments_repository.dart';
 import '../../features/trips/data/repositories.dart';
 import '../config/app_config.dart';
-import '../heplers/shared_preferences_service.dart';
+import '../heplers/shared_preferences_helper.dart';
 import '../networking/api_client.dart';
 import '../networking/auth_interceptor.dart';
 
@@ -38,7 +38,9 @@ class InjectionContainer {
     _historyOrderRepoInit();
     _profileRepoInit();
     _tripRepoInit();
-    _mapRepoInit();
+    sl.registerLazySingleton<MapRepository>(
+      () => MapRepositoryImplementation(),
+    );
     _orderRepoInit();
     _notificationsRepo();
 
@@ -52,8 +54,8 @@ class InjectionContainer {
 
   static Future<void> _initSharedPref() async {
     final sharedPreferences = await SharedPreferences.getInstance();
-    sl.registerSingleton<SharedPreferencesService>(
-      SharedPreferencesService(sharedPreferences: sharedPreferences),
+    sl.registerSingleton<SharedPreferencesHelper>(
+      SharedPreferencesHelper(sharedPreferences: sharedPreferences),
     );
   }
 
@@ -105,10 +107,6 @@ class InjectionContainer {
 
   static void _tripRepoInit() {
     sl.registerLazySingleton<TripsRepository>(() => TripsRepositoryImpl(sl()));
-  }
-
-  static void _mapRepoInit() {
-    sl.registerLazySingleton<MapRepo>(() => MapRepoImp());
   }
 
   static void _orderRepoInit() {

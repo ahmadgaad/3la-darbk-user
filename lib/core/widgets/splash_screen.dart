@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../config/style/app_status_bar.dart';
 import '../dependency_injection/di.dart';
-import '../heplers/shared_preferences_service.dart';
+import '../heplers/shared_preferences_helper.dart';
 import 'logo.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   _loading() {
     // FirebaseNotifications.init();
     Timer(const Duration(seconds: 3), () {
-      if (sl<SharedPreferencesService>().token != null) {
+      if (sl<SharedPreferencesHelper>().token != null) {
         Navigator.pushNamedAndRemoveUntil(
           context,
           AppRoutes.home,

@@ -9,14 +9,15 @@ import '../../../../../core/config/style/app_color.dart';
 import '../../view_model/map_cubit.dart';
 import '../../view_model/map_states.dart';
 
-class PickLocationMap extends StatelessWidget {
-  const PickLocationMap({super.key});
+class MapLocationSelectorWidget extends StatelessWidget {
+  const MapLocationSelectorWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PickLocationCubit, PickLocationState>(
+    return BlocBuilder<MapCubit, MapStates>(
+      // buildWhen: (_, current) => current.address != null,
       builder: (context, state) {
-        final pickLocationCubit = PickLocationCubit.get(context);
+        final pickLocationCubit = context.read<MapCubit>();
         return Stack(
           alignment: Alignment.center,
           children: [
@@ -24,22 +25,25 @@ class PickLocationMap extends StatelessWidget {
               initialCameraPosition: pickLocationCubit.initialCameraPosition,
               onMapCreated: pickLocationCubit.onMapCreate,
               onCameraIdle: () async {
-                pickLocationCubit.getAddress();
+                await pickLocationCubit.getAddress(
+                  position: pickLocationCubit.currentPosition,
+                );
               },
-              onCameraMove: pickLocationCubit.onCameraMove,
+              onCameraMove: (position) {
+                pickLocationCubit.currentPosition = position.target;
+              },
               myLocationEnabled: true,
-              mapType: MapType.normal, // Use MapType.none for minimal rendering
+              mapType: MapType.normal,
               trafficEnabled: false,
               buildingsEnabled: false,
               indoorViewEnabled: false,
-              // padding: EdgeInsets.only(bottom: 140.h),
               minMaxZoomPreference: const MinMaxZoomPreference(5, 20),
-              cameraTargetBounds: CameraTargetBounds(
-                LatLngBounds(
-                  southwest: const LatLng(16.3475, 34.4959), // SW boundary
-                  northeast: const LatLng(32.1540, 55.6667), // NE boundary
-                ),
-              ),
+              // cameraTargetBounds: CameraTargetBounds(
+              //   LatLngBounds(
+              //     southwest: const LatLng(16.3475, 34.4959), // SW boundary
+              //     northeast: const LatLng(32.1540, 55.6667), // NE boundary
+              //   ),
+              // ),
               zoomGesturesEnabled: true,
               scrollGesturesEnabled: true,
               rotateGesturesEnabled: true,
