@@ -9,9 +9,9 @@ import '../../../../core/heplers/map_utils.dart';
 import '../../../../core/utils/app_strings.dart';
 import '../../../map/presentation/view/components/order_map.dart';
 import '../../../settings/presentation/manager/cubit.dart';
-import 'components/order_pick_locations.dart';
 import '../view_model/order_cubit/cubit.dart';
 import '../view_model/order_cubit/state.dart';
+import 'components/order_pick_locations.dart';
 
 class OrderLocationPickupScreen extends StatelessWidget {
   const OrderLocationPickupScreen({super.key});
@@ -32,6 +32,7 @@ class OrderLocationPickupScreen extends StatelessWidget {
           ),
         ],
       ),
+
       bottomSheet: BlocBuilder<OrderCubit, OrderState>(
         builder: (context, state) {
           return state.orderLocationModel.destinationLocation != null &&
@@ -42,10 +43,10 @@ class OrderLocationPickupScreen extends StatelessWidget {
                 minChildSize: 0.15,
                 maxChildSize: .4,
                 builder:
-                    (BuildContext context, ScrollController scrollController) =>
+                    (context, scrollController) =>
                         _orderConfirmation(context, state, scrollController),
               )
-              : const SizedBox();
+              : const SizedBox.shrink();
         },
       ),
     );

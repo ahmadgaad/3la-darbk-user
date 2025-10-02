@@ -42,7 +42,6 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
     return BlocBuilder<OrderCubit, OrderState>(
       builder: (context, state) {
         final cubit = context.read<OrderCubit>();
-        // final categoryModel = state.categoryModel;
         return Scaffold(
           appBar: AppBar(
             title: const Text(AppStrings.orderDescripetion),
