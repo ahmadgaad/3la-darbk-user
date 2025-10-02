@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/config/style/app_color.dart';
 import '../../../../core/utils/app_strings.dart';
-import 'components/additional_details_field.dart';
-import 'components/recipient_info_form.dart';
+import 'components/create_order_components/additional_details_field.dart';
+import 'components/create_order_components/recipient_info_form.dart';
 import '../view_model/order_cubit/cubit.dart';
 import '../view_model/order_cubit/state.dart';
 

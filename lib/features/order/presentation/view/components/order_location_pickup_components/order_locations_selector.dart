@@ -3,16 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../../core/config/style/app_color.dart';
-import '../../../../../core/config/style/app_text_styles.dart';
-import '../../../../../core/utils/app_strings.dart';
-import '../../../../map/presentation/view/pick_up_location_screen.dart';
-import '../../view_model/order_cubit/cubit.dart';
-import '../../view_model/order_cubit/state.dart';
-import '../../view_model/order_map_cubit/cubit.dart';
+import '../../../../../../core/config/style/app_color.dart';
+import '../../../../../../core/config/style/app_text_styles.dart';
+import '../../../../../../core/utils/app_strings.dart';
+import '../../../../../map/presentation/view/pick_up_location_screen.dart';
+import '../../../view_model/order_cubit/cubit.dart';
+import '../../../view_model/order_cubit/state.dart';
+import '../../../view_model/order_map_cubit/cubit.dart';
 
-class OrderPickLocations extends StatelessWidget {
-  const OrderPickLocations({super.key});
+class OrderLocationSelector extends StatelessWidget {
+  const OrderLocationSelector({super.key});
 
   @override
   Widget build(BuildContext context) {

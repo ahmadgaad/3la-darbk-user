@@ -9,22 +9,22 @@ import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
 
 import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/app_toaster.dart';
-import 'components/additional_details_field.dart';
-import 'components/order_images_add.dart';
-import 'components/order_size_select.dart';
-import 'components/recipient_info_form.dart';
-import 'components/units_field.dart';
 import '../view_model/order_cubit/cubit.dart';
 import '../view_model/order_cubit/state.dart';
+import 'components/create_order_components/additional_details_field.dart';
+import 'components/create_order_components/order_images_add.dart';
+import 'components/create_order_components/order_size_select.dart';
+import 'components/create_order_components/recipient_info_form.dart';
+import 'components/create_order_components/units_field.dart';
 
-class NewOrderScreen extends StatefulWidget {
-  const NewOrderScreen({super.key});
+class CreateOrderScreen extends StatefulWidget {
+  const CreateOrderScreen({super.key});
 
   @override
-  State<NewOrderScreen> createState() => _NewOrderScreenState();
+  State<CreateOrderScreen> createState() => _CreateOrderScreenState();
 }
 
-class _NewOrderScreenState extends State<NewOrderScreen> {
+class _CreateOrderScreenState extends State<CreateOrderScreen> {
   @override
   void initState() {
     super.initState();
