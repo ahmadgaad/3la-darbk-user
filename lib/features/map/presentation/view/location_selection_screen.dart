@@ -31,7 +31,7 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
     return BlocProvider(
       create: (BuildContext context) {
         final cubit = MapCubit(sl());
-        // Initialize the cubit properly
+        // Initialize the cubit properly (now async)
         cubit.init(widget.initialLocation);
         return cubit;
       },
@@ -97,7 +97,7 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
                       onPressed: () {
                         Navigator.pop(context, {
                           "address": state.address,
-                          "location": cubit.currentPosition,
+                          "location": cubit.currentLatLng,
                         });
                       },
                       child: Text(
