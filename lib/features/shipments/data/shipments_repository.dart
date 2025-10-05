@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import '../../../core/networking/api_client.dart';
 import '../../../core/networking/api_end_points.dart';
 import '../../../core/networking/exceptions.dart';
-import '../../order/repositories/model/order_model.dart';
+import '../../order/data/model/order_model.dart';
 
 abstract class ShipmentsRepository {
   Future<Either<AppException, List<OrderModel>>> getHistoryOrders();

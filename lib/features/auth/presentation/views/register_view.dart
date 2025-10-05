@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:ala_darbak_user/core/extensions/navigation.dart';
 import 'package:ala_darbak_user/core/heplers/image_picker.dart';
-import 'package:ala_darbak_user/core/heplers/regex.dart';
+import 'package:ala_darbak_user/core/heplers/regex_helper.dart';
 import 'package:ala_darbak_user/core/heplers/saudi_number_formater.dart';
 import 'package:ala_darbak_user/features/auth/data/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +94,7 @@ class _RegisterViewState extends State<RegisterView>
                   hintText: AppStrings.name,
                   prefixIcon: const Icon(Icons.person, size: 25),
                   validator: (value) {
-                    if (!Regex.isNameValid(value)) {
+                    if (!RegexHelper.isNameValid(value)) {
                       return "من فضلك أدخل الاسم كاملًا (الاسم الأول واسم العائلة)";
                     }
                     return null;
@@ -112,7 +112,7 @@ class _RegisterViewState extends State<RegisterView>
                   suffixIcon: Text("966+", style: AppTextStyle.font16black500),
                   prefixIcon: const Icon(Icons.phone, size: 25),
                   validator: (value) {
-                    if (!Regex.isPhoneNumberValid(value)) {
+                    if (!RegexHelper.isPhoneNumberValid(value)) {
                       return "أدخل رقم سعودي صحيح يبدأ بـ 5 ويتكون من 9 أرقام";
                     }
                     return null;
@@ -138,7 +138,7 @@ class _RegisterViewState extends State<RegisterView>
                     ),
                   ),
                   validator: (value) {
-                    if (!Regex.isPasswordValid(value)) {
+                    if (!RegexHelper.isPasswordValid(value)) {
                       return "كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير وصغير ورقم ورمز خاص";
                     }
                     return null;
@@ -151,7 +151,7 @@ class _RegisterViewState extends State<RegisterView>
                   obscureText: true,
                   prefixIcon: const Icon(Icons.lock, size: 25),
                   validator: (value) {
-                    if (!Regex.isConfirmPasswordValid(
+                    if (!RegexHelper.isConfirmPasswordValid(
                       passwordController.text,
                       value,
                     )) {

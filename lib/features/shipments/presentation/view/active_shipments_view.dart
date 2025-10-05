@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/app_strings.dart';
-import '../../../order/presentation/manager/order_cubit/cubit.dart';
+import '../../../order/presentation/view_model/order_cubit/cubit.dart';
 import '../view_model/shipments_cubit.dart';
 import '../view_model/shipments_states.dart';
 import 'components/order_item.dart';

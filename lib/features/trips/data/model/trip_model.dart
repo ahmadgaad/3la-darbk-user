@@ -1,7 +1,7 @@
 
 
 
-import '../../../order/repositories/model/driver_model.dart';
+import '../../../order/data/model/driver_model.dart';
 import 'city_model.dart';
 
 class TripModel {

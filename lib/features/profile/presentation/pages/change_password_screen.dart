@@ -1,5 +1,5 @@
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
-import 'package:ala_darbak_user/core/heplers/regex.dart';
+import 'package:ala_darbak_user/core/heplers/regex_helper.dart';
 import 'package:ala_darbak_user/core/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,7 +75,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             ),
                           ),
                           validator: (value) {
-                            if (!Regex.isPasswordValid(value)) {
+                            if (!RegexHelper.isPasswordValid(value)) {
                               return "كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير وصغير ورقم ورمز خاص";
                             }
                             return null;
@@ -102,7 +102,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             ),
                           ),
                           validator: (value) {
-                            if (!Regex.isPasswordValid(value)) {
+                            if (!RegexHelper.isPasswordValid(value)) {
                               return "كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير وصغير ورقم ورمز خاص";
                             }
                             return null;
@@ -115,7 +115,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           hintText: AppStrings.confirmPassword,
                           prefixIcon: const Icon(Icons.lock, size: 25),
                           validator: (confirmationPassword) {
-                            if (!Regex.isConfirmPasswordValid(
+                            if (!RegexHelper.isConfirmPasswordValid(
                               cubit.passwordController.text,
                               confirmationPassword,
                             )) {

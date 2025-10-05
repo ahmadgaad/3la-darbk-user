@@ -4,7 +4,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../../../core/config/style/app_color.dart';
 import '../../../../../core/config/style/app_text_styles.dart';
-import '../../../../../core/heplers/regex.dart';
+import '../../../../../core/heplers/regex_helper.dart';
 
 class CustomPinCodeField extends StatelessWidget {
   final TextEditingController? controller;
@@ -28,7 +28,7 @@ class CustomPinCodeField extends StatelessWidget {
       ),
       length: 4,
       animationType: AnimationType.fade,
-      validator: (v) => Regex.codeValidator(v, code),
+      validator: (v) => RegexHelper.codeValidator(v, code),
       mainAxisAlignment: MainAxisAlignment.center,
       pinTheme: PinTheme(
         shape: PinCodeFieldShape.underline,

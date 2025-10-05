@@ -1,88 +1,118 @@
 import 'dart:async';
 
-import '../../../../core/widgets/app_toaster.dart';
+import 'package:ala_darbak_user/core/widgets/app_toaster.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../../core/heplers/map_utils.dart';
-import '../../data/repository/map_repo.dart';
+import '../../../../core/heplers/location_helper.dart';
 import '../../data/models/suggestion_model.dart';
+import '../../data/repository/map_repo.dart';
 import '../view/components/search_google_map.dart';
 import 'map_states.dart';
 
-class PickLocationCubit extends Cubit<PickLocationState> {
-  final MapRepo _mapRepo;
+class MapCubit extends Cubit<MapStates> {
+  final MapRepository _mapRepository;
 
-  PickLocationCubit(this._mapRepo) : super(const PickLocationState());
+  MapCubit(this._mapRepository) : super(const MapStates());
+  // Use nullable controller instead of Completer
+  GoogleMapController? _mapController;
 
-  static PickLocationCubit get(context, {bool listen = false}) =>
-      BlocProvider.of<PickLocationCubit>(context, listen: listen);
+  // Extract constant to avoid recreating
+  static const LatLng _defaultRiyadhLocation = LatLng(24.7136, 46.6753);
+  LatLng _currentLatLng = _defaultRiyadhLocation;
 
-  Completer<GoogleMapController> controller = Completer<GoogleMapController>();
-  LatLng currentPosition = const LatLng(24.7136, 46.6753);
-  CameraPosition initialCameraPosition = const CameraPosition(
-    target: LatLng(24.7136, 46.6753), // Center of Saudi Arabia
-    zoom: 15,
-  );
-  init([LatLng? location]) {
+  // Getter for current location (replaces defaultLatLng)
+  LatLng get currentLatLng => _currentLatLng;
+
+  // Setter for current location (used by onCameraMove)
+  set currentLatLng(LatLng value) => _currentLatLng = value;
+
+  CameraPosition get initialCameraPosition =>
+      CameraPosition(target: _currentLatLng, zoom: 15);
+
+  Future<void> init([LatLng? location]) async {
     if (location != null) {
-      initialCameraPosition = CameraPosition(
-        target: location, // Center of Saudi Arabia
-        zoom: 15,
-      );
-      currentPosition=location;
+      _currentLatLng = location;
+      emit(state.copyWith(initializingLocation: false));
+      return;
+    } else {
+      // Get user's current location as initial position
+      emit(state.copyWith(initializingLocation: true));
+      try {
+        final currentLocation = await LocationHelper.getCurrentPosition();
+        _currentLatLng = LatLng(
+          currentLocation.latitude,
+          currentLocation.longitude,
+        );
+
+        await Future.wait([
+          getAddress(position: _currentLatLng),
+          if (_mapController != null) _moveCamera(),
+        ]);
+      } catch (e) {
+        _currentLatLng = _defaultRiyadhLocation;
+        // If we can't get current location, use default (Riyadh) as fallback
+        AppToaster.show(
+          "Could not get current location, using default location",
+        );
+      } finally {
+        emit(state.copyWith(initializingLocation: false));
+      }
     }
   }
 
-  onMapCreate(GoogleMapController controller) {
-    this.controller = Completer<GoogleMapController>();
-    this.controller.complete(controller);
-  }
-
-  getCurrentPosition() {
-    MapUtils.getCurrentPosition().then((value) {
-      final location = LatLng(value.latitude, value.longitude);
-      // Saudi Arabia approximate boundaries
-      if (value.latitude >= 16.3478 && value.latitude <= 32.1543 &&
-        value.longitude >= 34.6206 && value.longitude <= 55.6666) {
-      currentPosition = location;
+  void onMapCreate(GoogleMapController mapController) {
+    _mapController = mapController;
+    if (_currentLatLng != _defaultRiyadhLocation) {
       _moveCamera();
-      } else {
-      AppToaster.show("Location is not available in Saudi Arabia");
-  
-      }
-    }).catchError((e) {});
+    }
   }
 
-  _moveCamera() {
-    MapUtils.moveCamera(
-        controller: controller, target: currentPosition, zoom: 15);
+  /// Get current position of user and move camera to that position
+  /// Show error message if location is not available
+  Future<void> getCurrentPosition() async {
+    try {
+      final currentLocation = await LocationHelper.getCurrentPosition();
+      _currentLatLng = LatLng(
+        currentLocation.latitude,
+        currentLocation.longitude,
+      );
+
+      await Future.wait([getAddress(position: _currentLatLng), _moveCamera()]);
+    } catch (e) {
+      AppToaster.show("Could not get current location: $e");
+    }
   }
 
-  onCameraMove(CameraPosition position) {
-          currentPosition = position.target;
-    
+  /// Moves the camera to the current position with a zoom level of 15
+  /// Uses the LocationHelper to perform the camera movement
+  Future<void> _moveCamera() async {
+    if (_mapController == null) return;
+
+    await _mapController!.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(target: _currentLatLng, zoom: 15),
+      ),
+    );
   }
 
-  
-  getAddress() async {
-    emit(state.copyWith(loadingAddress: true));
-    final result = await _mapRepo.getAddress(currentPosition);
-    emit(state.copyWith(address: result, loadingAddress: false));
+  Future<void> getAddress({required LatLng position}) async {
+    final result = await LocationHelper.getAddressFromLatLng(position);
+    emit(state.copyWith(address: result));
   }
 
-  searchPlace(context) async {
+  Future<void> searchPlace(context) async {
     final SuggestionModel? result = await showSearch(
       context: context,
-      delegate: AddressSearch(currentPosition, _mapRepo),
+      delegate: AddressSearch(_currentLatLng, _mapRepository),
     );
     if (result != null) {
-      final place = await _mapRepo.getPlaceDetailFromId(result.placeId);
+      final place = await _mapRepository.getPlaceDetailFromId(result.placeId);
       final lat = place.result?.geometry?.location?.lat;
       final lng = place.result?.geometry?.location?.lng;
       if (lat != null && lng != null) {
-        currentPosition = LatLng(lat, lng);
+        _currentLatLng = LatLng(lat, lng);
         _moveCamera();
         emit(state.copyWith(address: result.description));
       }

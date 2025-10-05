@@ -46,7 +46,7 @@ class AppRouter {
           y: 0,
         );
       case AppRoutes.newOrder:
-        return _animateRouteBuilder(const NewOrderScreen(), x: -1, y: 0);
+        return _animateRouteBuilder(const CreateOrderScreen(), x: -1, y: 0);
       case AppRoutes.pickLocation:
         return _animateRouteBuilder(
           BlocProvider(

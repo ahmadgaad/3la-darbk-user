@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/heplers/image_picker.dart';
 import '../../../../../core/utils/app_strings.dart';
 import '../../../../../core/widgets/app_toaster.dart';
-import '../../../repositories/repositories.dart';
+import '../../../data/repositories.dart';
 import 'state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {

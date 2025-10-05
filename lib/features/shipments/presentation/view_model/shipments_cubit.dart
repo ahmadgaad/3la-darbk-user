@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../order/repositories/model/order_model.dart';
+import '../../../order/data/model/order_model.dart';
 import '../../data/shipments_repository.dart';
 import 'shipments_states.dart';
 

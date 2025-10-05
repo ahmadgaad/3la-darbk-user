@@ -1,25 +1,36 @@
-
 import 'package:equatable/equatable.dart';
 
-class PickLocationState extends Equatable {
+class MapStates extends Equatable {
   final bool loadingAddress;
+  final bool initializingLocation;
+  final bool gettingCurrentLocation;
   final String? address;
 
-  const PickLocationState(
-      {this.address,
-      this.loadingAddress = false });
+  const MapStates({
+    this.address,
+    this.loadingAddress = false,
+    this.initializingLocation = false,
+    this.gettingCurrentLocation = false,
+  });
 
-  PickLocationState copyWith({
+  MapStates copyWith({
     String? address,
     bool? loadingAddress,
-  }) => PickLocationState(
-      loadingAddress: loadingAddress ?? this.loadingAddress,
-      address: address ?? this.address,
-    );
-    
-      @override
-      List<Object?> get props => [
-        loadingAddress,
-        address,
-      ];
+    bool? initializingLocation,
+    bool? gettingCurrentLocation,
+  }) => MapStates(
+    loadingAddress: loadingAddress ?? this.loadingAddress,
+    address: address ?? this.address,
+    initializingLocation: initializingLocation ?? this.initializingLocation,
+    gettingCurrentLocation:
+        gettingCurrentLocation ?? this.gettingCurrentLocation,
+  );
+
+  @override
+  List<Object?> get props => [
+    loadingAddress,
+    address,
+    initializingLocation,
+    gettingCurrentLocation,
+  ];
 }

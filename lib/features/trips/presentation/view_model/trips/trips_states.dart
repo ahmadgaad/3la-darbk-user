@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../order/repositories/model/order_model.dart';
+import '../../../../order/data/model/order_model.dart';
 import '../../../data/model/city_model.dart';
 import '../../../data/model/trip_model.dart';
 

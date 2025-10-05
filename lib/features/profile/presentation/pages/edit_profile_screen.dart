@@ -1,5 +1,5 @@
 import 'package:ala_darbak_user/core/config/style/app_text_styles.dart';
-import 'package:ala_darbak_user/core/heplers/regex.dart';
+import 'package:ala_darbak_user/core/heplers/regex_helper.dart';
 import 'package:ala_darbak_user/core/heplers/saudi_number_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -75,7 +75,7 @@ class EditProfileScreen extends StatelessWidget {
                         ),
                         prefixIcon: const Icon(Icons.phone, size: 25),
                         validator: (value) {
-                          if (!Regex.isPhoneNumberValid(value)) {
+                          if (!RegexHelper.isPhoneNumberValid(value)) {
                             return "أدخل رقم سعودي صحيح يبدأ بـ 5 ويتكون من 9 أرقام";
                           }
                           return null;
