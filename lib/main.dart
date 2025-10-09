@@ -30,7 +30,7 @@ void main() async {
     EasyLocalization(
       path: 'assets/translations',
       supportedLocales: const [Locale('en'), Locale('ar')],
-      startLocale: const Locale("en"),
+      startLocale: const Locale("ar"),
       fallbackLocale: const Locale('en'),
       assetLoader: const CodegenLoader(),
       child: const AlaDarbkUserApp(),

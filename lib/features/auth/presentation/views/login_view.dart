@@ -48,7 +48,7 @@ class _LoginViewState extends State<LoginView>
           Form(
             key: loginCubit.formKey,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomTextFormField(
                   controller: loginCubit.phoneController,
