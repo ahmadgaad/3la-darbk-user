@@ -1,10 +1,11 @@
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
 import 'package:dartz/dartz.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../../core/heplers/shared_preferences_helper.dart';
 import '../../../core/networking/api_client.dart';
 import '../../../core/networking/api_end_points.dart';
 import '../../../core/networking/exceptions.dart';
-import '../../../core/utils/app_strings.dart';
 import '../../../core/widgets/app_toaster.dart';
 import '../../auth/data/models/user_model.dart';
 
@@ -39,7 +40,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       return const Left(null);
     } on AppException catch (e) {
       if (e is ServerException && e.statusCode == 400) {
-        AppToaster.show(AppStrings.oldPasswordUnvalid);
+        AppToaster.show(LocaleKeys.old_password_unvalid.tr());
       }
       return Right(e);
     }

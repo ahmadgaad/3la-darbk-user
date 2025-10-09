@@ -1,5 +1,7 @@
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:ala_darbak_user/core/extensions/navigation.dart';
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +9,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/config/style/app_color.dart';
 import '../../../core/config/style/app_text_styles.dart';
-import '../../../core/utils/app_strings.dart';
 import '../../../core/widgets/app_image_view.dart';
 import '../../profile/presentation/manager/profile_cubit/cubit.dart';
 import '../../profile/presentation/manager/profile_cubit/state.dart';
@@ -31,14 +32,14 @@ class CustomDrawerMenu extends StatelessWidget {
               Navigator.pushNamed(context, AppRoutes.editProfile);
             },
             leading: const Icon(Icons.person_pin_rounded),
-            title: const Text(AppStrings.profile2),
+            title: Text(LocaleKeys.profile.tr()),
           ),
           ListTile(
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.changePassword);
             },
             leading: const Icon(Icons.lock_outline),
-            title: const Text(AppStrings.changePassword),
+            title: Text(LocaleKeys.change_password.tr()),
           ),
           ListTile(
             onTap: () {
@@ -50,37 +51,38 @@ class CustomDrawerMenu extends StatelessWidget {
               Scaffold.of(context).closeDrawer();
             },
             leading: const Icon(Icons.history_rounded),
-            title: const Text(AppStrings.ordersHistory),
+            title: Text(LocaleKeys.orders_history.tr()),
           ),
           ListTile(
+            //TODO: replace with actual phone number from settings
             onTap: () async {
               final url =
                   "tel:${context.read<SettingsInfoCubit>().state.settingsInfo?.callUs ?? "0"}";
               if (await launchUrl(Uri.parse(url))) {}
             },
             leading: const Icon(Icons.support_agent),
-            title: const Text(AppStrings.callSupport),
+            title: Text(LocaleKeys.call_support.tr()),
           ),
           ListTile(
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.aboutUs);
             },
             leading: const Icon(Icons.info_outline),
-            title: const Text(AppStrings.aboutApp),
+            title: Text(LocaleKeys.about_app.tr()),
           ),
           ListTile(
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.termsAndCondtions);
             },
             leading: const Icon(Icons.privacy_tip_outlined),
-            title: const Text(AppStrings.termsAndCondtions),
+            title: Text(LocaleKeys.terms_and_conditions.tr()),
           ),
           ListTile(
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.policy);
             },
             leading: const Icon(Icons.policy_outlined),
-            title: const Text(AppStrings.appPolicy),
+            title: Text(LocaleKeys.app_policy.tr()),
           ),
           BlocListener<ProfileCubit, ProfileState>(
             listener: (context, state) {
@@ -93,7 +95,7 @@ class CustomDrawerMenu extends StatelessWidget {
                 context.read<ProfileCubit>().logout();
               },
               leading: const Icon(Icons.logout),
-              title: const Text(AppStrings.logout),
+              title: Text(LocaleKeys.logout.tr()),
             ),
           ),
           BlocListener<ProfileCubit, ProfileState>(
@@ -115,9 +117,9 @@ class CustomDrawerMenu extends StatelessWidget {
                 Icons.delete_forever_outlined,
                 color: AppColors.red,
               ),
-              title: const Text(
-                AppStrings.deleteAccount,
-                style: TextStyle(color: AppColors.red),
+              title: Text(
+                LocaleKeys.delete_account.tr(),
+                style: const TextStyle(color: AppColors.red),
               ),
             ),
           ),

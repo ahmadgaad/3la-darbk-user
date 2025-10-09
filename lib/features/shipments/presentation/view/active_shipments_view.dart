@@ -1,9 +1,10 @@
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/utils/app_strings.dart';
 import '../../../order/presentation/view_model/order_cubit/cubit.dart';
 import '../view_model/shipments_cubit.dart';
 import '../view_model/shipments_states.dart';
@@ -32,27 +33,30 @@ class _ActiveShipmentsViewState extends State<ActiveShipmentsView> {
               ShipmentsStatus.error => Center(
                 child: Text(state.errorMessage ?? ""),
               ),
-              ShipmentsStatus.success => state.activeShipments.isEmpty
-                  ? const Center(
+              ShipmentsStatus.success =>
+                state.activeShipments.isEmpty
+                    ? Center(
                       child: Text(
-                        AppStrings.noOrders,
-                        style: TextStyle(
+                        LocaleKeys.no_orders.tr(),
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     )
-                  : ListView.separated(
+                    : ListView.separated(
                       padding: EdgeInsets.only(
                         left: 20.w,
                         right: 20.w,
                         top: 24.h,
                         bottom: 115,
                       ),
-                      itemBuilder: (BuildContext context, int index) =>
-                          OrderItem(orderModel: state.activeShipments[index]),
-                      separatorBuilder: (BuildContext context, int index) =>
-                          15.verticalSpaceFromWidth,
+                      itemBuilder:
+                          (BuildContext context, int index) => OrderItem(
+                            orderModel: state.activeShipments[index],
+                          ),
+                      separatorBuilder:
+                          (context, index) => 15.verticalSpaceFromWidth,
                       itemCount: state.activeShipments.length,
                     ),
             },
@@ -71,7 +75,7 @@ class _ActiveShipmentsViewState extends State<ActiveShipmentsView> {
               Navigator.of(context).pushNamed(AppRoutes.orderCategories);
             },
             icon: const Icon(Icons.add),
-            label: const Text(AppStrings.addOrder),
+            label: Text(LocaleKeys.add_order.tr()),
           ),
         ),
       ),

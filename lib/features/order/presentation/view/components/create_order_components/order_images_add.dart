@@ -1,11 +1,12 @@
 import 'dart:io';
 
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../core/config/style/app_color.dart';
 import '../../../../../../core/config/style/app_text_styles.dart';
-import '../../../../../../core/utils/app_strings.dart';
 
 class OrderImagesAdd extends StatelessWidget {
   final Function() onAddTap;
@@ -26,11 +27,11 @@ class OrderImagesAdd extends StatelessWidget {
       children: [
         RichText(
           text: TextSpan(
-            text: AppStrings.enterOrderImages,
+            text: LocaleKeys.enter_order_images.tr(),
             style: AppTextStyle.font16black500,
             children: [
               TextSpan(
-                text: '   ${AppStrings.minimum3ImagesAndMax5Images}',
+                text: '   ${LocaleKeys.minimum_3_images_and_max_5_images.tr()}',
                 style: AppTextStyle.font12desSelected600,
               ),
             ],

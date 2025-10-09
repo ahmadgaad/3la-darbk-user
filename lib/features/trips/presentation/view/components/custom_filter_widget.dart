@@ -1,14 +1,14 @@
 import 'package:ala_darbak_user/core/config/style/app_text_styles.dart';
-import 'package:ala_darbak_user/core/utils/app_strings.dart';
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
 import 'package:ala_darbak_user/features/trips/data/model/city_model.dart';
 import 'package:ala_darbak_user/features/trips/presentation/view_model/cities/cubit.dart';
 import 'package:ala_darbak_user/features/trips/presentation/view_model/cities/state.dart';
 import 'package:ala_darbak_user/features/trips/presentation/view_model/trips/trips_cubit.dart';
 import 'package:ala_darbak_user/features/trips/presentation/view_model/trips/trips_states.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 class CustomFiltersWidget extends StatelessWidget {
   final TripsState state;
@@ -21,12 +21,15 @@ class CustomFiltersWidget extends StatelessWidget {
       children: [
         Center(
           child: Text(
-            AppStrings.searchCurrentTrips,
+            LocaleKeys.search_current_trips.tr(),
             style: AppTextStyle.font16black600,
           ),
         ),
         25.verticalSpace,
-        Text(AppStrings.searchTripRoute, style: AppTextStyle.font14black500),
+        Text(
+          LocaleKeys.search_trip_route.tr(),
+          style: AppTextStyle.font14black500,
+        ),
         15.verticalSpace,
         BlocBuilder<CitiesCubit, CitiesState>(
           builder: (context, citiesState) {
@@ -35,7 +38,7 @@ class CustomFiltersWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: DropdownButtonFormField<CityModel>(
-                    hint: const Text(AppStrings.startCity),
+                    hint: Text(LocaleKeys.start_city.tr()),
                     items:
                         citiesState.cities
                             .map<DropdownMenuItem<CityModel>>(
@@ -53,7 +56,7 @@ class CustomFiltersWidget extends StatelessWidget {
                 ),
                 Expanded(
                   child: DropdownButtonFormField<CityModel>(
-                    hint: const Text(AppStrings.destenationCity),
+                    hint: Text(LocaleKeys.destination_city.tr()),
                     items:
                         citiesState.cities
                             .map<DropdownMenuItem<CityModel>>(
@@ -85,7 +88,7 @@ class CustomFiltersWidget extends StatelessWidget {
                 onPressed: () {
                   context.read<TripsCubit>().removeFilters();
                 },
-                label: const Text(AppStrings.clearSelection),
+                label: Text(LocaleKeys.clear_selection.tr()),
               ),
             ),
           ],

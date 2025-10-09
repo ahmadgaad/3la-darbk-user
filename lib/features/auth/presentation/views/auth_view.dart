@@ -1,8 +1,9 @@
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
-import '../../../../core/utils/app_strings.dart';
 import '../view_model/login_cubit/cubit.dart';
 import '../view_model/login_cubit/state.dart';
 import '../view_model/register_cubit/register_cubit.dart';
@@ -16,7 +17,7 @@ class AuthView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2, // Number of tabs
+      length: 2, 
       child: BlocBuilder<LoginCubit, LoginState>(
         builder: (context, loginState) {
           return BlocBuilder<RegisterCubit, RegisterState>(
@@ -28,10 +29,10 @@ class AuthView extends StatelessWidget {
                 child: Scaffold(
                   appBar: AppBar(
                     toolbarHeight: 10,
-                    bottom: const TabBar(
+                    bottom: TabBar(
                       tabs: [
-                        Tab(text: AppStrings.login),
-                        Tab(text: AppStrings.signUp),
+                        Tab(text: LocaleKeys.login.tr()),
+                        Tab(text: LocaleKeys.sign_up.tr()),
                       ],
                     ),
                   ),

@@ -1,13 +1,14 @@
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:ala_darbak_user/core/heplers/regex_helper.dart';
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
 import 'package:ala_darbak_user/core/widgets/custom_text_form_field.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
 import '../../../../core/dependency_injection/di.dart';
-import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/app_toaster.dart';
 import '../manager/change_password/cubit.dart';
 import '../manager/change_password/state.dart';
@@ -28,13 +29,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       create: (context) => ChangePasswordCubit(sl()),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(AppStrings.changePassword),
+          title: Text(LocaleKeys.change_password.tr()),
           centerTitle: true,
         ),
         body: BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
           listener: (context, state) {
             if (state.isSuccess) {
-              AppToaster.show(AppStrings.passwordChanged, isError: false);
+              AppToaster.show(LocaleKeys.password_changed.tr(), isError: false);
               Navigator.pushNamedAndRemoveUntil(
                 context,
                 AppRoutes.home,
@@ -59,7 +60,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           controller: cubit.oldPasswordController,
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: isOldPasswordVisible,
-                          hintText: AppStrings.oldPassword,
+                          hintText: LocaleKeys.old_password.tr(),
                           prefixIcon: const Icon(Icons.lock, size: 25),
                           suffixIcon: IconButton(
                             onPressed: () {
@@ -86,7 +87,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           controller: cubit.passwordController,
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: isNewPasswordVisible,
-                          hintText: AppStrings.password,
+                          hintText: LocaleKeys.password.tr(),
                           prefixIcon: const Icon(Icons.lock, size: 25),
                           suffixIcon: IconButton(
                             onPressed: () {
@@ -112,7 +113,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           controller: cubit.confirmPasswordController,
                           obscureText: true,
                           keyboardType: TextInputType.visiblePassword,
-                          hintText: AppStrings.confirmPassword,
+                          hintText: LocaleKeys.confirm_password.tr(),
                           prefixIcon: const Icon(Icons.lock, size: 25),
                           validator: (confirmationPassword) {
                             if (!RegexHelper.isConfirmPasswordValid(
@@ -130,7 +131,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   20.verticalSpaceFromWidth,
                   ElevatedButton(
                     onPressed: cubit.changePassword,
-                    child: const Text(AppStrings.confirm),
+                    child: const Text(LocaleKeys.confirm),
                   ),
                 ],
               ),

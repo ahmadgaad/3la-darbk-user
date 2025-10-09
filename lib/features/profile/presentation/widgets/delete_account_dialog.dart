@@ -1,8 +1,9 @@
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/utils/app_strings.dart';
-import '../manager/profile_cubit/cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../manager/profile_cubit/cubit.dart';
 import '../manager/profile_cubit/state.dart';
 
 class DeleteAccountDialog extends StatelessWidget {
@@ -11,11 +12,11 @@ class DeleteAccountDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(AppStrings.deleteAccountTitle),
-      content: const Text(AppStrings.deleteAccountContent),
+      title: Text(LocaleKeys.delete_account_title.tr()),
+      content: Text(LocaleKeys.delete_account_content.tr()),
       actions: <Widget>[
         TextButton(
-          child: const Text(AppStrings.cancel),
+          child: Text(LocaleKeys.cancel.tr()),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -27,11 +28,11 @@ class DeleteAccountDialog extends StatelessWidget {
             }
             return TextButton(
               onPressed: context.read<ProfileCubit>().delete,
-              child: const Text(AppStrings.confirm),
+              child: const Text(LocaleKeys.confirm),
             );
           },
         ),
       ],
     );
   }
-} 
+}

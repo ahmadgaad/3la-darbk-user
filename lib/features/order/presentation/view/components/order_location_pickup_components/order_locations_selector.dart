@@ -1,3 +1,5 @@
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,7 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../../core/config/style/app_color.dart';
 import '../../../../../../core/config/style/app_text_styles.dart';
-import '../../../../../../core/utils/app_strings.dart';
 import '../../../../../map/presentation/view/location_selection_screen.dart';
 import '../../../view_model/order_cubit/cubit.dart';
 import '../../../view_model/order_cubit/state.dart';
@@ -85,12 +86,12 @@ class OrderLocationSelector extends StatelessWidget {
                       minTileHeight: 0,
                       minVerticalPadding: 0,
                       title: Text(
-                        AppStrings.pickupLocation,
+                        LocaleKeys.pickup_location.tr(),
                         style: AppTextStyle.font12desSelected600,
                       ),
                       subtitle: Text(
                         orderLocationModel.pickupAddress ??
-                            AppStrings.selectPickupLocation,
+                            LocaleKeys.select_pickup_location.tr(),
                         style: AppTextStyle.font14black600.copyWith(height: 2),
                         maxLines: 1,
                       ),
@@ -128,12 +129,12 @@ class OrderLocationSelector extends StatelessWidget {
                       minTileHeight: 0,
                       minVerticalPadding: 0,
                       title: Text(
-                        AppStrings.deliveryLocation,
+                        LocaleKeys.delivery_location.tr(),
                         style: AppTextStyle.font12desSelected600,
                       ),
                       subtitle: Text(
                         orderLocationModel.destinationAddress ??
-                            AppStrings.selectDestinationLocation,
+                            LocaleKeys.select_destination_location.tr(),
                         style: AppTextStyle.font14black600.copyWith(height: 2),
                         maxLines: 1,
                       ),

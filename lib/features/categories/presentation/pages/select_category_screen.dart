@@ -1,9 +1,10 @@
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/utils/app_strings.dart';
 import '../../../order/presentation/view_model/order_cubit/cubit.dart';
 import '../manager/cubit.dart';
 import '../manager/state.dart';
@@ -16,7 +17,7 @@ class SelectCategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppStrings.categries),
+        title: Text(LocaleKeys.categories.tr()),
         centerTitle: true,
       ),
       body: BlocBuilder<CategoryCubit, CategoryState>(
@@ -25,7 +26,7 @@ class SelectCategoryScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           if (state is ErrorState) {
-            return const Center(child: Text(AppStrings.error));
+            return const Center(child: Text(LocaleKeys.error));
           }
           if (state is SuccessState) {
             return RefreshIndicator(

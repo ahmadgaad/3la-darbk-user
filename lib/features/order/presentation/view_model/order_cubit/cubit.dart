@@ -154,23 +154,33 @@ class OrderCubit extends Cubit<OrderState> {
   getOrder(int orderId) async {
     final result = await _orderRepository.getOrder(orderId);
     result.fold(
-      (order) => emit(
-        state.copyWith(
-          loading: false,
-          success: true,
-          orderModel: order,
-          formKey: GlobalKey<FormState>(),
-          selectedPaymentMethod: int.tryParse(order?.paymentMethod ?? "0"),
-          recipientMobileController: TextEditingController(
-            text: order?.recipientMobile,
+      (order) {
+        // Check if order just got completed (status = 3 = delivered)
+        final wasNotCompleted = state.orderModel?.status != 3;
+        final isNowCompleted = order?.status == 3;
+        final justCompleted = wasNotCompleted && isNowCompleted;
+
+        emit(
+          state.copyWith(
+            loading: false,
+            success: true,
+            orderModel: order,
+            formKey: GlobalKey<FormState>(),
+            selectedPaymentMethod: int.tryParse(order?.paymentMethod ?? "0"),
+            recipientMobileController: TextEditingController(
+              text: order?.recipientMobile,
+            ),
+            recipientNameController: TextEditingController(
+              text: order?.recipientName,
+            ),
+            additionalDetailsController: TextEditingController(
+              text: order?.note,
+            ),
+            canceled: false,
+            completed: justCompleted,
           ),
-          recipientNameController: TextEditingController(
-            text: order?.recipientName,
-          ),
-          additionalDetailsController: TextEditingController(text: order?.note),
-          canceled: false,
-        ),
-      ),
+        );
+      },
       (error) =>
           emit(state.copyWith(loading: false, success: false, canceled: false)),
     );

@@ -1,13 +1,14 @@
 import 'package:ala_darbak_user/core/config/style/app_text_styles.dart';
 import 'package:ala_darbak_user/core/heplers/regex_helper.dart';
 import 'package:ala_darbak_user/core/heplers/saudi_number_formater.dart';
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
-import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/app_image_view.dart';
 import '../../../../core/widgets/custom_text_form_field.dart';
 import '../manager/profile_cubit/cubit.dart';
@@ -19,7 +20,7 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text(AppStrings.profile2), centerTitle: true),
+      appBar: AppBar(title: Text(LocaleKeys.profile.tr()), centerTitle: true),
       body: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
           final cubit = context.read<ProfileCubit>();
@@ -68,7 +69,7 @@ class EditProfileScreen extends StatelessWidget {
                           LengthLimitingTextInputFormatter(9),
                           SaudiNumberFormatter(),
                         ],
-                        hintText: AppStrings.phoneNumber,
+                        hintText: LocaleKeys.phone_number.tr(),
                         suffixIcon: Text(
                           "966+",
                           style: AppTextStyle.font16black500,
@@ -87,7 +88,7 @@ class EditProfileScreen extends StatelessWidget {
                 20.verticalSpaceFromWidth,
                 ElevatedButton(
                   onPressed: cubit.updateData,
-                  child: const Text(AppStrings.confirm),
+                  child: const Text(LocaleKeys.confirm),
                 ),
               ],
             ),

@@ -12,10 +12,10 @@ import 'core/observer/bloc_observe.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
+  await EasyLocalization.ensureInitialized();
 
   await Future.wait([
     // Firebase.initializeApp(),
-    EasyLocalization.ensureInitialized(),
     InjectionContainer.init(),
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -30,7 +30,7 @@ void main() async {
     EasyLocalization(
       path: 'assets/translations',
       supportedLocales: const [Locale('en'), Locale('ar')],
-      startLocale: const Locale("ar"),
+      startLocale: const Locale("en"),
       fallbackLocale: const Locale('en'),
       assetLoader: const CodegenLoader(),
       child: const AlaDarbkUserApp(),

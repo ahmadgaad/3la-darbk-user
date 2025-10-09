@@ -1,4 +1,5 @@
-import '../utils/app_strings.dart';
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class RegexHelper {
   static bool isNameValid(String? name) {
@@ -52,33 +53,21 @@ class RegexHelper {
 
   static String? unitsValidator(String? v) {
     if ((v?.isEmpty ?? true)) {
-      return AppStrings.pleaseEnterUnits;
+      return LocaleKeys.please_enter_units.tr();
     }
     if ((int.tryParse(v ?? "0") ?? 0) < 1) {
-      return AppStrings.unvalidUnit;
+      return LocaleKeys.invalid_unit.tr();
     }
     return null;
   }
 
   static String? codeValidator(String? v, String? code) {
     if (v?.isEmpty ?? true) {
-      return AppStrings.pleaseEnterCode;
+      return LocaleKeys.please_enter_code.tr();
     } else if (v != code) {
-      return AppStrings.invalidCode;
+      return LocaleKeys.invalid_code.tr();
     } else {
       return null;
     }
   }
 }
-
-
-    // if ((v?.isEmpty ?? true)) {
-    //   return AppStrings.pleaseEnterName;
-    // } else {
-    //   // Split the name by spaces and check if it has exactly four parts
-    //   List<String> nameParts = v!.trim().split(RegExp(r'\s+'));
-    //   if (nameParts.length != 4) {
-    //     return AppStrings.pleaseEnterName;
-    //   }
-    // }
-    // return null;

@@ -1,10 +1,11 @@
 import 'dart:io';
 
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/heplers/image_picker.dart';
-import '../../../../../core/utils/app_strings.dart';
 import '../../../../../core/widgets/app_toaster.dart';
 import '../../../data/repositories.dart';
 import 'state.dart';
@@ -47,7 +48,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(state.copyWith(loading: true));
     final result = await _profileRepository.delete();
     result.fold((value) {
-      AppToaster.show(AppStrings.deletedSuccessfully, isError: false);
+      AppToaster.show(LocaleKeys.deleted_successfully.tr(), isError: false);
       emit(state.copyWith(isSuccess: true, isDeleted: true, loading: false));
     }, (r) => emit(state.copyWith(loading: false, isSuccess: false)));
   }
@@ -78,7 +79,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       ),
     );
     result.fold((value) {
-      AppToaster.show(AppStrings.updatedSuccessfully, isError: false);
+      AppToaster.show(LocaleKeys.updated_successfully.tr(), isError: false);
       emit(state.copyWith(isSuccess: true, currentUser: value, loading: false));
       _initFormField();
     }, (r) => emit(state.copyWith(loading: false, isSuccess: false)));

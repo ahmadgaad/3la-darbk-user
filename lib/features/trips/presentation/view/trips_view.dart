@@ -1,9 +1,10 @@
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
 import 'package:ala_darbak_user/features/trips/presentation/view/components/custom_filter_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/utils/app_strings.dart';
 import '../view_model/trips/trips_cubit.dart';
 import '../view_model/trips/trips_states.dart';
 import 'components/trip_item.dart';
@@ -40,12 +41,12 @@ class TripsView extends StatelessWidget {
                 ),
               ),
               if (trips.isEmpty && !state.loading && !state.error)
-                const SliverFillRemaining(
+                SliverFillRemaining(
                   hasScrollBody: false,
                   child: Center(
                     child: Text(
-                      AppStrings.noTrips,
-                      style: TextStyle(
+                      LocaleKeys.no_trips.tr(),
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                       ),

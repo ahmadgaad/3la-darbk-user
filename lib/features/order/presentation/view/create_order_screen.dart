@@ -2,12 +2,13 @@ import 'dart:io';
 
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:ala_darbak_user/core/extensions/navigation.dart';
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
 
-import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/app_toaster.dart';
 import '../view_model/order_cubit/cubit.dart';
 import '../view_model/order_cubit/state.dart';
@@ -44,7 +45,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
         final cubit = context.read<OrderCubit>();
         return Scaffold(
           appBar: AppBar(
-            title: const Text(AppStrings.orderDescripetion),
+            title: Text(LocaleKeys.order_description.tr()),
             centerTitle: true,
           ),
           body: SingleChildScrollView(
@@ -104,11 +105,13 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                       imagesValid) {
                     context.pushNamed(AppRoutes.pickLocation);
                   } else if (!imagesValid) {
-                    AppToaster.show(AppStrings.mustEnterImagesBeteween3And5);
+                    AppToaster.show(
+                      LocaleKeys.must_enter_images_between_3_and_5.tr(),
+                    );
                     return;
                   }
                 },
-                child: const Text(AppStrings.confirm),
+                child: const Text(LocaleKeys.confirm),
               ),
             ),
           ),

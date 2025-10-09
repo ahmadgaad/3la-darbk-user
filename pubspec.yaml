@@ -57,11 +57,11 @@ flutter_launcher_icons:
   image_path: "assets/images/launcher_icon.png"
   remove_alpha_ios: true
 
-flutter_assets:
-  assets_path: assets/
-  output_path: lib/generated/
-  filename: assets.dart
-  ignore_comments: true
+# flutter_assets:
+#   assets_path: assets/
+#   output_path: lib/generated/
+#   filename: assets.dart
+#   ignore_comments: true
 
 flutter:
   uses-material-design: true

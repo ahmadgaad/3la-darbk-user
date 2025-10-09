@@ -1,9 +1,10 @@
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
 import 'package:ala_darbak_user/features/notifications/presentation/view/components/notification_item.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/utils/app_strings.dart';
 import '../view_model/notification_states.dart';
 import '../view_model/notifications_cubit.dart';
 
@@ -27,7 +28,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(AppStrings.notifications),
+        title: Text(LocaleKeys.notifications.tr()),
       ),
       body: BlocBuilder<NotificationsCubit, NotificationsState>(
         buildWhen:
@@ -38,7 +39,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         builder: (context, state) {
           return RefreshIndicator(
             onRefresh: () async {
-              await context.read<NotificationsCubit>().getNotifications(forceRefresh: true);
+              await context.read<NotificationsCubit>().getNotifications(
+                forceRefresh: true,
+              );
             },
             child: switch (state.status) {
               NotificationStatus.initial || NotificationStatus.loading =>
