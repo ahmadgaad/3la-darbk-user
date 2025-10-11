@@ -28,7 +28,7 @@ class DeleteAccountDialog extends StatelessWidget {
             }
             return TextButton(
               onPressed: context.read<ProfileCubit>().delete,
-              child: const Text(LocaleKeys.confirm),
+              child: Text(LocaleKeys.confirm.tr()),
             );
           },
         ),

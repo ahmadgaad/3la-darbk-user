@@ -1,5 +1,5 @@
 class AppConfig {
-  static const String mapKey = "Replace_With_MapKey";
+  static const String mapKey = "AIzaSyCnRSQue1AwWrx_elyqH_NKQ0jiOl_C56g";
   static const String baseUrl =  'https://aladarabak.com/api/';
   static const String baseUrlDevelopment =  'http://192.168.1.23:8000/api/';
 

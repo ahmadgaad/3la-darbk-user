@@ -1,13 +1,11 @@
-import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:ala_darbak_user/features/order/presentation/view/components/order_location_pickup_components/destination_location_list_tile.dart';
+import 'package:ala_darbak_user/features/order/presentation/view/components/order_location_pickup_components/pickup_location_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../../core/config/style/app_color.dart';
-import '../../../../../../core/config/style/app_text_styles.dart';
-import '../../../../../map/presentation/view/location_selection_screen.dart';
 import '../../../view_model/order_cubit/cubit.dart';
 import '../../../view_model/order_cubit/state.dart';
 import '../../../view_model/order_map_cubit/cubit.dart';
@@ -54,90 +52,15 @@ class OrderLocationSelector extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   spacing: 40.w,
                   children: [
-                    ListTile(
-                      onTap: () async {
-                        final result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder:
-                                (context) => LocationSelectionScreen(
-                                  initialLocation:
-                                      orderLocationModel.pickupLocation,
-                                  isDestination: false,
-                                ),
-                          ),
-                        );
-                        if (result != null) {
-                          orderCubit.setOrderlocation(
-                            orderLocationModel: orderLocationModel.copyWith(
-                              pickupLocation: result['location'],
-                              pickupAddress: result['address'],
-                            ),
-                          );
-                          orderMapCubit.setMarkersAndPolylines(
-                            orderLocationModel.copyWith(
-                              pickupLocation: result['location'],
-                              pickupAddress: result['address'],
-                            ),
-                          );
-                        }
-                      },
-                      contentPadding: EdgeInsets.zero,
-                      minTileHeight: 0,
-                      minVerticalPadding: 0,
-                      title: Text(
-                        LocaleKeys.pickup_location.tr(),
-                        style: AppTextStyle.font12desSelected600,
-                      ),
-                      subtitle: Text(
-                        orderLocationModel.pickupAddress ??
-                            LocaleKeys.select_pickup_location.tr(),
-                        style: AppTextStyle.font14black600.copyWith(height: 2),
-                        maxLines: 1,
-                      ),
+                    PickUpLocationListTile(
+                      orderLocationModel: orderLocationModel,
+                      orderCubit: orderCubit,
+                      orderMapCubit: orderMapCubit,
                     ),
-                    ListTile(
-                      onTap: () async {
-                        final result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder:
-                                (context) => LocationSelectionScreen(
-                                  initialLocation:
-                                      orderLocationModel.destinationLocation ??
-                                      orderLocationModel.pickupLocation,
-                                  isDestination: true,
-                                ),
-                          ),
-                        );
-                        if (result != null) {
-                          orderCubit.setOrderlocation(
-                            orderLocationModel: orderLocationModel.copyWith(
-                              destinationLocation: result['location'],
-                              destinationAddress: result['address'],
-                            ),
-                          );
-                          orderMapCubit.setMarkersAndPolylines(
-                            orderLocationModel.copyWith(
-                              destinationLocation: result['location'],
-                              destinationAddress: result['address'],
-                            ),
-                          );
-                        }
-                      },
-                      contentPadding: EdgeInsets.zero,
-                      minTileHeight: 0,
-                      minVerticalPadding: 0,
-                      title: Text(
-                        LocaleKeys.delivery_location.tr(),
-                        style: AppTextStyle.font12desSelected600,
-                      ),
-                      subtitle: Text(
-                        orderLocationModel.destinationAddress ??
-                            LocaleKeys.select_destination_location.tr(),
-                        style: AppTextStyle.font14black600.copyWith(height: 2),
-                        maxLines: 1,
-                      ),
+                    DestinationLocationListTile(
+                      orderLocationModel: orderLocationModel,
+                      orderCubit: orderCubit,
+                      orderMapCubit: orderMapCubit,
                     ),
                   ],
                 ),

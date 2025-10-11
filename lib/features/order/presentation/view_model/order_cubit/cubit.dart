@@ -81,7 +81,8 @@ class OrderCubit extends Cubit<OrderState> {
     emit(state.copyWith(images: updatedImages));
   }
 
-  createOrder(BuildContext context) async {
+  /// Creates an order based on the current state and navigates to the order details screen upon success.
+  Future<void> createOrder(BuildContext context) async {
     if (state.loading) return;
     emit(state.copyWith(loading: true));
     final settingsCubit = context.read<SettingsInfoCubit>();
@@ -95,7 +96,7 @@ class OrderCubit extends Cubit<OrderState> {
         categoryId: state.categoryModel?.id,
         size: state.orderSize,
         recipientName: state.recipientNameController.text,
-        distance:
+        distance: 
             state.orderLocationModel.distance == null
                 ? "0"
                 : state.orderLocationModel.distance.toString(),

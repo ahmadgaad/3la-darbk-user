@@ -10,7 +10,11 @@ class CustomTextFormField extends StatelessWidget {
   final Icon? prefixIcon;
   final Widget? suffixIcon;
   final bool obscureText;
-
+  final InputBorder? border;
+  final InputBorder? enabledBorder;
+  final InputBorder? focusedBorder;
+  final EdgeInsetsGeometry? contentPadding;
+  final BoxConstraints? suffixIconConstraints;
   const CustomTextFormField({
     super.key,
     this.controller,
@@ -21,6 +25,11 @@ class CustomTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.obscureText = false,
+    this.border,
+    this.enabledBorder,
+    this.focusedBorder,
+    this.contentPadding,
+    this.suffixIconConstraints,
   });
 
   @override
@@ -37,6 +46,11 @@ class CustomTextFormField extends StatelessWidget {
         hintText: hintText,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
+        border: border,
+        enabledBorder: enabledBorder,
+        focusedBorder: focusedBorder,
+        contentPadding: contentPadding,
+        suffixIconConstraints: suffixIconConstraints,
       ),
     );
   }

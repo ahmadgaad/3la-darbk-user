@@ -98,11 +98,9 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  final imagesValid =
-                      state.images.length >= 3 && state.images.length <= 5;
+                  final imagesValid = state.images.length >= 3 && state.images.length <= 5;
 
-                  if ((state.formKey.currentState?.validate() ?? false) &&
-                      imagesValid) {
+                  if ((state.formKey.currentState!.validate()) && imagesValid) {
                     context.pushNamed(AppRoutes.pickLocation);
                   } else if (!imagesValid) {
                     AppToaster.show(
@@ -111,7 +109,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                     return;
                   }
                 },
-                child: const Text(LocaleKeys.confirm),
+                child: Text(LocaleKeys.confirm.tr()),
               ),
             ),
           ),

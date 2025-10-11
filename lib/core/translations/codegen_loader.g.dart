@@ -131,7 +131,9 @@ class CodegenLoader extends AssetLoader{
   "order_delivered": "Order delivered",
   "order_category": "Order category",
   "order_images": "Order images",
-  "pay_now": "Pay now"
+  "pay_now": "Pay now",
+  "there_no_notificatation": "No notifications",
+  "language": "Language"
 };
 static const Map<String,dynamic> _ar = {
   "login": "تسجيل الدخول",
@@ -250,7 +252,9 @@ static const Map<String,dynamic> _ar = {
   "order_delivered": "تم التوصيل",
   "order_category": "فئة الشحنة",
   "order_images": "صور الشحنة",
-  "pay_now": "ادفع الان"
+  "pay_now": "ادفع الان",
+  "there_no_notificatation": "لا توجد إشعارات",
+  "language": "اللغة"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }

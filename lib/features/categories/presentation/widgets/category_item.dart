@@ -15,14 +15,12 @@ class CategoryItem extends StatelessWidget {
       spacing: 10.w,
       children: [
         Card(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.w),
-            child: AppImageView(
-              url: categoryModel?.image ?? "asd",
-              width: 75.w,
-              height: 75.w,
-              fit: BoxFit.contain,
-            ),
+          clipBehavior: Clip.antiAlias,
+          child: AppImageView(
+            url: categoryModel?.image ?? "asd",
+            width: 85.w,
+            height: 85.w,
+            fit: BoxFit.cover,
           ),
         ),
         Text(
@@ -30,7 +28,7 @@ class CategoryItem extends StatelessWidget {
           maxLines: 1,
           textAlign: TextAlign.center,
           style: AppTextStyle.font16black500,
-        )
+        ),
       ],
     );
   }

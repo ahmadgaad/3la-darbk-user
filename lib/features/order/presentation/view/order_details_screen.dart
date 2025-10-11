@@ -317,24 +317,24 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                 : Text(LocaleKeys.cancel.tr()),
                       ),
 
-                    // Show "Back to Home" button when order is delivered
-                    if (status == 3)
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            AppRoutes.home,
-                            (route) => false,
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
-                        ),
-                        child: Text(
-                          "العودة إلى ${LocaleKeys.home.tr()}",
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ),
+                    // // Show "Back to Home" button when order is delivered
+                    // if (status == 3)
+                    //   ElevatedButton(
+                    //     onPressed: () {
+                    //       Navigator.pushNamedAndRemoveUntil(
+                    //         context,
+                    //         AppRoutes.home,
+                    //         (route) => false,
+                    //       );
+                    //     },
+                    //     style: ElevatedButton.styleFrom(
+                    //       backgroundColor: AppColors.primary,
+                    //     ),
+                    //     child: Text(
+                    //       "العودة إلى ${LocaleKeys.home.tr()}",
+                    //       style: const TextStyle(color: Colors.white),
+                    //     ),
+                    //   ),
                   ],
                 ),
               ),
@@ -422,7 +422,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     spacing: 15.w,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text("${LocaleKeys.captain_info.tr()} :", style: AppTextStyle.font14black600),
+      Text(
+        "${LocaleKeys.captain_info.tr()} :",
+        style: AppTextStyle.font14black600,
+      ),
       Row(
         spacing: 15.w,
         crossAxisAlignment: CrossAxisAlignment.center,

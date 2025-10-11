@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/config/style/app_theme.dart';
 import '../view_model/shipments_cubit.dart';
 import '../view_model/shipments_states.dart';
-import 'components/order_item.dart';
+import 'components/shipment_card.dart';
 
 class HistoryOrdersScreen extends StatefulWidget {
   const HistoryOrdersScreen({super.key});
@@ -44,7 +44,7 @@ class _HistoryOrdersScreenState extends State<HistoryOrdersScreen> {
                     ),
                     sliver: SliverList.separated(
                       itemBuilder:
-                          (context, index) => OrderItem(
+                          (context, index) => ShipmentCard(
                             orderModel: state.shipmentsHistory[index],
                           ),
                       separatorBuilder:

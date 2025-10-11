@@ -1,4 +1,6 @@
+import 'package:ala_darbak_user/core/heplers/saudi_number_formater.dart';
 import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:ala_darbak_user/core/widgets/custom_text_form_field.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,12 +10,13 @@ import '../../../../../../core/config/style/app_text_styles.dart';
 import '../../../../../../core/heplers/regex_helper.dart';
 
 class RecipientInfoForm extends StatelessWidget {
-  final TextEditingController? nameController;
-  final TextEditingController? phoneController;
+  final TextEditingController nameController;
+  final TextEditingController phoneController;
+
   const RecipientInfoForm({
     super.key,
-    this.nameController,
-    this.phoneController,
+    required this.nameController,
+    required this.phoneController,
   });
 
   @override
@@ -26,7 +29,7 @@ class RecipientInfoForm extends StatelessWidget {
           LocaleKeys.recipient_info.tr(),
           style: AppTextStyle.font16black500,
         ),
-        TextFormField(
+        CustomTextFormField(
           controller: nameController,
           keyboardType: TextInputType.name,
           validator: (value) {
@@ -35,19 +38,17 @@ class RecipientInfoForm extends StatelessWidget {
             }
             return null;
           },
-          decoration: InputDecoration(
-            hintText: LocaleKeys.name.tr(),
-            border: const OutlineInputBorder(),
-            enabledBorder: const OutlineInputBorder(),
-            focusedBorder: const OutlineInputBorder(),
-            contentPadding: EdgeInsets.only(top: 10.h, left: 10.w, right: 10.w),
-            suffixIconConstraints: const BoxConstraints(
-              minWidth: 0,
-              minHeight: 0,
-            ),
+          hintText: LocaleKeys.name.tr(),
+          border: const OutlineInputBorder(),
+          enabledBorder: const OutlineInputBorder(),
+          focusedBorder: const OutlineInputBorder(),
+          contentPadding: EdgeInsets.only(top: 10.h, left: 10.w, right: 10.w),
+          suffixIconConstraints: const BoxConstraints(
+            minWidth: 0,
+            minHeight: 0,
           ),
         ),
-        TextFormField(
+        CustomTextFormField(
           controller: phoneController,
           keyboardType: TextInputType.phone,
           validator: (value) {
@@ -56,21 +57,23 @@ class RecipientInfoForm extends StatelessWidget {
             }
             return null;
           },
-          inputFormatters: [LengthLimitingTextInputFormatter(11)],
-          decoration: InputDecoration(
-            hintText: LocaleKeys.phone_number.tr(),
-            border: const OutlineInputBorder(),
-            enabledBorder: const OutlineInputBorder(),
-            focusedBorder: const OutlineInputBorder(),
-            suffixIcon: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
-              child: Text("966+", style: AppTextStyle.font16black500),
-            ),
-            contentPadding: EdgeInsets.only(top: 10.h, left: 10.w, right: 10.w),
-            suffixIconConstraints: const BoxConstraints(
-              minWidth: 0,
-              minHeight: 0,
-            ),
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly,
+            LengthLimitingTextInputFormatter(9),
+            SaudiNumberFormatter(),
+          ],
+          hintText: LocaleKeys.phone_number.tr(),
+          border: const OutlineInputBorder(),
+          enabledBorder: const OutlineInputBorder(),
+          focusedBorder: const OutlineInputBorder(),
+          suffixIcon: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            child: Text("966+", style: AppTextStyle.font16black500),
+          ),
+          contentPadding: EdgeInsets.only(top: 10.h, left: 10.w, right: 10.w),
+          suffixIconConstraints: const BoxConstraints(
+            minWidth: 0,
+            minHeight: 0,
           ),
         ),
       ],

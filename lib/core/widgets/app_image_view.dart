@@ -56,10 +56,7 @@ class AppImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return alignment != null
-        ? Align(
-            alignment: alignment!,
-            child: _buildWidget(),
-          )
+        ? Align(alignment: alignment!, child: _buildWidget())
         : _buildWidget();
   }
 
@@ -70,9 +67,10 @@ class AppImageView extends StatelessWidget {
         padding: padding,
         width: width,
         height: height,
-        clipBehavior: shape != null || radius != null
-            ? Clip.antiAliasWithSaveLayer
-            : Clip.none,
+        clipBehavior:
+            shape != null || radius != null
+                ? Clip.antiAliasWithSaveLayer
+                : Clip.none,
         decoration: BoxDecoration(
           border: border,
           shape: shape ?? BoxShape.rectangle,
@@ -113,8 +111,14 @@ class AppImageView extends StatelessWidget {
         fadeInDuration: const Duration(microseconds: 0),
         fadeOutDuration: const Duration(microseconds: 0),
         color: color,
-        placeholder: (context, url) => const SizedBox(),
-        errorWidget: (context, url, error) => const Icon(Icons.error_outline),
+        placeholder: (context, url) => const SizedBox.shrink(),
+        errorWidget:
+            (_, __, ___) => Image.asset(
+              "assets/images/splash_back.png",
+              fit: BoxFit.contain,
+              height: 40,
+              width: 40,
+            ),
       );
     } else if (imagePath != null && imagePath!.isNotEmpty) {
       return Image.asset(

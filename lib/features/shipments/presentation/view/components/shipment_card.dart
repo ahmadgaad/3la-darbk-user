@@ -1,4 +1,5 @@
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
+import 'package:ala_darbak_user/core/enum/shipment_status.dart';
 import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -11,16 +12,16 @@ import '../../../../../core/config/style/app_text_styles.dart';
 import '../../../../order/data/model/order_model.dart';
 import '../../../../order/presentation/view_model/order_cubit/cubit.dart';
 
-class OrderItem extends StatelessWidget {
-  final OrderModel? orderModel;
-  const OrderItem({super.key, this.orderModel});
+class ShipmentCard extends StatelessWidget {
+  final OrderModel orderModel;
+  const ShipmentCard({super.key, required this.orderModel});
 
   @override
   Widget build(BuildContext context) {
-    int status = orderModel?.status ?? 0;
+    final status = ShipmentStatusX.fromInt(orderModel.status ?? 0);
 
     return Stack(
-      alignment: Alignment.topLeft,
+      alignment: AlignmentDirectional.topEnd,
       children: [
         Container(
           decoration: BoxDecoration(
@@ -55,7 +56,7 @@ class OrderItem extends StatelessWidget {
                     ),
                     7.5.verticalSpaceFromWidth,
                     Text(
-                      orderModel?.pickupAddress ?? "",
+                      orderModel.pickupAddress ?? "",
                       style: AppTextStyle.font14black600.copyWith(height: 1.3),
                       maxLines: 1,
                     ),
@@ -66,7 +67,7 @@ class OrderItem extends StatelessWidget {
                     ),
                     7.5.verticalSpaceFromWidth,
                     Text(
-                      orderModel?.deliveryAddress ?? "",
+                      orderModel.deliveryAddress ?? "",
                       style: AppTextStyle.font14black600.copyWith(height: 1.3),
                       maxLines: 1,
                     ),
@@ -77,22 +78,20 @@ class OrderItem extends StatelessWidget {
                 spacing: 5.w,
                 children: [
                   Text(
-                    '${LocaleKeys.order_number.tr()} #${orderModel?.numOrder}',
+                    '${LocaleKeys.order_number.tr()} #${orderModel.numOrder}',
                     style: AppTextStyle.font14black600,
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      if (orderModel != null) {
-                        context.read<OrderCubit>().setOrderModel(orderModel!);
-                        Navigator.pushNamed(
-                          context,
-                          AppRoutes.orderDetails,
-                          arguments: orderModel?.id ?? 1,
-                        );
-                      }
+                      context.read<OrderCubit>().setOrderModel(orderModel);
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.orderDetails,
+                        arguments: orderModel.id ?? 1,
+                      );
                     },
                     style: ElevatedButton.styleFrom(
-                      fixedSize: Size.fromHeight(40.w),
+                      fixedSize: Size.fromHeight(40.h),
                     ),
                     child: Text(LocaleKeys.details.tr()),
                   ),
@@ -101,39 +100,16 @@ class OrderItem extends StatelessWidget {
             ],
           ),
         ),
-        //TODO: change status to enum
         Container(
           decoration: BoxDecoration(
-            color:
-                status == 0
-                    ? AppColors.pending
-                    : status == 1
-                    ? AppColors.accepted
-                    : status == 2
-                    ? AppColors.picked
-                    : status == 3
-                    ? AppColors.delivered
-                    : AppColors.canceled,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10),
+            color: status.color,
+            borderRadius: const BorderRadiusDirectional.only(
+              topEnd: Radius.circular(10),
+              bottomStart: Radius.circular(10),
             ),
           ),
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.w),
-          child: Text(
-            status == 0
-                ? LocaleKeys.pending.tr()
-                : status == 1
-                ? LocaleKeys.accepted.tr()
-                : status == 2
-                ? LocaleKeys.picked.tr()
-                : status == 3
-                ? LocaleKeys.delivered.tr()
-                : status == 4
-                ? LocaleKeys.not_approved.tr()
-                : LocaleKeys.canceled.tr(),
-            style: AppTextStyle.font12white600,
-          ),
+          child: Text(status.label, style: AppTextStyle.font12white600),
         ),
       ],
     );

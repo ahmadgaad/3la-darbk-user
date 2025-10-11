@@ -120,5 +120,7 @@ abstract class  LocaleKeys {
   static const order_category = 'order_category';
   static const order_images = 'order_images';
   static const pay_now = 'pay_now';
+  static const there_no_notificatation = 'there_no_notificatation';
+  static const language = 'language';
 
 }

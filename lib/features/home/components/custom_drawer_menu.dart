@@ -1,15 +1,15 @@
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:ala_darbak_user/core/extensions/navigation.dart';
 import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:ala_darbak_user/features/home/components/custom_drawer_header.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/config/style/app_color.dart';
-import '../../../core/config/style/app_text_styles.dart';
-import '../../../core/widgets/app_image_view.dart';
 import '../../profile/presentation/manager/profile_cubit/cubit.dart';
 import '../../profile/presentation/manager/profile_cubit/state.dart';
 import '../../profile/presentation/widgets/delete_account_dialog.dart';
@@ -26,7 +26,7 @@ class CustomDrawerMenu extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          _drawerHeader(),
+          const CustonDrawerHeader(),
           ListTile(
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.editProfile);
@@ -54,7 +54,6 @@ class CustomDrawerMenu extends StatelessWidget {
             title: Text(LocaleKeys.orders_history.tr()),
           ),
           ListTile(
-            //TODO: replace with actual phone number from settings
             onTap: () async {
               final url =
                   "tel:${context.read<SettingsInfoCubit>().state.settingsInfo?.callUs ?? "0"}";
@@ -98,6 +97,44 @@ class CustomDrawerMenu extends StatelessWidget {
               title: Text(LocaleKeys.logout.tr()),
             ),
           ),
+
+          ListTile(
+            onTap: () async {
+              await context.read<ProfileCubit>().toggleLanguage(context).then((
+                _,
+              ) {
+                Phoenix.rebirth(context);
+              });
+            },
+            leading: const Icon(Icons.language),
+            title: Text(LocaleKeys.language.tr()),
+            trailing: Container(
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    context.locale.languageCode == 'ar' ? '🇸🇦' : '🇬🇧',
+                    style: TextStyle(fontSize: 20.sp),
+                  ),
+                  6.horizontalSpace,
+                  Text(
+                    context.locale.languageCode == 'ar' ? 'العربية' : 'English',
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
           BlocListener<ProfileCubit, ProfileState>(
             listener: (context, state) {
               if (state.isDeleted) {
@@ -127,47 +164,4 @@ class CustomDrawerMenu extends StatelessWidget {
       ),
     );
   }
-
-  Widget _drawerHeader() => SizedBox(
-    height: 175.w,
-    child: DrawerHeader(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
-      decoration: const BoxDecoration(color: AppColors.primary),
-      child: BlocBuilder<ProfileCubit, ProfileState>(
-        builder: (context, state) {
-          final user = state.currentUser;
-          return Row(
-            spacing: 10.w,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              AppImageView(
-                width: 60.w,
-                height: 60.w,
-                fit: BoxFit.cover,
-                shape: BoxShape.circle,
-                url: user?.image ?? "asd",
-              ),
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  spacing: 10.w,
-                  children: [
-                    Text(
-                      user?.name ?? "user name",
-                      style: AppTextStyle.font16white600,
-                    ),
-                    Text(
-                      user?.mobile ?? "+966",
-                      style: AppTextStyle.font14white600,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-    ),
-  );
 }

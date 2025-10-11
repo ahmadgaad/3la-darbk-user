@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:ala_darbak_user/core/dependency_injection/di.dart';
+import 'package:ala_darbak_user/core/heplers/shared_preferences_helper.dart';
 import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -83,5 +85,25 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(state.copyWith(isSuccess: true, currentUser: value, loading: false));
       _initFormField();
     }, (r) => emit(state.copyWith(loading: false, isSuccess: false)));
+  }
+
+  // Language management
+  Future<void> toggleLanguage(BuildContext context) async {
+    final currentLocale = context.locale;
+    final newLocale =
+        currentLocale.languageCode == 'ar'
+            ? const Locale('en')
+            : const Locale('ar');
+
+    // Save to cache
+    await sl<SharedPreferencesHelper>().saveData(
+      key: 'locale',
+      value: newLocale.languageCode,
+    );
+
+    if (context.mounted) {
+      // Apply the new locale
+      await context.setLocale(newLocale);
+    }
   }
 }

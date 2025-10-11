@@ -1,4 +1,5 @@
 import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:ala_darbak_user/features/shipments/presentation/view/components/shipment_card_shimmer.dart';
 import 'package:ala_darbak_user/features/trips/presentation/view/components/custom_filter_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -54,9 +55,16 @@ class TripsView extends StatelessWidget {
                   ),
                 ),
               if (state.loading)
-                const SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: Center(child: CircularProgressIndicator.adaptive()),
+                SliverPadding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                    vertical: 24.h,
+                  ),
+                  sliver: SliverList.separated(
+                    itemBuilder: (_, __) => const ShipmentCardShimmer(),
+                    separatorBuilder: (_, __) => 15.verticalSpaceFromWidth,
+                    itemCount: 10,
+                  ),
                 )
               else
                 SliverPadding(

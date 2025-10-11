@@ -32,18 +32,22 @@ class OrderLocationPickupScreen extends StatelessWidget {
 
       bottomSheet: BlocBuilder<OrderCubit, OrderState>(
         builder: (context, state) {
-          return state.orderLocationModel.destinationLocation != null &&
-                  state.orderLocationModel.pickupLocation != null
-              ? DraggableScrollableSheet(
-                expand: false,
-                initialChildSize: .4,
-                minChildSize: 0.15,
-                maxChildSize: .4,
-                builder:
-                    (_, scrollController) =>
-                        OrderConfirmationSheet(state, scrollController),
-              )
-              : const SizedBox.shrink();
+          final location = state.orderLocationModel;
+          return Visibility(
+            visible:
+                location.destinationLocation != null &&
+                location.pickupLocation != null,
+            replacement: const SizedBox.shrink(),
+            child: DraggableScrollableSheet(
+              expand: false,
+              initialChildSize: .4,
+              minChildSize: 0.15,
+              maxChildSize: .4,
+              builder:
+                  (_, scrollController) =>
+                      OrderConfirmationSheet(state, scrollController),
+            ),
+          );
         },
       ),
     );

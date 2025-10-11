@@ -61,7 +61,7 @@ class _OrderConfirmationSheetState extends State<OrderConfirmationSheet> {
               style: AppTextStyle.font24primary600,
               children: <TextSpan>[
                 TextSpan(
-                  text: ' ${LocaleKeys.sar}',
+                  text: ' ${LocaleKeys.sar.tr()}',
                   style: AppTextStyle.font14black500,
                 ),
               ],
@@ -109,10 +109,8 @@ class _OrderConfirmationSheetState extends State<OrderConfirmationSheet> {
             ],
           ),
           ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text(LocaleKeys.cancel),
+            onPressed: () => Navigator.pop(context),
+            child: Text(LocaleKeys.cancel.tr()),
           ),
         ],
       ),

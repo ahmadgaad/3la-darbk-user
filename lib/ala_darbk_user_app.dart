@@ -24,37 +24,34 @@ class AlaDarbkUserApp extends StatelessWidget {
       ensureScreenSize: true,
       minTextAdapt: true,
       splitScreenMode: true,
-      builder:
-          (_, child) => OKToast(
-            child: MultiBlocProvider(
-              providers: [
-                BlocProvider(create: (context) => AppCubit()),
-                BlocProvider(create: (context) => OrderCubit(sl())),
-                BlocProvider(
-                  create: (context) => sl<ProfileCubit>(),
-                  lazy: false,
-                ),
-                BlocProvider(
-                  create:
-                      (context) => SettingsInfoCubit(sl())..getSettingInfo(),
-                  lazy: false,
-                ),
-              ],
-              child: MaterialApp(
-                title: 'علي دربك',
-                debugShowCheckedModeBanner: false,
-                theme: appTheme,
-                themeMode: ThemeMode.light,
-                color: AppColors.backGround,
-                home: const SplashScreen(),
-                navigatorKey: AppRouter.navigatorKey,
-                onGenerateRoute: AppRouter.generateRoute,
-                localizationsDelegates: context.localizationDelegates,
-                supportedLocales: context.supportedLocales,
-                locale: context.locale,
+      builder: (context, child) {
+        return OKToast(
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => AppCubit()),
+              BlocProvider(create: (context) => OrderCubit(sl())),
+              BlocProvider(create: (context) => sl<ProfileCubit>()),
+              BlocProvider(
+                create: (context) => SettingsInfoCubit(sl())..getSettingInfo(),
+                lazy: false,
               ),
+            ],
+            child: MaterialApp(
+              title: 'علي دربك',
+              debugShowCheckedModeBanner: false,
+              theme: appTheme,
+              themeMode: ThemeMode.light,
+              color: AppColors.backGround,
+              home: const SplashScreen(),
+              navigatorKey: AppRouter.navigatorKey,
+              onGenerateRoute: AppRouter.generateRoute,
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
             ),
           ),
+        );
+      },
     );
   }
 }

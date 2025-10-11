@@ -62,28 +62,10 @@ class LocationHelper {
       position.longitude,
     );
     Placemark place = placemarks[0];
-    dev.log(
-      "\x1B[32m Current Address [administrativeArea]: ${place.administrativeArea}",
-    );
-    dev.log(
-      "\x1B[32m Current Address [subAdministrativeArea]: ${place.subAdministrativeArea}",
-    );
-    dev.log("\x1B[32m Current Address [locality]: ${place.locality}");
-    dev.log("\x1B[32m Current Address [subLocality]: ${place.subLocality}");
-    dev.log("\x1B[32m Current Address [thoroughfare]: ${place.thoroughfare}");
-    dev.log(
-      "\x1B[32m Current Address [subThoroughfare]: ${place.subThoroughfare}",
-    );
-    dev.log("\x1B[32m Current Address [country]: ${place.country}");
-    dev.log("\x1B[32m Current Address [name]: ${place.name}");
-    dev.log("\x1B[32m Current Address [street]: ${place.street}");
-    dev.log(
-      "\x1B[32m Current Address [isoCountryCode]: ${place.isoCountryCode}",
-    );
-    dev.log("\x1B[32m Current Address [postalCode]: ${place.postalCode}");
 
     final String address =
         '${_addressJoin(place.street)}${_addressJoin(place.locality)}${_addressJoin(place.administrativeArea)}${_addressJoin(place.postalCode)} ${place.country ?? ""}';
+    dev.log("\x1B[32m Current Address: $address");
     return address;
   }
 

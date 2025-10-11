@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 
-import '../../../../core/networking/exceptions.dart';
-import '../../../../core/networking/api_end_points.dart';
 import '../../../../core/networking/api_client.dart';
+import '../../../../core/networking/api_end_points.dart';
+import '../../../../core/networking/exceptions.dart';
 import '../model/order_model.dart';
 
 abstract class OrderRepository {
@@ -29,6 +30,7 @@ class OrderRepositoryImpl implements OrderRepository {
         showErrorMessage: true,
         isFormData: true,
         data: order.toJson(),
+        options: Options(sendTimeout: const Duration(minutes: 2)),
       );
       return Left(OrderModel.fromJson(response.data));
     } on AppException catch (e) {
@@ -99,7 +101,6 @@ class OrderRepositoryImpl implements OrderRepository {
       );
       return Left(OrderModel.fromJson(response.data));
     } on AppException catch (e) {
-      
       return Right(e);
     }
   }

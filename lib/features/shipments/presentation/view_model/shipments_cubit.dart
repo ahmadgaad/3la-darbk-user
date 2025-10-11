@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../order/data/model/order_model.dart';
 import '../../data/shipments_repository.dart';
 import 'shipments_states.dart';
 
@@ -13,33 +12,7 @@ class ShipmentsCubit extends Cubit<ShipmentsState> {
     getHistoryOrders();
   }
 
-  // applyFilter({
-  //   String? startCity,
-  //   String? destenationCity,
-  //   String? date,
-  //   int? status,
-  // }) {
-  //   emit(
-  //     state.copyWith(
-  //       startCity: startCity ?? state.startCity,
-  //       destinationCity: destenationCity ?? state.destinationCity,
-  //       status: status ?? state.status,
-  //       date: date ?? state.date,
-  //     ),
-  //   );
-  // }
-
-  // void removeFilters() {
-  //   emit(
-  //     state.copyWith(
-  //       startCity: null,
-  //       destinationCity: null,
-  //       date: null,
-  //       status: null,
-  //     ),
-  //   );
-  // }
-
+  /// Get Shipments History
   Future<void> getHistoryOrders() async {
     final result = await _shipmentsRepository.getHistoryOrders();
     result.fold(
@@ -57,8 +30,10 @@ class ShipmentsCubit extends Cubit<ShipmentsState> {
     );
   }
 
+  /// Get Active Shipments
   Future<void> getActiveShipments() async {
     emit(state.copyWith(status: ShipmentsStatus.loading));
+    await Future.delayed(const Duration(milliseconds: 500));
     final result = await _shipmentsRepository.getActiveShpiments();
     result.fold(
       (failure) {
@@ -80,18 +55,18 @@ class ShipmentsCubit extends Cubit<ShipmentsState> {
     );
   }
 
-  updateOrderFromOrders(OrderModel order) async {
-    emit(
-      state.copyWith(
-        activeShipments:
-            state.activeShipments
-                .map((e) => e.id == order.id ? order : e)
-                .toList(),
-        shipmentsHistory:
-            state.shipmentsHistory
-                .map((e) => e.id == order.id ? order : e)
-                .toList(),
-      ),
-    );
-  }
+  // Future<void> updateOrderFromOrders(OrderModel order) async {
+  //   emit(
+  //     state.copyWith(
+  //       activeShipments:
+  //           state.activeShipments
+  //               .map((e) => e.id == order.id ? order : e)
+  //               .toList(),
+  //       shipmentsHistory:
+  //           state.shipmentsHistory
+  //               .map((e) => e.id == order.id ? order : e)
+  //               .toList(),
+  //     ),
+  //   );
+  // }
 }

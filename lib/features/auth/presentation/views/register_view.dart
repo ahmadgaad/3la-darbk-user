@@ -123,7 +123,7 @@ class _RegisterViewState extends State<RegisterView>
                   controller: passwordController,
                   keyboardType: TextInputType.visiblePassword,
                   obscureText: !isPasswordVisible,
-                  hintText: LocaleKeys.password,
+                  hintText: LocaleKeys.password.tr(),
                   prefixIcon: const Icon(Icons.lock, size: 25),
                   suffixIcon: IconButton(
                     onPressed: () {

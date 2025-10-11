@@ -2,24 +2,22 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:logger/logger.dart';
 
 import 'api_response_model.dart';
 import 'exceptions.dart';
 
 class ApiClient {
   final Dio _dio;
-  final Logger _logger;
 
-  ApiClient({required Dio dio, required Logger logger})
-    : _dio = dio,
-      _logger = logger;
+  ApiClient({required Dio dio}) : _dio = dio;
 
   /// Helper function to set headers
   void setHeaders({bool isFormData = false}) {
     _dio.options.headers = {
       'Content-Type': isFormData ? 'multipart/form-data' : 'application/json',
       'Accept': 'application/json',
+      //TODO change language dynamically
+      'Accect-Language': 'ar',
     };
   }
 
@@ -40,7 +38,6 @@ class ApiClient {
       );
       return ApiResponseModel.fromJson(response.data);
     } on DioException catch (error) {
-      _logger.e("GET request failed: $error");
       throw handleDioExceptions(error, showErrorMessage);
     } on SocketException {
       throw AppException('No Internet connection');
@@ -59,6 +56,7 @@ class ApiClient {
     bool isFormData = false,
     Map<String, dynamic>? query,
     ProgressCallback? onSendProgress,
+    Options? options,
   }) async {
     try {
       setHeaders(isFormData: isFormData);
@@ -68,6 +66,7 @@ class ApiClient {
         data: isFormData ? FormData.fromMap(data) : jsonEncode(data),
         queryParameters: query,
         onSendProgress: onSendProgress,
+        options: options
       );
 
       return ApiResponseModel.fromJson(response.data);
@@ -102,7 +101,7 @@ class ApiClient {
 
       return ApiResponseModel.fromJson(response.data);
     } on DioException catch (error) {
-      _logger.e("POST request failed: $error");
+      // _logger.e("POST request failed: $error");
       throw handleDioExceptions(error, showErrorMessage);
     } on SocketException {
       throw AppException('No Internet connection');
