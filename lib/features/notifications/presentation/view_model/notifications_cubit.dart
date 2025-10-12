@@ -10,8 +10,8 @@ class NotificationsCubit extends Cubit<NotificationsState> {
 
   Future<void> getNotifications({bool forceRefresh = false}) async {
     if (state.notifications.isNotEmpty && !forceRefresh) return;
-
     emit(state.copyWith(status: NotificationStatus.loading, notifications: []));
+    await Future.delayed(const Duration(milliseconds: 800));
     final result = await _notificationsRepo.getNotifications();
     result.fold(
       (failure) {

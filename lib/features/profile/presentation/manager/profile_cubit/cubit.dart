@@ -1,10 +1,13 @@
 import 'dart:io';
 
+import 'package:ala_darbak_user/core/dependency_injection/di.dart';
+import 'package:ala_darbak_user/core/heplers/shared_preferences_helper.dart';
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/heplers/image_picker.dart';
-import '../../../../../core/utils/app_strings.dart';
 import '../../../../../core/widgets/app_toaster.dart';
 import '../../../data/repositories.dart';
 import 'state.dart';
@@ -47,7 +50,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(state.copyWith(loading: true));
     final result = await _profileRepository.delete();
     result.fold((value) {
-      AppToaster.show(AppStrings.deletedSuccessfully, isError: false);
+      AppToaster.show(LocaleKeys.deleted_successfully.tr(), isError: false);
       emit(state.copyWith(isSuccess: true, isDeleted: true, loading: false));
     }, (r) => emit(state.copyWith(loading: false, isSuccess: false)));
   }
@@ -78,9 +81,29 @@ class ProfileCubit extends Cubit<ProfileState> {
       ),
     );
     result.fold((value) {
-      AppToaster.show(AppStrings.updatedSuccessfully, isError: false);
+      AppToaster.show(LocaleKeys.updated_successfully.tr(), isError: false);
       emit(state.copyWith(isSuccess: true, currentUser: value, loading: false));
       _initFormField();
     }, (r) => emit(state.copyWith(loading: false, isSuccess: false)));
+  }
+
+  // Language management
+  Future<void> toggleLanguage(BuildContext context) async {
+    final currentLocale = context.locale;
+    final newLocale =
+        currentLocale.languageCode == 'ar'
+            ? const Locale('en')
+            : const Locale('ar');
+
+    // Save to cache
+    await sl<SharedPreferencesHelper>().saveData(
+      key: 'locale',
+      value: newLocale.languageCode,
+    );
+
+    if (context.mounted) {
+      // Apply the new locale
+      await context.setLocale(newLocale);
+    }
   }
 }

@@ -4,7 +4,7 @@ class CategoryModel {
   final dynamic description;
   final String? image;
   final int? status;
-  final bool? isPerson;
+  final bool isPerson;
 
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -17,7 +17,7 @@ class CategoryModel {
     this.status,
     this.createdAt,
     this.updatedAt,
-    this.isPerson,
+    required this.isPerson,
   });
 
   CategoryModel copyWith({

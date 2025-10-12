@@ -5,14 +5,15 @@ import 'package:ala_darbak_user/core/extensions/navigation.dart';
 import 'package:ala_darbak_user/core/heplers/image_picker.dart';
 import 'package:ala_darbak_user/core/heplers/regex_helper.dart';
 import 'package:ala_darbak_user/core/heplers/saudi_number_formater.dart';
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
 import 'package:ala_darbak_user/features/auth/data/models/user_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/config/style/app_text_styles.dart';
-import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/app_image_view.dart';
 import '../../../../core/widgets/app_toaster.dart';
 import '../../../../core/widgets/custom_text_form_field.dart';
@@ -91,7 +92,7 @@ class _RegisterViewState extends State<RegisterView>
                 CustomTextFormField(
                   controller: nameController,
                   keyboardType: TextInputType.name,
-                  hintText: AppStrings.name,
+                  hintText: LocaleKeys.name.tr(),
                   prefixIcon: const Icon(Icons.person, size: 25),
                   validator: (value) {
                     if (!RegexHelper.isNameValid(value)) {
@@ -108,7 +109,7 @@ class _RegisterViewState extends State<RegisterView>
                     LengthLimitingTextInputFormatter(9),
                     SaudiNumberFormatter(),
                   ],
-                  hintText: AppStrings.phoneNumber,
+                  hintText: LocaleKeys.phone_number.tr(),
                   suffixIcon: Text("966+", style: AppTextStyle.font16black500),
                   prefixIcon: const Icon(Icons.phone, size: 25),
                   validator: (value) {
@@ -122,7 +123,7 @@ class _RegisterViewState extends State<RegisterView>
                   controller: passwordController,
                   keyboardType: TextInputType.visiblePassword,
                   obscureText: !isPasswordVisible,
-                  hintText: AppStrings.password,
+                  hintText: LocaleKeys.password.tr(),
                   prefixIcon: const Icon(Icons.lock, size: 25),
                   suffixIcon: IconButton(
                     onPressed: () {
@@ -147,7 +148,7 @@ class _RegisterViewState extends State<RegisterView>
                 CustomTextFormField(
                   controller: confirmPasswordController,
                   keyboardType: TextInputType.visiblePassword,
-                  hintText: AppStrings.confirmPassword,
+                  hintText: LocaleKeys.confirm_password.tr(),
                   obscureText: true,
                   prefixIcon: const Icon(Icons.lock, size: 25),
                   validator: (value) {
@@ -167,7 +168,7 @@ class _RegisterViewState extends State<RegisterView>
                       context.pushNamed(AppRoutes.termsAndCondtions);
                     },
                     child: Text(
-                      AppStrings.acceptPrivacyPolicy,
+                      LocaleKeys.accept_privacy_policy.tr(),
                       style: AppTextStyle.font16black500.copyWith(
                         decoration: TextDecoration.underline,
                       ),
@@ -189,7 +190,10 @@ class _RegisterViewState extends State<RegisterView>
           BlocListener<RegisterCubit, RegisterState>(
             listener: (context, state) {
               if (state.success) {
-                AppToaster.show(AppStrings.registerSuccess, isError: false);
+                AppToaster.show(
+                  LocaleKeys.register_success.tr(),
+                  isError: false,
+                );
                 Navigator.pushNamedAndRemoveUntil(
                   context,
                   AppRoutes.home,
@@ -210,10 +214,10 @@ class _RegisterViewState extends State<RegisterView>
                     ),
                   );
                 } else if (!isPrivacyPolicyAccepted) {
-                  AppToaster.show(AppStrings.acceptPrivacyPolicy);
+                  AppToaster.show(LocaleKeys.accept_privacy_policy.tr());
                 }
               },
-              child: const Text(AppStrings.signUp),
+              child: Text(LocaleKeys.sign_up.tr()),
             ),
           ),
         ],

@@ -7,6 +7,7 @@ class ProfileState {
   final bool isSuccess;
   final bool isLogedOut;
   final bool isDeleted;
+  final String? currentLanguage;
 
   const ProfileState({
     this.isLogedOut = false,
@@ -14,6 +15,7 @@ class ProfileState {
     this.currentUser,
     this.loading = false,
     this.isSuccess = false,
+    this.currentLanguage,
   });
 
   ProfileState copyWith({
@@ -22,11 +24,13 @@ class ProfileState {
     bool? isLogedOut,
     bool? isDeleted,
     bool? isSuccess,
+    String? currentLanguage,
   }) => ProfileState(
     loading: loading ?? this.loading,
     isLogedOut: isLogedOut ?? this.isLogedOut,
     isDeleted: isDeleted ?? this.isDeleted,
     currentUser: currentUser ?? this.currentUser,
     isSuccess: isSuccess ?? this.isSuccess,
+    currentLanguage: currentLanguage ?? this.currentLanguage,
   );
 }

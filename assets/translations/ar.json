@@ -128,5 +128,7 @@
   "order_category": "فئة الشحنة",
 
   "order_images": "صور الشحنة",
-  "pay_now": "ادفع الان"
+  "pay_now": "ادفع الان",
+  "there_no_notificatation" : "لا توجد إشعارات",
+  "language": "اللغة"
 }

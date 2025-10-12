@@ -128,5 +128,7 @@
   "order_category": "Order category",
 
   "order_images": "Order images",
-  "pay_now": "Pay now"
+  "pay_now": "Pay now",
+  "there_no_notificatation" : "No notifications",
+  "language": "Language"
 }

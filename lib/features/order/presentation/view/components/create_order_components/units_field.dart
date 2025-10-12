@@ -1,10 +1,11 @@
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../core/config/style/app_text_styles.dart';
 import '../../../../../../core/heplers/regex_helper.dart';
-import '../../../../../../core/utils/app_strings.dart';
 
 class UnitsField extends StatelessWidget {
   final TextEditingController? controller;
@@ -15,7 +16,7 @@ class UnitsField extends StatelessWidget {
     return Row(
       spacing: 10.w,
       children: [
-        Text(AppStrings.unitsNumber, style: AppTextStyle.font16black500),
+        Text(LocaleKeys.units_number.tr(), style: AppTextStyle.font16black500),
         Flexible(
           child: TextFormField(
             onTapOutside: (event) {

@@ -1,4 +1,5 @@
-import '../../utils/app_strings.dart';
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:myfatoorah_flutter/myfatoorah_flutter.dart';
 
@@ -66,16 +67,16 @@ class _PaymentPageState extends State<PaymentPage> {
       }
     } catch (e) {
       print('Error fetching payment methods: $e');
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Failed to load payment methods')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to load payment methods')),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(AppStrings.choosePaymentWay),
+      title: Text(LocaleKeys.choose_payment_way.tr()),
       content: ConstrainedBox(
         constraints: BoxConstraints(
           maxHeight:
@@ -83,35 +84,40 @@ class _PaymentPageState extends State<PaymentPage> {
               0.7, // Limit the dialog height
           maxWidth: MediaQuery.of(context).size.width * 0.9,
         ),
-        child:isLoading?const Center(child: CircularProgressIndicator(),): SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children:
-                paymentMethods.map((method) {
-                  return RadioListTile<int>(
-                    title: Row(
-                      children: [
-                        if (method.imageUrl != null)
-                          Image.network(
-                            method.imageUrl!,
-                            width: 40,
-                            height: 40,
-                          ),
-                        const SizedBox(width: 10),
-                        Expanded(child: Text(method.paymentMethodEn ?? "")),
-                      ],
-                    ),
-                    value: method.paymentMethodId!,
-                    groupValue: selectedPaymentMethodId,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedPaymentMethodId = value;
-                      });
-                    },
-                  );
-                }).toList(),
-          ),
-        ),
+        child:
+            isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children:
+                        paymentMethods.map((method) {
+                          return RadioListTile<int>(
+                            title: Row(
+                              children: [
+                                if (method.imageUrl != null)
+                                  Image.network(
+                                    method.imageUrl!,
+                                    width: 40,
+                                    height: 40,
+                                  ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: Text(method.paymentMethodEn ?? ""),
+                                ),
+                              ],
+                            ),
+                            value: method.paymentMethodId!,
+                            groupValue: selectedPaymentMethodId,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedPaymentMethodId = value;
+                              });
+                            },
+                          );
+                        }).toList(),
+                  ),
+                ),
       ),
       actions: [
         TextButton(
@@ -134,23 +140,24 @@ class _PaymentPageState extends State<PaymentPage> {
               final myFatoResponse = await MFSDK.executePayment(
                 request,
                 MFLanguage.ARABIC,
-                
+
                 (invoiceId) {
                   print('Invoice ID: $invoiceId');
                 },
               );
               print("Invoice Status: ${myFatoResponse.invoiceStatus}");
-              isSuccess=myFatoResponse.invoiceStatus?.toLowerCase() == "paid";
+              isSuccess = myFatoResponse.invoiceStatus?.toLowerCase() == "paid";
             } catch (e) {
-              if(e is MFError) {
+              if (e is MFError) {
                 print('Error executing payment: ${e.message}');
                 print('Error executing payment: ${e.code}');
-              }else{
-                print('Error executing payment: $e');}
+              } else {
+                print('Error executing payment: $e');
+              }
             }
-            Navigator.pop(context,isSuccess); // Close the dialog
+            Navigator.pop(context, isSuccess); // Close the dialog
           },
-          child: const Text(AppStrings.payNow),
+          child: Text(LocaleKeys.pay_now.tr()),
         ),
       ],
     );

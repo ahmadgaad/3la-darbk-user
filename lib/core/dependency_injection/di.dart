@@ -4,7 +4,6 @@ import 'package:ala_darbak_user/features/profile/presentation/manager/profile_cu
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' show Client;
-import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -69,14 +68,16 @@ class InjectionContainer {
           BaseOptions(
             baseUrl: AppConfig.baseUrl,
             receiveDataWhenStatusError: true,
-            connectTimeout: const Duration(milliseconds: 60 * 1000),
-            sendTimeout: const Duration(milliseconds: 60 * 1000),
-            receiveTimeout: const Duration(milliseconds: 60 * 1000),
+            connectTimeout: const Duration(seconds: 60),
+            sendTimeout: const Duration(seconds: 60),
+            receiveTimeout: const Duration(seconds: 60),
+            responseType: ResponseType.json,
           ),
         )
         ..interceptors.addAll([
           AuthInterceptor(),
           PrettyDioLogger(
+            // logPrint: (obj) => log(obj.toString()),
             requestHeader: true,
             requestBody: true,
             responseBody: true,
@@ -88,9 +89,8 @@ class InjectionContainer {
         ]),
     );
 
-    sl.registerSingleton<Logger>(Logger());
 
-    sl.registerSingleton<ApiClient>(ApiClient(dio: sl(), logger: sl()));
+    sl.registerSingleton<ApiClient>(ApiClient(dio: sl()));
   }
 
   static _historyOrderRepoInit() {

@@ -1,7 +1,9 @@
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:ala_darbak_user/core/heplers/regex_helper.dart';
 import 'package:ala_darbak_user/core/heplers/saudi_number_formater.dart';
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
 import 'package:ala_darbak_user/core/widgets/custom_text_form_field.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +12,6 @@ import 'package:loading_overlay/loading_overlay.dart';
 
 import '../../../../core/config/style/app_text_styles.dart';
 import '../../../../core/dependency_injection/di.dart';
-import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/logo.dart';
 import '../../../../core/widgets/timer_widget.dart';
 import '../view_model/forget_password_cubit/cubit.dart';
@@ -31,7 +32,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     return BlocProvider(
       create: (context) => ForgetPasswordCubit(sl()),
       child: Scaffold(
-        appBar: AppBar(title: const Text(AppStrings.forgetPassword)),
+        appBar: AppBar(title: Text(LocaleKeys.forget_password.tr())),
         body: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
           listener: (context, state) {
             if (state.passwordChanged) {
@@ -81,7 +82,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             LengthLimitingTextInputFormatter(9),
             SaudiNumberFormatter(),
           ],
-          hintText: AppStrings.phoneNumber,
+          hintText: LocaleKeys.phone_number.tr(),
           suffixIcon: Text("966+", style: AppTextStyle.font16black500),
           prefixIcon: const Icon(Icons.phone, size: 25),
           validator: (value) {
@@ -95,7 +96,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       30.verticalSpaceFromWidth,
       ElevatedButton(
         onPressed: cubit.checkUserAndSendCode,
-        child: const Text(AppStrings.sendCode),
+        child: Text(LocaleKeys.send_code.tr()),
       ),
     ],
   );
@@ -115,14 +116,14 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       30.verticalSpaceFromWidth,
       ElevatedButton(
         onPressed: cubit.checkCode,
-        child: const Text(AppStrings.confirm),
+        child: const Text(LocaleKeys.confirm),
       ),
       15.verticalSpaceFromWidth,
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "${AppStrings.doNotReceiveCode} ",
+            "${LocaleKeys.do_not_receive_code.tr()} ",
             style: AppTextStyle.font16black500,
           ),
           TimerWidget(
@@ -146,7 +147,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               controller: cubit.passwordController,
               keyboardType: TextInputType.visiblePassword,
               obscureText: isPasswordVisible,
-              hintText: AppStrings.password,
+              hintText: LocaleKeys.password,
               prefixIcon: const Icon(Icons.lock, size: 25),
               suffixIcon: IconButton(
                 onPressed: () {
@@ -172,7 +173,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               controller: cubit.confirmPasswordController,
               obscureText: true,
               keyboardType: TextInputType.visiblePassword,
-              hintText: AppStrings.confirmPassword,
+              hintText: LocaleKeys.confirm_password.tr(),
               prefixIcon: const Icon(Icons.lock, size: 25),
               validator: (value) {
                 if (!RegexHelper.isConfirmPasswordValid(
@@ -190,7 +191,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       30.verticalSpaceFromWidth,
       ElevatedButton(
         onPressed: cubit.forgetPassword,
-        child: const Text(AppStrings.confirm),
+        child: const Text(LocaleKeys.confirm),
       ),
     ],
   );

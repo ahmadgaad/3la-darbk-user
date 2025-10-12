@@ -1,10 +1,11 @@
 import 'package:ala_darbak_user/core/config/style/app_color.dart';
 import 'package:ala_darbak_user/core/config/style/app_text_styles.dart';
 import 'package:ala_darbak_user/core/heplers/location_helper.dart';
-import 'package:ala_darbak_user/core/utils/app_strings.dart';
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
 import 'package:ala_darbak_user/features/order/presentation/view_model/order_cubit/cubit.dart';
 import 'package:ala_darbak_user/features/order/presentation/view_model/order_cubit/state.dart';
 import 'package:ala_darbak_user/features/settings/presentation/manager/cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -47,7 +48,7 @@ class _OrderConfirmationSheetState extends State<OrderConfirmationSheet> {
             ),
           ),
           Text(
-            AppStrings.orderPrice,
+            LocaleKeys.order_price.tr(),
             style: AppTextStyle.font16black600,
             textAlign: TextAlign.center,
           ),
@@ -60,7 +61,7 @@ class _OrderConfirmationSheetState extends State<OrderConfirmationSheet> {
               style: AppTextStyle.font24primary600,
               children: <TextSpan>[
                 TextSpan(
-                  text: ' ${AppStrings.sar}',
+                  text: ' ${LocaleKeys.sar.tr()}',
                   style: AppTextStyle.font14black500,
                 ),
               ],
@@ -87,7 +88,7 @@ class _OrderConfirmationSheetState extends State<OrderConfirmationSheet> {
                               color: AppColors.white,
                             ),
                           )
-                          : const Text(AppStrings.confirmOrderAndSearch),
+                          : Text(LocaleKeys.confirm_order_and_search.tr()),
                 ),
               ),
               IconButton(
@@ -108,10 +109,8 @@ class _OrderConfirmationSheetState extends State<OrderConfirmationSheet> {
             ],
           ),
           ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text(AppStrings.cancel),
+            onPressed: () => Navigator.pop(context),
+            child: Text(LocaleKeys.cancel.tr()),
           ),
         ],
       ),

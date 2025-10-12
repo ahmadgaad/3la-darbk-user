@@ -1,7 +1,8 @@
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/utils/app_strings.dart';
 import '../../../../../core/widgets/app_toaster.dart';
 import '../../../data/repository/repository.dart';
 import 'state.dart';
@@ -19,8 +20,8 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
-  ForgetPasswordCubit(this._authRepository) : super( const ForgetPasswordState());
-
+  ForgetPasswordCubit(this._authRepository)
+    : super(const ForgetPasswordState());
 
   void checkUserAndSendCode() async {
     if (formKey.currentState!.validate()) {
@@ -33,7 +34,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
           emit(state.copyWith(success: true, userExist: userExist));
           sendCode();
         } else {
-          AppToaster.show(AppStrings.userNotExist,);
+          AppToaster.show(LocaleKeys.user_not_exist.tr());
           emit(state.copyWith(loading: false, success: true));
         }
       }, (r) => emit(state.copyWith(loading: false, success: false)));
@@ -42,16 +43,14 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
 
   void sendCode() async {
     emit(state.copyWith(loading: true));
-    final result = await _authRepository.sendCode(
-      mobile: phoneController.text,
-    );
+    final result = await _authRepository.sendCode(mobile: phoneController.text);
     result.fold((code) {
-      AppToaster.show("${AppStrings.codeSent} $code", isError: false);
+      AppToaster.show("${LocaleKeys.code_sent.tr()} $code", isError: false);
       emit(state.copyWith(success: true, loading: false, code: code));
     }, (r) => emit(state.copyWith(loading: false, success: false)));
   }
 
-  checkCode(){
+  checkCode() {
     if (formKey2.currentState!.validate()) {
       emit(state.copyWith(codeValid: true));
     }
@@ -61,11 +60,16 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
     if (formKey3.currentState!.validate()) {
       emit(state.copyWith(loading: true));
       final result = await _authRepository.forgetPassword(
-          mobile: phoneController.text,
-          password: passwordController.text,
-          code: codeController.text);
-      result.fold((l) => emit(state.copyWith(success: true,passwordChanged: true, loading: false)),
-          (r) => emit(state.copyWith(loading: false, success: false)));
+        mobile: phoneController.text,
+        password: passwordController.text,
+        code: codeController.text,
+      );
+      result.fold(
+        (l) => emit(
+          state.copyWith(success: true, passwordChanged: true, loading: false),
+        ),
+        (r) => emit(state.copyWith(loading: false, success: false)),
+      );
     }
   }
 }

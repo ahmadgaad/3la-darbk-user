@@ -10,7 +10,7 @@ class TripsCubit extends Cubit<TripsState> {
     getActiveTrips();
   }
 
-  applyFilter({CityModel? startCity, CityModel? destenationCity}) {
+  void applyFilter({CityModel? startCity, CityModel? destenationCity}) {
     emit(
       state.copyWith(
         startCity: startCity ?? state.startCity,
@@ -19,12 +19,13 @@ class TripsCubit extends Cubit<TripsState> {
     );
   }
 
-  removeFilters() {
+  void removeFilters() {
     emit(state.copyWith());
   }
 
-  getActiveTrips() async {
+  Future<void> getActiveTrips() async {
     emit(state.copyWith(loading: true));
+    await Future.delayed(const Duration(milliseconds: 500));
     final result = await _tripsRepository.getActiveTrips();
     result.fold(
       (trips) {

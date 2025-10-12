@@ -1,10 +1,11 @@
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
 import 'package:dartz/dartz.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../../../core/heplers/shared_preferences_helper.dart';
 import '../../../../core/networking/api_client.dart';
 import '../../../../core/networking/api_end_points.dart';
 import '../../../../core/networking/exceptions.dart';
-import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/app_toaster.dart';
 import '../models/user_model.dart';
 
@@ -77,7 +78,7 @@ class AuthRepositoryImpl implements AuthRepository {
       return const Left(null);
     } on AppException catch (e) {
       if (e is ServerException && e.statusCode == 401) {
-        AppToaster.show(AppStrings.invalidCredentials);
+        AppToaster.show(LocaleKeys.invalid_credentials.tr());
       }
       return Right(e);
     }
@@ -106,7 +107,7 @@ class AuthRepositoryImpl implements AuthRepository {
       return const Left(null);
     } on AppException catch (e) {
       if (e is ServerException && e.statusCode == 422) {
-        AppToaster.show(AppStrings.userExist);
+        AppToaster.show(LocaleKeys.user_exist.tr());
       }
       return Right(e);
     }

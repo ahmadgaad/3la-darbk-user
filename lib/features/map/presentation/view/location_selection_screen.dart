@@ -1,4 +1,6 @@
 import 'package:ala_darbak_user/core/extensions/navigation.dart';
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,7 +8,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../core/config/style/app_color.dart';
 import '../../../../core/dependency_injection/di.dart';
-import '../../../../core/utils/app_strings.dart';
 import '../view_model/map_cubit.dart';
 import '../view_model/map_states.dart';
 import 'components/map_location_selector.dart';
@@ -102,8 +103,8 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
                       },
                       child: Text(
                         widget.isDestination
-                            ? AppStrings.confirmDestinationLocation
-                            : AppStrings.confirmPickupLocation,
+                            ? LocaleKeys.confirm_destination_location.tr()
+                            : LocaleKeys.confirm_pickup_location.tr(),
                       ),
                     ),
                   ],

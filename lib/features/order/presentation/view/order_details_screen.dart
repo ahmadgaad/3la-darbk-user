@@ -1,4 +1,6 @@
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -9,17 +11,16 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/config/style/app_color.dart';
 import '../../../../core/config/style/app_text_styles.dart';
 import '../../../../core/services/payment/payment_dialog.dart';
-import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/app_image_view.dart';
 import '../../../../core/widgets/app_toaster.dart';
 import '../../../settings/presentation/manager/cubit.dart';
 import '../../data/model/driver_model.dart';
+import '../view_model/order_cubit/cubit.dart';
+import '../view_model/order_cubit/state.dart';
 import 'components/order_images.dart';
 import 'components/order_locations.dart';
 import 'components/order_track.dart';
 import 'components/price_raise.dart';
-import '../view_model/order_cubit/cubit.dart';
-import '../view_model/order_cubit/state.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
   final int orderId;
@@ -32,9 +33,9 @@ class OrderDetailsScreen extends StatefulWidget {
 
 class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   final List<String> sizes = [
-    AppStrings.small,
-    AppStrings.medium,
-    AppStrings.larage,
+    LocaleKeys.small.tr(),
+    LocaleKeys.medium.tr(),
+    LocaleKeys.large.tr(),
   ];
   @override
   void initState() {
@@ -64,7 +65,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             : Scaffold(
               appBar: AppBar(
                 title: Text(
-                  '${AppStrings.orderNumber} #${state.orderModel?.numOrder ?? ""}',
+                  '${LocaleKeys.order_number.tr()} #${state.orderModel?.numOrder ?? ""}',
                 ),
                 centerTitle: true,
                 actions:
@@ -106,17 +107,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     if (state.orderModel?.trip != null) ...{
                       10.verticalSpaceFromWidth,
                       _textBuilder(
-                        AppStrings.tripNumber,
+                        LocaleKeys.trip_number.tr(),
                         '#${state.orderModel?.trip?.numTrip ?? ""}',
                       ),
                       10.verticalSpaceFromWidth,
                       _textBuilder(
-                        AppStrings.startCity,
+                        LocaleKeys.start_city.tr(),
                         state.orderModel?.trip?.cityFrom?.name ?? "",
                       ),
                       10.verticalSpaceFromWidth,
                       _textBuilder(
-                        AppStrings.destenationCity,
+                        LocaleKeys.destination_city.tr(),
                         state.orderModel?.trip?.cityTo?.name ?? "",
                       ),
                       10.verticalSpaceFromWidth,
@@ -124,26 +125,26 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     },
                     10.verticalSpaceFromWidth,
                     _textBuilder(
-                      AppStrings.orderCategory,
+                      LocaleKeys.order_category.tr(),
                       state.orderModel?.category?.name ?? "",
                     ),
                     10.verticalSpaceFromWidth,
                     if (!isPerson) ...[
                       const Divider(),
                       _textBuilder(
-                        AppStrings.orderSize,
+                        LocaleKeys.order_size.tr(),
                         sizes[state.orderModel?.size ?? 0],
                       ),
                       const Divider(),
                       _textBuilder(
-                        AppStrings.unitsNumber,
+                        LocaleKeys.units_number.tr(),
                         '${state.orderModel?.quantity ?? 1}',
                       ),
                     ],
                     const Divider(),
                     _textBuilder(
-                      AppStrings.orderPrice,
-                      '${state.orderModel?.price ?? "0"} ${AppStrings.sar}',
+                      LocaleKeys.order_price.tr(),
+                      '${state.orderModel?.price ?? "0"} ${LocaleKeys.sar}',
                     ),
                     const Divider(),
                     10.verticalSpaceFromWidth,
@@ -151,13 +152,13 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       spacing: 5.w,
                       children: [
                         _textBuilder(
-                          AppStrings.payMethod,
+                          LocaleKeys.pay_method.tr(),
                           state.orderModel?.paymentMethod == "0"
-                              ? AppStrings.cash
-                              : AppStrings.online,
+                              ? LocaleKeys.cash
+                              : LocaleKeys.online,
                         ),
                         Text(
-                          isPaid ? AppStrings.paid : AppStrings.notPaid,
+                          isPaid ? LocaleKeys.paid : LocaleKeys.not_paid.tr(),
                           style: AppTextStyle.font14black500,
                         ),
                       ],
@@ -173,7 +174,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                           ),
                           5.horizontalSpace,
                           Text(
-                            AppStrings.youCanPayWhenDriverAcceptOrder,
+                            LocaleKeys.you_can_pay_when_driver_accept_order
+                                .tr(),
                             style: AppTextStyle.font14black500,
                           ),
                         ],
@@ -189,7 +191,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     const Divider(),
                     10.verticalSpaceFromWidth,
                     _textBuilder(
-                      AppStrings.addtionalDetails,
+                      LocaleKeys.additional_details.tr(),
                       state.orderModel?.note ?? "",
                     ),
                     if (!isPerson) ...{
@@ -233,7 +235,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                 ),
                                 const SizedBox(width: 10),
                                 Text(
-                                  AppStrings.cash,
+                                  LocaleKeys.cash.tr(),
                                   style: AppTextStyle.font14black600,
                                 ),
                               ],
@@ -257,7 +259,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                 const SizedBox(width: 10),
                                 Expanded(
                                   child: Text(
-                                    AppStrings.online,
+                                    LocaleKeys.online.tr(),
                                     style: AppTextStyle.font14black600,
                                   ),
                                 ),
@@ -286,7 +288,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                         }
                                       });
                                     },
-                                    child: const Text(AppStrings.payNow),
+                                    child: Text(LocaleKeys.pay_now.tr()),
                                   ),
                               ],
                             ),
@@ -312,8 +314,27 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                     color: AppColors.white,
                                   ),
                                 )
-                                : const Text(AppStrings.cancel),
+                                : Text(LocaleKeys.cancel.tr()),
                       ),
+
+                    // // Show "Back to Home" button when order is delivered
+                    // if (status == 3)
+                    //   ElevatedButton(
+                    //     onPressed: () {
+                    //       Navigator.pushNamedAndRemoveUntil(
+                    //         context,
+                    //         AppRoutes.home,
+                    //         (route) => false,
+                    //       );
+                    //     },
+                    //     style: ElevatedButton.styleFrom(
+                    //       backgroundColor: AppColors.primary,
+                    //     ),
+                    //     child: Text(
+                    //       "العودة إلى ${LocaleKeys.home.tr()}",
+                    //       style: const TextStyle(color: Colors.white),
+                    //     ),
+                    //   ),
                   ],
                 ),
               ),
@@ -321,7 +342,19 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
       },
       listener: (BuildContext context, OrderState state) {
         if (state.canceled) {
-          AppToaster.show(AppStrings.orderCanceled);
+          AppToaster.show(LocaleKeys.order_canceled.tr());
+        }
+
+        // Navigate back to home when order is completed (delivered)
+        if (state.completed) {
+          AppToaster.show(LocaleKeys.order_delivered.tr(), isError: false);
+
+          // Navigate back to home screen with all navigation stack cleared
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.home,
+            (route) => false,
+          );
         }
       },
     );
@@ -346,12 +379,12 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "${AppStrings.recipientInfo} ",
+          "${LocaleKeys.recipient_info.tr()} ",
           style: AppTextStyle.font14black600,
         ),
         RichText(
           text: TextSpan(
-            text: "${AppStrings.name} :",
+            text: "${LocaleKeys.name.tr()} :",
             style: AppTextStyle.font14black600,
             children: [
               TextSpan(
@@ -368,7 +401,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           },
           child: RichText(
             text: TextSpan(
-              text: "${AppStrings.phoneNumber} :",
+              text: "${LocaleKeys.phone_number.tr()} :",
               style: AppTextStyle.font14black600,
               children: [
                 TextSpan(
@@ -389,7 +422,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     spacing: 15.w,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text("${AppStrings.captainInfo} :", style: AppTextStyle.font14black600),
+      Text(
+        "${LocaleKeys.captain_info.tr()} :",
+        style: AppTextStyle.font14black600,
+      ),
       Row(
         spacing: 15.w,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -434,7 +470,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   },
                   child: Text(
                     "+966${driverModel?.mobile}",
-                    textDirection: TextDirection.ltr,
+                    // textDirection: TextDirection.ltr,
                     style: AppTextStyle.font14black600.copyWith(
                       decoration: TextDecoration.underline,
                     ),

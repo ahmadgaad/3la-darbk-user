@@ -10,6 +10,7 @@
         android:label="ala_darbak_user"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        //TODO: Replace with your API key
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCnRSQue1AwWrx_elyqH_NKQ0jiOl_C56g" />
         <activity

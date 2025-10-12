@@ -1,6 +1,8 @@
 import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+
 import '../../../../categories/repositories/models/category_model.dart';
 import '../../../../map/data/models/order_location_model.dart';
 import '../../../../trips/data/model/trip_model.dart';
@@ -18,11 +20,12 @@ class OrderState extends Equatable {
   final TextEditingController recipientNameController;
   final TextEditingController recipientMobileController;
   final TextEditingController additionalDetailsController;
-  final GlobalKey<FormState> formKey ;
+  final GlobalKey<FormState> formKey;
   final OrderModel? orderModel;
   final bool loading;
   final bool success;
   final bool canceled;
+  final bool completed;
 
   const OrderState({
     this.trip,
@@ -39,61 +42,68 @@ class OrderState extends Equatable {
     this.loading = false,
     this.success = false,
     this.canceled = false,
-   required this.formKey ,
+    this.completed = false,
+    required this.formKey,
   });
 
-  OrderState copyWith(
-      {int? orderSize,
-      TripModel? trip,
-      int? selectedPaymentMethod,
-      CategoryModel? categoryModel,
-      OrderLocationModel? orderLocationModel,
-      List<File>? images,
-      OrderModel? orderModel,
-      bool? loading,
-      TextEditingController? unitsController,
-      TextEditingController? recipientNameController,
-      TextEditingController? recipientMobileController,
-      TextEditingController? additionalDetailsController,
-      GlobalKey<FormState>? formKey,
-      bool? success,
-      bool? canceled}) {
+  OrderState copyWith({
+    int? orderSize,
+    TripModel? trip,
+    int? selectedPaymentMethod,
+    CategoryModel? categoryModel,
+    OrderLocationModel? orderLocationModel,
+    List<File>? images,
+    OrderModel? orderModel,
+    bool? loading,
+    TextEditingController? unitsController,
+    TextEditingController? recipientNameController,
+    TextEditingController? recipientMobileController,
+    TextEditingController? additionalDetailsController,
+    GlobalKey<FormState>? formKey,
+    bool? success,
+    bool? canceled,
+    bool? completed,
+  }) {
     return OrderState(
-        formKey: formKey ?? this.formKey,
-        trip: trip ?? this.trip,
-        selectedPaymentMethod: selectedPaymentMethod ?? this.selectedPaymentMethod,
-        orderModel: orderModel ?? this.orderModel,
-        orderSize: orderSize ?? this.orderSize,
-        categoryModel: categoryModel ?? this.categoryModel,
-        orderLocationModel: orderLocationModel ?? this.orderLocationModel,
-        images: images ?? this.images,
-        unitsController: unitsController ?? this.unitsController,
-        recipientNameController:
-            recipientNameController ?? this.recipientNameController,
-        recipientMobileController:
-            recipientMobileController ?? this.recipientMobileController,
-        additionalDetailsController:
-            additionalDetailsController ?? this.additionalDetailsController,
-        loading: loading ?? this.loading,
-        success: success ?? this.success,
-        canceled: canceled ?? this.canceled);
+      formKey: formKey ?? this.formKey,
+      trip: trip ?? this.trip,
+      selectedPaymentMethod:
+          selectedPaymentMethod ?? this.selectedPaymentMethod,
+      orderModel: orderModel ?? this.orderModel,
+      orderSize: orderSize ?? this.orderSize,
+      categoryModel: categoryModel ?? this.categoryModel,
+      orderLocationModel: orderLocationModel ?? this.orderLocationModel,
+      images: images ?? this.images,
+      unitsController: unitsController ?? this.unitsController,
+      recipientNameController:
+          recipientNameController ?? this.recipientNameController,
+      recipientMobileController:
+          recipientMobileController ?? this.recipientMobileController,
+      additionalDetailsController:
+          additionalDetailsController ?? this.additionalDetailsController,
+      loading: loading ?? this.loading,
+      success: success ?? this.success,
+      canceled: canceled ?? this.canceled,
+      completed: completed ?? this.completed,
+    );
   }
 
   @override
   List<Object?> get props => [
-        orderSize,
-        selectedPaymentMethod,
-        categoryModel,
-        trip,
-        orderLocationModel,
-        images,
-        unitsController,
-        recipientNameController,
-        recipientMobileController,
-        additionalDetailsController,
-        loading,
-        orderModel,
-        success,
-        canceled
-      ];
+    orderSize,
+    selectedPaymentMethod,
+    categoryModel,
+    trip,
+    orderLocationModel,
+    images,
+    unitsController,
+    recipientNameController,
+    recipientMobileController,
+    additionalDetailsController,
+    loading,
+    orderModel,
+    success,
+    canceled,
+    completed,
+  ];
 }

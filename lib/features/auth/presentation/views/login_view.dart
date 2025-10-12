@@ -2,14 +2,15 @@ import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:ala_darbak_user/core/extensions/navigation.dart';
 import 'package:ala_darbak_user/core/heplers/regex_helper.dart';
 import 'package:ala_darbak_user/core/heplers/saudi_number_formater.dart';
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
 import 'package:ala_darbak_user/core/widgets/custom_text_form_field.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/config/style/app_text_styles.dart';
-import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/logo.dart';
 import '../view_model/login_cubit/cubit.dart';
 import '../view_model/login_cubit/state.dart';
@@ -47,7 +48,7 @@ class _LoginViewState extends State<LoginView>
           Form(
             key: loginCubit.formKey,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomTextFormField(
                   controller: loginCubit.phoneController,
@@ -57,7 +58,7 @@ class _LoginViewState extends State<LoginView>
                     LengthLimitingTextInputFormatter(9),
                     SaudiNumberFormatter(),
                   ],
-                  hintText: AppStrings.phoneNumber,
+                  hintText: LocaleKeys.phone_number.tr(),
                   suffixIcon: Text("966+", style: AppTextStyle.font16black500),
                   prefixIcon: const Icon(Icons.phone, size: 25),
                   validator: (phoneNumber) {
@@ -74,7 +75,7 @@ class _LoginViewState extends State<LoginView>
                   controller: loginCubit.passwordController,
                   keyboardType: TextInputType.visiblePassword,
                   obscureText: !isPasswordVisible,
-                  hintText: AppStrings.password,
+                  hintText: LocaleKeys.password.tr(),
                   prefixIcon: const Icon(Icons.lock, size: 25),
                   suffixIcon: IconButton(
                     onPressed: () {
@@ -102,7 +103,7 @@ class _LoginViewState extends State<LoginView>
                     context.pushNamed(AppRoutes.forgePassword);
                   },
                   child: Text(
-                    AppStrings.forgetPassword,
+                    LocaleKeys.forget_password.tr(),
                     style: AppTextStyle.font16black500,
                   ),
                 ),
@@ -112,7 +113,7 @@ class _LoginViewState extends State<LoginView>
           30.verticalSpaceFromWidth,
           ElevatedButton(
             onPressed: loginCubit.login,
-            child: const Text(AppStrings.login),
+            child: Text(LocaleKeys.login.tr()),
           ),
         ],
       ),
