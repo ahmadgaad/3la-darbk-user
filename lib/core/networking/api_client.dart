@@ -17,7 +17,7 @@ class ApiClient {
       'Content-Type': isFormData ? 'multipart/form-data' : 'application/json',
       'Accept': 'application/json',
       //TODO change language dynamically
-      'Accect-Language': 'ar',
+      // 'Accect-Language': 'ar',
     };
   }
 
@@ -66,7 +66,7 @@ class ApiClient {
         data: isFormData ? FormData.fromMap(data) : jsonEncode(data),
         queryParameters: query,
         onSendProgress: onSendProgress,
-        options: options
+        options: options,
       );
 
       return ApiResponseModel.fromJson(response.data);

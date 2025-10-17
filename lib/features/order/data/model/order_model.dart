@@ -11,8 +11,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../core/heplers/file_utils.dart';
 import '../../../auth/data/models/user_model.dart';
 import '../../../categories/repositories/models/category_model.dart';
-import '../../../map/data/models/order_location_model.dart';
 import 'driver_model.dart';
+import 'order_location_model.dart';
 
 class OrderModel extends Equatable {
   final int? id;
@@ -151,8 +151,11 @@ class OrderModel extends Equatable {
     return OrderModel(
       id: json["id"],
       numOrder: json["num_order"],
-      status: int.tryParse(json["status"].toString()),
-      size: int.tryParse(json["size"].toString()),
+      status:
+          json["status"] != null
+              ? int.tryParse(json["status"].toString())
+              : null,
+      size: json["size"] != null ? int.tryParse(json["size"].toString()) : null,
       paymentMethod: json["payment_method"],
       isPaid: json["is_paid"],
       pickupLat: json["pickup_lat"],
@@ -161,22 +164,32 @@ class OrderModel extends Equatable {
       deliveryLat: json["delivery_lat"],
       deliveryLng: json["delivery_lng"],
       deliveryAddress: json["delivery_address"],
-      orderLocationModel: OrderLocationModel(
-        pickupAddress: json["pickup_address"],
-        destinationAddress: json["delivery_address"],
-        pickupLocation: LatLng(
-          double.parse(json["pickup_lat"]),
-          double.parse(json["pickup_lng"]),
-        ),
-        destinationLocation: LatLng(
-          double.parse(json["delivery_lat"]),
-          double.parse(json["delivery_lng"]),
-        ),
-        distance: double.parse(json["distance"]),
-      ),
-      distance: json["distance"],
+      orderLocationModel:
+          json["pickup_lat"] != null &&
+                  json["pickup_lng"] != null &&
+                  json["delivery_lat"] != null &&
+                  json["delivery_lng"] != null &&
+                  json["distance"] != null
+              ? OrderLocationModel(
+                pickupAddress: json["pickup_address"],
+                destinationAddress: json["delivery_address"],
+                pickupLocation: LatLng(
+                  double.parse(json["pickup_lat"]),
+                  double.parse(json["pickup_lng"]),
+                ),
+                destinationLocation: LatLng(
+                  double.parse(json["delivery_lat"]),
+                  double.parse(json["delivery_lng"]),
+                ),
+                distance: double.parse(json["distance"]),
+              )
+              : null,
+      distance: json["distance"] ?? "0",
       price: json["price"]?.toString(),
-      quantity: int.tryParse(json["quantity"].toString()),
+      quantity:
+          json["quantity"] != null
+              ? int.tryParse(json["quantity"].toString())
+              : null,
       images:
           json["images"] == null
               ? []
@@ -186,7 +199,10 @@ class OrderModel extends Equatable {
       note: json["note"],
       driverId: json["driver_id"],
       clientId: json["client_id"],
-      categoryId: int.tryParse(json["category_id"].toString()),
+      categoryId:
+          json["category_id"] != null
+              ? int.tryParse(json["category_id"].toString())
+              : null,
       tripId: json["trip_id"],
       createdAt:
           json["created_at"] == null

@@ -1,3 +1,4 @@
+import 'package:ala_darbak_user/features/order/data/model/create_order_request_body.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
@@ -7,7 +8,9 @@ import '../../../../core/networking/exceptions.dart';
 import '../model/order_model.dart';
 
 abstract class OrderRepository {
-  Future<Either<OrderModel?, AppException>> createOrder(OrderModel order);
+  Future<Either<AppException, OrderModel>> createOrder({
+    required CreateOrderRequestBody body,
+  });
   Future<Either<OrderModel?, AppException>> updateOrder(OrderModel order);
   Future<Either<OrderModel?, AppException>> cancelOrder(int orderId);
   Future<Either<OrderModel?, AppException>> raisePrice(OrderModel order);
@@ -21,20 +24,48 @@ class OrderRepositoryImpl implements OrderRepository {
   OrderRepositoryImpl(this._apiClient);
 
   @override
-  Future<Either<OrderModel?, AppException>> createOrder(
-    OrderModel order,
-  ) async {
+  Future<Either<AppException, OrderModel>> createOrder({
+    required CreateOrderRequestBody body,
+  }) async {
     try {
+      // Use longer timeout for file uploads
+      final options = Options(
+        sendTimeout: const Duration(
+          minutes: 5,
+        ), // 5 minutes for large file uploads
+        receiveTimeout: const Duration(
+          minutes: 3,
+        ), // 3 minutes to receive response
+      );
+
       final response = await _apiClient.post(
         endPoint: ApiEndPoints.orders,
         showErrorMessage: true,
         isFormData: true,
-        data: order.toJson(),
-        options: Options(sendTimeout: const Duration(minutes: 2)),
+        data: body.toJson(),
+        options: options,
       );
-      return Left(OrderModel.fromJson(response.data));
+
+      // Check if response.data exists and contains the expected structure
+      if (response.data == null) {
+        return Left(AppException('No data received from server'));
+      }
+
+      // Handle different response structures
+      Map<String, dynamic> orderData;
+      if (response.data is Map<String, dynamic>) {
+        // If response.data is already the order data
+        orderData = response.data as Map<String, dynamic>;
+      } else if (response.data['data'] != null) {
+        // If response.data contains a 'data' field with the order
+        orderData = response.data['data'] as Map<String, dynamic>;
+      } else {
+        return Left(AppException('Invalid response format from server'));
+      }
+
+      return Right(OrderModel.fromJson(orderData));
     } on AppException catch (e) {
-      return Right(e);
+      return Left(e);
     }
   }
 

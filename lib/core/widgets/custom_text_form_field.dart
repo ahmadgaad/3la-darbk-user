@@ -15,6 +15,7 @@ class CustomTextFormField extends StatelessWidget {
   final InputBorder? focusedBorder;
   final EdgeInsetsGeometry? contentPadding;
   final BoxConstraints? suffixIconConstraints;
+  final AutovalidateMode? autovalidateMode;
   const CustomTextFormField({
     super.key,
     this.controller,
@@ -30,13 +31,14 @@ class CustomTextFormField extends StatelessWidget {
     this.focusedBorder,
     this.contentPadding,
     this.suffixIconConstraints,
+    this.autovalidateMode,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       onTapOutside: (_) => FocusScope.of(context).unfocus(),
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+      autovalidateMode: autovalidateMode ?? AutovalidateMode.onUserInteraction,
       obscureText: obscureText,
       controller: controller,
       validator: validator,

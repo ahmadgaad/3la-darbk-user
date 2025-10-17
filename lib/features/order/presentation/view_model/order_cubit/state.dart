@@ -4,8 +4,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../categories/repositories/models/category_model.dart';
-import '../../../../map/data/models/order_location_model.dart';
 import '../../../../trips/data/model/trip_model.dart';
+import '../../../data/model/order_location_model.dart';
 import '../../../data/model/order_model.dart';
 
 class OrderState extends Equatable {
@@ -26,6 +26,7 @@ class OrderState extends Equatable {
   final bool success;
   final bool canceled;
   final bool completed;
+  final bool orderCreated;
 
   const OrderState({
     this.trip,
@@ -43,8 +44,11 @@ class OrderState extends Equatable {
     this.success = false,
     this.canceled = false,
     this.completed = false,
+    this.orderCreated = false,
     required this.formKey,
   });
+
+  bool get isFromTrip => trip != null;
 
   OrderState copyWith({
     int? orderSize,
@@ -63,6 +67,7 @@ class OrderState extends Equatable {
     bool? success,
     bool? canceled,
     bool? completed,
+    bool? orderCreated,
   }) {
     return OrderState(
       formKey: formKey ?? this.formKey,
@@ -85,6 +90,7 @@ class OrderState extends Equatable {
       success: success ?? this.success,
       canceled: canceled ?? this.canceled,
       completed: completed ?? this.completed,
+      orderCreated: orderCreated ?? this.orderCreated,
     );
   }
 
@@ -105,5 +111,6 @@ class OrderState extends Equatable {
     success,
     canceled,
     completed,
+    orderCreated,
   ];
 }

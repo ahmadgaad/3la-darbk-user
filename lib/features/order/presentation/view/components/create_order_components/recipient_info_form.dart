@@ -32,6 +32,7 @@ class RecipientInfoForm extends StatelessWidget {
         CustomTextFormField(
           controller: nameController,
           keyboardType: TextInputType.name,
+          autovalidateMode: AutovalidateMode.disabled,
           validator: (value) {
             if (!RegexHelper.isNameValid(value)) {
               return "من فضلك أدخل الاسم كاملًا (الاسم الأول واسم العائلة)";
@@ -51,6 +52,7 @@ class RecipientInfoForm extends StatelessWidget {
         CustomTextFormField(
           controller: phoneController,
           keyboardType: TextInputType.phone,
+          autovalidateMode: AutovalidateMode.disabled,
           validator: (value) {
             if (!RegexHelper.isPhoneNumberValid(value)) {
               return "أدخل رقم سعودي صحيح يبدأ بـ 5 ويتكون من 9 أرقام";

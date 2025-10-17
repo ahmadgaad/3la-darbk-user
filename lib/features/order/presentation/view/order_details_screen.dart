@@ -343,6 +343,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
       listener: (BuildContext context, OrderState state) {
         if (state.canceled) {
           AppToaster.show(LocaleKeys.order_canceled.tr());
+
+          // Navigate back to home when order is canceled
+          Future.delayed(const Duration(milliseconds: 1000), () {
+            if (context.mounted) {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppRoutes.home,
+                (route) => false,
+              );
+            }
+          });
         }
 
         // Navigate back to home when order is completed (delivered)
