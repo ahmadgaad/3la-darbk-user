@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../../core/config/style/app_color.dart';
 import '../../../core/config/style/app_text_styles.dart';
@@ -36,27 +35,12 @@ class CustonDrawerHeader extends StatelessWidget {
                     width: 60.w,
                     height: 60.w,
                     fit: BoxFit.scaleDown,
-                    imageUrl: user?.image ?? "",
-                    placeholder: (context, url) {
-                      return Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.grey[100]!,
-                        child: Container(
-                          width: 60.w,
-                          height: 60.w,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      );
-                    },
+                    imageUrl: user?.imageUrl ?? "",
+                    fadeInDuration: const Duration(milliseconds: 0),
+                    fadeOutDuration: const Duration(milliseconds: 0),
+                    placeholder: (context, url) => const SizedBox.shrink(),
                     errorWidget: (context, url, error) {
-                      return const Icon(
-                        Icons.account_circle,
-                        size: 60,
-                        color: Colors.white,
-                      );
+                      return const SizedBox.shrink();
                     },
                   ),
                 ),

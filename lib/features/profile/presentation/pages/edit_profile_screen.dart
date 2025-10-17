@@ -88,7 +88,7 @@ class EditProfileScreen extends StatelessWidget {
                 20.verticalSpaceFromWidth,
                 ElevatedButton(
                   onPressed: cubit.updateData,
-                  child: const Text(LocaleKeys.confirm),
+                  child: Text(LocaleKeys.confirm.tr()),
                 ),
               ],
             ),

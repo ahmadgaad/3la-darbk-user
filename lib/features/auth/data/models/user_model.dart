@@ -21,6 +21,8 @@ class UserModel {
     this.updatedAt,
   });
 
+  String get imageUrl => 'https://aladarabak.com/$image';
+
   // const UserModel.register({
   //   required this.imageFile,
   //   required this.name,
