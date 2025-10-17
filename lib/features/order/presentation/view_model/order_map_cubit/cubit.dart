@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../../core/heplers/location_helper.dart';
-import '../../../../map/data/models/order_location_model.dart';
+import '../../../data/model/order_location_model.dart';
 import '../../../../map/data/repository/map_repo.dart';
 import 'state.dart';
 
@@ -23,12 +23,21 @@ class OrderMapCubit extends Cubit<OrderMapState> {
     target: LatLng(23.8859, 45.0792), // Center of Saudi Arabia
     zoom: 5,
   );
-  init([LatLng? location]) {
+  Future<void> init([LatLng? location]) async {
     if (location != null) {
       initialCameraPosition = CameraPosition(
-        target: location, // Center of Saudi Arabia
+        target: location, // Driver location when creating from trip
         zoom: 15,
       );
+      return;
+    }
+
+    try {
+      final currentLocation = await LocationHelper.getCurrentPosition();
+      final userLatLng = LatLng(currentLocation.latitude, currentLocation.longitude);
+      initialCameraPosition = CameraPosition(target: userLatLng, zoom: 15);
+    } catch (_) {
+      // Keep default initialCameraPosition if location services fail
     }
   }
 

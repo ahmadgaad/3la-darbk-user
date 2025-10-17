@@ -1,15 +1,17 @@
 import 'dart:io' show File;
 
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
+import 'package:ala_darbak_user/core/heplers/location_helper.dart';
+import 'package:ala_darbak_user/features/order/data/model/create_order_request_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/heplers/image_picker.dart';
 import '../../../../categories/repositories/models/category_model.dart';
-import '../../../../map/data/models/order_location_model.dart';
 import '../../../../settings/presentation/manager/cubit.dart'
     show SettingsInfoCubit;
 import '../../../../trips/data/model/trip_model.dart';
+import '../../../data/model/order_location_model.dart';
 import '../../../data/model/order_model.dart';
 import '../../../data/repository/order_repository.dart';
 import 'state.dart';
@@ -38,6 +40,10 @@ class OrderCubit extends Cubit<OrderState> {
         additionalDetailsController: TextEditingController(),
       ),
     );
+  }
+
+  resetOrderCreatedFlag() {
+    emit(state.copyWith(orderCreated: false));
   }
 
   payOrder() async {
@@ -90,28 +96,39 @@ class OrderCubit extends Cubit<OrderState> {
     final averageOrderPrice =
         settingsCubit.state.settingsInfo?.averageOrderPrice;
     final averageTripPrice = settingsCubit.state.settingsInfo?.averageTripPrice;
+    final pickupLocation = state.orderLocationModel.pickupLocation!;
+    final destinationLocation = state.orderLocationModel.destinationLocation!;
+    final distance = LocationHelper.calculateDistance(
+      fromLocation: pickupLocation,
+      toLocation: destinationLocation,
+    );
     final result = await _orderRepository.createOrder(
-      OrderModel(
-        tripId: state.trip?.id,
-        categoryId: state.categoryModel?.id,
+      body: CreateOrderRequestBody(
+        categoryId: state.categoryModel?.id ?? 0,
         size: state.orderSize,
-        recipientName: state.recipientNameController.text,
-        distance: 
-            state.orderLocationModel.distance == null
-                ? "0"
-                : state.orderLocationModel.distance.toString(),
+        recipientName:
+            state.recipientNameController.text.isEmpty
+                ? null
+                : state.recipientNameController.text.trim(),
+        distance: distance.toString(),
         quantity: int.tryParse(state.unitsController.text) ?? 1,
-        recipientMobile: state.recipientMobileController.text,
-        note: state.additionalDetailsController.text,
+        recipientMobile:
+            state.recipientMobileController.text.isEmpty
+                ? null
+                : state.recipientMobileController.text,
+        note:
+            state.additionalDetailsController.text.isEmpty
+                ? null
+                : state.additionalDetailsController.text.trim(),
         pickupLat: state.orderLocationModel.pickupLocation!.latitude.toString(),
         pickupLng:
             state.orderLocationModel.pickupLocation!.longitude.toString(),
-        pickupAddress: state.orderLocationModel.pickupAddress,
+        pickupAddress: state.orderLocationModel.pickupAddress!,
         deliveryLat:
             state.orderLocationModel.destinationLocation!.latitude.toString(),
         deliveryLng:
             state.orderLocationModel.destinationLocation!.longitude.toString(),
-        deliveryAddress: state.orderLocationModel.destinationAddress,
+        deliveryAddress: state.orderLocationModel.destinationAddress!,
         price:
             state.trip != null
                 ? averageTripPrice.toString()
@@ -120,17 +137,24 @@ class OrderCubit extends Cubit<OrderState> {
       ),
     );
     result.fold(
-      (order) {
-        emit(state.copyWith(loading: false, success: true, orderModel: order));
+      (error) {
+        emit(state.copyWith(loading: false, success: false));
+      },
+      (createdOrder) {
+        emit(
+          state.copyWith(
+            loading: false,
+            success: true,
+            orderModel: createdOrder,
+            orderCreated: true,
+          ),
+        );
         Navigator.pushNamedAndRemoveUntil(
           context,
           AppRoutes.orderDetails,
-          arguments: state.orderModel?.id,
+          arguments: createdOrder.id,
           (route) => route.isFirst,
         );
-      },
-      (error) {
-        emit(state.copyWith(loading: false, success: false));
       },
     );
   }
@@ -152,7 +176,7 @@ class OrderCubit extends Cubit<OrderState> {
     );
   }
 
-  getOrder(int orderId) async {
+  Future<void> getOrder(int orderId) async {
     final result = await _orderRepository.getOrder(orderId);
     result.fold(
       (order) {
@@ -218,23 +242,26 @@ class OrderCubit extends Cubit<OrderState> {
     );
   }
 
-  cancelOrder() async {
+  Future<void> cancelOrder() async {
     if (state.orderModel == null) return;
     emit(state.copyWith(loading: true));
     final result = await _orderRepository.cancelOrder(
       state.orderModel?.id ?? 0,
     );
     result.fold(
-      (order) => emit(
-        state.copyWith(
-          loading: false,
-          success: true,
-          orderModel: order,
-          canceled: true,
-        ),
-      ),
-      (error) =>
-          emit(state.copyWith(loading: false, success: false, canceled: false)),
+      (order) {
+        emit(
+          state.copyWith(
+            loading: false,
+            success: true,
+            orderModel: order,
+            canceled: true,
+          ),
+        );
+      },
+      (error) {
+        emit(state.copyWith(loading: false, success: false, canceled: false));
+      },
     );
   }
 

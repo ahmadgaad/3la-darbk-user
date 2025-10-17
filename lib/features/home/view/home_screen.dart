@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/style/app_theme.dart';
-import '../../shipments/presentation/view/active_shipments_view.dart';
 import '../../profile/presentation/manager/profile_cubit/cubit.dart';
+import '../../shipments/presentation/view/active_shipments_view.dart';
+import '../../shipments/presentation/view_model/shipments_cubit.dart';
 import '../../trips/presentation/view/trips_view.dart';
 import '../components/custom_drawer_menu.dart';
 
@@ -22,6 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     context.read<ProfileCubit>().getProfile();
+    // Refresh shipments when home screen is initialized
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ShipmentsCubit>().getActiveShipments();
+    });
   }
 
   @override

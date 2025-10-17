@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../order/presentation/view_model/order_cubit/cubit.dart';
+import '../../../order/presentation/view_model/order_cubit/state.dart';
 import '../view_model/shipments_cubit.dart';
 import '../view_model/shipments_states.dart';
 import 'components/shipment_card.dart';
@@ -22,58 +23,69 @@ class _ActiveShipmentsViewState extends State<ActiveShipmentsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<ShipmentsCubit, ShipmentsState>(
-        builder: (context, state) {
-          return RefreshIndicator(
-            onRefresh: () async {
-              await context.read<ShipmentsCubit>().getActiveShipments();
-            },
-            child: switch (state.status) {
-              ShipmentsStatus.initial ||
-              ShipmentsStatus.loading => ListView.separated(
-                padding: EdgeInsets.only(
-                  left: 20.w,
-                  right: 20.w,
-                  top: 24.h,
-                  bottom: 115,
-                ),
-                itemBuilder: (context, index) => const ShipmentCardShimmer(),
-                separatorBuilder: (context, index) => 15.verticalSpaceFromWidth,
-                itemCount: 10,
-              ),
-              // const Center(child: CircularProgressIndicator.adaptive()),
-              ShipmentsStatus.error => Center(
-                child: Text(state.errorMessage ?? ""),
-              ),
-              ShipmentsStatus.success =>
-                state.activeShipments.isEmpty
-                    ? Center(
-                      child: Text(
-                        LocaleKeys.no_orders.tr(),
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    )
-                    : ListView.separated(
-                      padding: EdgeInsets.only(
-                        left: 20.w,
-                        right: 20.w,
-                        top: 24.h,
-                        bottom: 115,
-                      ),
-                      itemBuilder:
-                          (context, index) => ShipmentCard(
-                            orderModel: state.activeShipments[index],
-                          ),
-                      separatorBuilder:
-                          (context, index) => 15.verticalSpaceFromWidth,
-                      itemCount: state.activeShipments.length,
-                    ),
-            },
-          );
+      body: BlocListener<OrderCubit, OrderState>(
+        listener: (context, orderState) {
+          // Refresh shipments when a new order is created
+          if (orderState.orderCreated == true) {
+            context.read<ShipmentsCubit>().getActiveShipments();
+            // Reset the flag to prevent multiple refreshes
+            context.read<OrderCubit>().resetOrderCreatedFlag();
+          }
         },
+        child: BlocBuilder<ShipmentsCubit, ShipmentsState>(
+          builder: (context, state) {
+            return RefreshIndicator(
+              onRefresh: () async {
+                await context.read<ShipmentsCubit>().getActiveShipments();
+              },
+              child: switch (state.status) {
+                ShipmentsStatus.initial ||
+                ShipmentsStatus.loading => ListView.separated(
+                  padding: EdgeInsets.only(
+                    left: 20.w,
+                    right: 20.w,
+                    top: 24.h,
+                    bottom: 115,
+                  ),
+                  itemBuilder: (context, index) => const ShipmentCardShimmer(),
+                  separatorBuilder:
+                      (context, index) => 15.verticalSpaceFromWidth,
+                  itemCount: 10,
+                ),
+                // const Center(child: CircularProgressIndicator.adaptive()),
+                ShipmentsStatus.error => Center(
+                  child: Text(state.errorMessage ?? ""),
+                ),
+                ShipmentsStatus.success =>
+                  state.activeShipments.isEmpty
+                      ? Center(
+                        child: Text(
+                          LocaleKeys.no_orders.tr(),
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      )
+                      : ListView.separated(
+                        padding: EdgeInsets.only(
+                          left: 20.w,
+                          right: 20.w,
+                          top: 24.h,
+                          bottom: 115,
+                        ),
+                        itemBuilder:
+                            (context, index) => ShipmentCard(
+                              orderModel: state.activeShipments[index],
+                            ),
+                        separatorBuilder:
+                            (context, index) => 15.verticalSpaceFromWidth,
+                        itemCount: state.activeShipments.length,
+                      ),
+              },
+            );
+          },
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(

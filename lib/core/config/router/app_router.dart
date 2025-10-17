@@ -49,9 +49,28 @@ class AppRouter {
         return _animateRouteBuilder(const CreateOrderScreen(), x: -1, y: 0);
       case AppRoutes.pickLocation:
         return _animateRouteBuilder(
-          BlocProvider(
-            create: (BuildContext context) => OrderMapCubit(sl()),
-            child: const OrderLocationPickupScreen(),
+          Builder(
+            builder: (context) {
+              final orderCubit = context.read<OrderCubit>();
+              final trip = orderCubit.state.trip;
+              final String? latStr = trip?.latitude;
+              final String? lngStr = trip?.longitude;
+              final lat = latStr == null ? null : double.tryParse(latStr);
+              final lng = lngStr == null ? null : double.tryParse(lngStr);
+
+              return BlocProvider(
+                create: (BuildContext context) {
+                  final mapCubit = OrderMapCubit(sl());
+                  // Always call init: with driver coords if from trip, else user location
+                  final LatLng? driverLatLng =
+                      (lat != null && lng != null) ? LatLng(lat, lng) : null;
+                  // Fire and forget; widget reads initialCameraPosition synchronously next build
+                  mapCubit.init(driverLatLng);
+                  return mapCubit;
+                },
+                child: const OrderLocationPickupScreen(),
+              );
+            },
           ),
           x: -1,
           y: 0,
