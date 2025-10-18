@@ -37,7 +37,7 @@ class RegexHelper {
     if (password == null || password.isEmpty) return false;
 
     return RegExp(
-      r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
+      r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&=_])[A-Za-z\d@$!%*?&=_]{8,}$",
     ).hasMatch(password);
   }
 

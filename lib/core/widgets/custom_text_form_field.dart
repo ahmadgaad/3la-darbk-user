@@ -45,6 +45,7 @@ class CustomTextFormField extends StatelessWidget {
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
       decoration: InputDecoration(
+        errorMaxLines: 2,
         hintText: hintText,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,

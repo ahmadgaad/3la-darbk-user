@@ -162,7 +162,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               ),
               validator: (value) {
                 if (!RegexHelper.isPasswordValid(value)) {
-                  return "كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير وصغير ورقم ورمز خاص";
+                  return r"كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير وصغير ورقم ورمز خاص (@$!%*?&=_)";
                 }
                 return null;
               },
