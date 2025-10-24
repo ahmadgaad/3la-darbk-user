@@ -1,6 +1,6 @@
 import 'package:ala_darbak_user/features/auth/presentation/view_model/login_cubit/cubit.dart';
 import 'package:ala_darbak_user/features/auth/presentation/view_model/register_cubit/register_cubit.dart';
-import 'package:ala_darbak_user/features/profile/presentation/manager/profile_cubit/cubit.dart';
+import 'package:ala_darbak_user/features/profile/presentation/view_model/profile_cubit/profile_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' show Client;

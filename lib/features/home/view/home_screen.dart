@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/style/app_theme.dart';
-import '../../profile/presentation/manager/profile_cubit/cubit.dart';
+import '../../profile/presentation/view_model/profile_cubit/profile_cubit.dart';
 import '../../shipments/presentation/view/active_shipments_view.dart';
 import '../../shipments/presentation/view_model/shipments_cubit.dart';
 import '../../trips/presentation/view/trips_view.dart';
@@ -31,6 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Subscribe this subtree to locale changes to force rebuilds without hot reload
+    final _ = Localizations.localeOf(context);
     return Theme(
       data: homeTheme,
       child: DefaultTabController(

@@ -96,7 +96,7 @@ class _RegisterViewState extends State<RegisterView>
                   prefixIcon: const Icon(Icons.person, size: 25),
                   validator: (value) {
                     if (!RegexHelper.isNameValid(value)) {
-                      return "من فضلك أدخل الاسم كاملًا (الاسم الأول واسم العائلة)";
+                      return LocaleKeys.please_enter_name.tr();
                     }
                     return null;
                   },
@@ -114,7 +114,7 @@ class _RegisterViewState extends State<RegisterView>
                   prefixIcon: const Icon(Icons.phone, size: 25),
                   validator: (value) {
                     if (!RegexHelper.isPhoneNumberValid(value)) {
-                      return "أدخل رقم سعودي صحيح يبدأ بـ 5 ويتكون من 9 أرقام";
+                      return LocaleKeys.please_enter_saudi_phone_number.tr();
                     }
                     return null;
                   },
@@ -140,7 +140,7 @@ class _RegisterViewState extends State<RegisterView>
                   ),
                   validator: (value) {
                     if (!RegexHelper.isPasswordValid(value)) {
-                      return r"كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير وصغير ورقم ورمز خاص (@$!%*?&=_)";
+                      return LocaleKeys.please_enter_valid_password.tr();
                     }
                     return null;
                   },
@@ -156,7 +156,7 @@ class _RegisterViewState extends State<RegisterView>
                       passwordController.text,
                       value,
                     )) {
-                      return "كلمة المرور غير متطابقة";
+                      return LocaleKeys.password_not_match.tr();
                     }
                     return null;
                   },

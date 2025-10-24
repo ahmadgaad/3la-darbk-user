@@ -32,11 +32,6 @@ class OrderDetailsScreen extends StatefulWidget {
 }
 
 class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
-  final List<String> sizes = [
-    LocaleKeys.small.tr(),
-    LocaleKeys.medium.tr(),
-    LocaleKeys.large.tr(),
-  ];
   @override
   void initState() {
     super.initState();
@@ -45,6 +40,11 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final sizes = [
+      LocaleKeys.small.tr(),
+      LocaleKeys.medium.tr(),
+      LocaleKeys.large.tr(),
+    ];
     final orderCubit = context.read<OrderCubit>();
     final settingsCubit = context.read<SettingsInfoCubit>();
     final averageOrderPrice =
@@ -144,7 +144,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     const Divider(),
                     _textBuilder(
                       LocaleKeys.order_price.tr(),
-                      '${state.orderModel?.price ?? "0"} ${LocaleKeys.sar}',
+                      '${state.orderModel?.price ?? "0"} ${LocaleKeys.sar.tr()}',
                     ),
                     const Divider(),
                     10.verticalSpaceFromWidth,
@@ -154,11 +154,13 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         _textBuilder(
                           LocaleKeys.pay_method.tr(),
                           state.orderModel?.paymentMethod == "0"
-                              ? LocaleKeys.cash
-                              : LocaleKeys.online,
+                              ? LocaleKeys.cash.tr()
+                              : LocaleKeys.online.tr(),
                         ),
                         Text(
-                          isPaid ? LocaleKeys.paid : LocaleKeys.not_paid.tr(),
+                          isPaid
+                              ? LocaleKeys.paid.tr()
+                              : LocaleKeys.not_paid.tr(),
                           style: AppTextStyle.font14black500,
                         ),
                       ],
@@ -175,6 +177,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                           5.horizontalSpace,
                           Text(
                             LocaleKeys.you_can_pay_when_driver_accept_order
+                                .tr()
                                 .tr(),
                             style: AppTextStyle.font14black500,
                           ),
@@ -316,25 +319,6 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                 )
                                 : Text(LocaleKeys.cancel.tr()),
                       ),
-
-                    // // Show "Back to Home" button when order is delivered
-                    // if (status == 3)
-                    //   ElevatedButton(
-                    //     onPressed: () {
-                    //       Navigator.pushNamedAndRemoveUntil(
-                    //         context,
-                    //         AppRoutes.home,
-                    //         (route) => false,
-                    //       );
-                    //     },
-                    //     style: ElevatedButton.styleFrom(
-                    //       backgroundColor: AppColors.primary,
-                    //     ),
-                    //     child: Text(
-                    //       "العودة إلى ${LocaleKeys.home.tr()}",
-                    //       style: const TextStyle(color: Colors.white),
-                    //     ),
-                    //   ),
                   ],
                 ),
               ),

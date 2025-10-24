@@ -63,9 +63,9 @@ class _LoginViewState extends State<LoginView>
                   prefixIcon: const Icon(Icons.phone, size: 25),
                   validator: (phoneNumber) {
                     if (phoneNumber == null || phoneNumber.isEmpty) {
-                      return "من فضلك أدخل رقم الجوال";
+                      return LocaleKeys.please_enter_phone_number.tr();
                     } else if (!RegexHelper.isPhoneNumberValid(phoneNumber)) {
-                      return "من فضلك أدخل رقم جوال صحيح";
+                      return LocaleKeys.please_enter_valid_phone_number.tr();
                     }
                     return null;
                   },
@@ -92,7 +92,7 @@ class _LoginViewState extends State<LoginView>
                   ),
                   validator: (password) {
                     if (password == null || password.isEmpty) {
-                      return "من فضلك أدخل كلمة المرور";
+                      return LocaleKeys.please_enter_password.tr();
                     }
                     return null;
                   },

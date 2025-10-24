@@ -87,7 +87,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
           prefixIcon: const Icon(Icons.phone, size: 25),
           validator: (value) {
             if (!RegexHelper.isPhoneNumberValid(value)) {
-              return "أدخل رقم سعودي صحيح يبدأ بـ 5 ويتكون من 9 أرقام";
+              return LocaleKeys.please_enter_saudi_phone_number.tr();
             }
             return null;
           },
@@ -116,7 +116,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       30.verticalSpaceFromWidth,
       ElevatedButton(
         onPressed: cubit.checkCode,
-        child: const Text(LocaleKeys.confirm),
+        child: Text(LocaleKeys.confirm.tr()),
       ),
       15.verticalSpaceFromWidth,
       Row(
@@ -147,7 +147,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               controller: cubit.passwordController,
               keyboardType: TextInputType.visiblePassword,
               obscureText: isPasswordVisible,
-              hintText: LocaleKeys.password,
+              hintText: LocaleKeys.password.tr(),
               prefixIcon: const Icon(Icons.lock, size: 25),
               suffixIcon: IconButton(
                 onPressed: () {
@@ -162,7 +162,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               ),
               validator: (value) {
                 if (!RegexHelper.isPasswordValid(value)) {
-                  return r"كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير وصغير ورقم ورمز خاص (@$!%*?&=_)";
+                  return LocaleKeys.please_enter_valid_password.tr();
                 }
                 return null;
               },
@@ -180,7 +180,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   cubit.passwordController.text,
                   value,
                 )) {
-                  return "كلمة المرور غير متطابقة";
+                  return LocaleKeys.password_not_match.tr();
                 }
                 return null;
               },
@@ -191,7 +191,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       30.verticalSpaceFromWidth,
       ElevatedButton(
         onPressed: cubit.forgetPassword,
-        child: const Text(LocaleKeys.confirm),
+        child: Text(LocaleKeys.confirm.tr()),
       ),
     ],
   );

@@ -18,8 +18,8 @@ import '../../../features/order/presentation/view/order_location_pickup_screen.d
 import '../../../features/order/presentation/view_model/order_cubit/cubit.dart';
 import '../../../features/shipments/presentation/view_model/shipments_cubit.dart';
 import '../../../features/shipments/presentation/view/history_orders_screen.dart';
-import '../../../features/profile/presentation/pages/change_password_screen.dart';
-import '../../../features/profile/presentation/pages/edit_profile_screen.dart';
+import '../../../features/profile/presentation/view/screens/change_password_screen.dart';
+import '../../../features/profile/presentation/view/screens/edit_profile_screen.dart';
 import '../../../features/settings/presentation/pages/about_us_screen.dart';
 import '../../../features/settings/presentation/pages/policy_screen.dart';
 import '../../../features/settings/presentation/pages/terms_condtions_screen.dart';

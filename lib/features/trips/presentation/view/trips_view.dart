@@ -15,6 +15,8 @@ class TripsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _ = Localizations.localeOf(context);
+
     return BlocBuilder<TripsCubit, TripsState>(
       builder: (context, state) {
         final trips =

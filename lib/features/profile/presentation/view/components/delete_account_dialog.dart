@@ -3,8 +3,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../manager/profile_cubit/cubit.dart';
-import '../manager/profile_cubit/state.dart';
+import '../../view_model/profile_cubit/profile_cubit.dart';
+import '../../view_model/profile_cubit/profile_states.dart';
 
 class DeleteAccountDialog extends StatelessWidget {
   const DeleteAccountDialog({super.key});

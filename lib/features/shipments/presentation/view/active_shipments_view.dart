@@ -22,6 +22,8 @@ class ActiveShipmentsView extends StatefulWidget {
 class _ActiveShipmentsViewState extends State<ActiveShipmentsView> {
   @override
   Widget build(BuildContext context) {
+    final _ = Localizations.localeOf(context);
+
     return Scaffold(
       body: BlocListener<OrderCubit, OrderState>(
         listener: (context, orderState) {

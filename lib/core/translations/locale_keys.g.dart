@@ -52,10 +52,8 @@ abstract class  LocaleKeys {
   static const picked = 'picked';
   static const delivered = 'delivered';
   static const canceled = 'canceled';
-  static const please_enter_name = 'please_enter_name';
   static const please_enter_units = 'please_enter_units';
   static const phone_number = 'phone_number';
-  static const please_enter_phone_number = 'please_enter_phone_number';
   static const phone_number_not_valid = 'phone_number_not_valid';
   static const password = 'password';
   static const please_enter_password = 'please_enter_password';
@@ -122,5 +120,10 @@ abstract class  LocaleKeys {
   static const pay_now = 'pay_now';
   static const there_no_notificatation = 'there_no_notificatation';
   static const language = 'language';
+  static const please_enter_name = 'please_enter_name';
+  static const please_enter_saudi_phone_number = 'please_enter_saudi_phone_number';
+  static const please_enter_phone_number = 'please_enter_phone_number';
+  static const please_enter_valid_phone_number = 'please_enter_valid_phone_number';
+  static const please_enter_valid_password = 'please_enter_valid_password';
 
 }

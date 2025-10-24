@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/heplers/image_picker.dart';
 import '../../../../../core/widgets/app_toaster.dart';
 import '../../../data/repositories.dart';
-import 'state.dart';
+import 'profile_states.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   final ProfileRepository _profileRepository;
@@ -34,7 +34,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     );
   }
 
-  void logout() async {
+  Future<void> logout() async {
     final result = await _profileRepository.logout();
     result.fold(
       (l) {
@@ -46,7 +46,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     );
   }
 
-  void delete() async {
+  Future<void> delete() async {
     emit(state.copyWith(loading: true));
     final result = await _profileRepository.delete();
     result.fold((value) {
@@ -88,22 +88,12 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   // Language management
-  Future<void> toggleLanguage(BuildContext context) async {
-    final currentLocale = context.locale;
-    final newLocale =
-        currentLocale.languageCode == 'ar'
-            ? const Locale('en')
-            : const Locale('ar');
-
-    // Save to cache
+  Future<void> changeLanguage(String languageCode, BuildContext context) async {
+    await context.setLocale(Locale(languageCode));
     await sl<SharedPreferencesHelper>().saveData(
       key: 'locale',
-      value: newLocale.languageCode,
+      value: languageCode,
     );
-
-    if (context.mounted) {
-      // Apply the new locale
-      await context.setLocale(newLocale);
-    }
+    emit(state.copyWith(currentLanguage: languageCode));
   }
 }

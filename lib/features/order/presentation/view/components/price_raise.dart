@@ -29,8 +29,9 @@ class PriceRaise extends StatelessWidget {
 
   String _getPriceStatus(double currentPrice) {
     if (currentPrice < historicalAverage) return LocaleKeys.low_offer.tr();
-    if (currentPrice > historicalAverage * 1.15)
+    if (currentPrice > historicalAverage * 1.15) {
       return LocaleKeys.premium_offer.tr();
+    }
     return LocaleKeys.fair_offer.tr();
   }
 
@@ -71,7 +72,7 @@ class PriceRaise extends StatelessWidget {
       Icon(Icons.info_outline, size: 16.sp, color: AppColors.secondary),
       5.horizontalSpace,
       Text(
-        '${LocaleKeys.suggested_price.tr()}: ${basePrice.toStringAsFixed(1)}-${marketMax.toStringAsFixed(1)}ر.س',
+        '${LocaleKeys.suggested_price.tr()}: ${basePrice.toStringAsFixed(1)}-${marketMax.toStringAsFixed(1)} ${LocaleKeys.sar.tr()}',
         style: AppTextStyle.font14black500.copyWith(color: AppColors.secondary),
       ),
     ],
@@ -101,7 +102,12 @@ class PriceRaise extends StatelessWidget {
         text: TextSpan(
           text: '${currentPrice.toStringAsFixed(1)} ',
           style: AppTextStyle.font24secondary600,
-          children: [TextSpan(text: 'ر.س', style: AppTextStyle.font18black600)],
+          children: [
+            TextSpan(
+              text: ' ${LocaleKeys.sar.tr()}',
+              style: AppTextStyle.font18black600,
+            ),
+          ],
         ),
       ),
       IconButton(

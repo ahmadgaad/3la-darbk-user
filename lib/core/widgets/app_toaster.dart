@@ -22,7 +22,7 @@ class AppToaster {
       textStyle: const TextStyle(fontSize: 14, color: Colors.white),
       animationBuilder: defaultAnimationBuilder.call,
       textPadding: defaultTextPadding,
-      duration: const Duration(milliseconds: 1250),
+      duration: const Duration(milliseconds: 1700),
     );
   }
 }

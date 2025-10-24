@@ -9,10 +9,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
-import '../../../../core/widgets/app_image_view.dart';
-import '../../../../core/widgets/custom_text_form_field.dart';
-import '../manager/profile_cubit/cubit.dart';
-import '../manager/profile_cubit/state.dart';
+import '../../../../../core/widgets/app_image_view.dart';
+import '../../../../../core/widgets/custom_text_form_field.dart';
+import '../../view_model/profile_cubit/profile_cubit.dart';
+import '../../view_model/profile_cubit/profile_states.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});

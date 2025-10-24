@@ -5,8 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/config/style/app_color.dart';
 import '../../../core/config/style/app_text_styles.dart';
-import '../../profile/presentation/manager/profile_cubit/cubit.dart';
-import '../../profile/presentation/manager/profile_cubit/state.dart';
+import '../../profile/presentation/view_model/profile_cubit/profile_cubit.dart';
+import '../../profile/presentation/view_model/profile_cubit/profile_states.dart';
 
 class CustonDrawerHeader extends StatelessWidget {
   const CustonDrawerHeader({super.key});

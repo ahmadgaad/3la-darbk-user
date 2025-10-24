@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:ala_darbak_user/core/dependency_injection/di.dart';
+import 'package:ala_darbak_user/core/heplers/shared_preferences_helper.dart';
 import 'package:dio/dio.dart';
 
 import 'api_response_model.dart';
@@ -13,11 +15,11 @@ class ApiClient {
 
   /// Helper function to set headers
   void setHeaders({bool isFormData = false}) {
+    final locale = sl<SharedPreferencesHelper>().getData(key: 'locale') ?? 'ar';
     _dio.options.headers = {
       'Content-Type': isFormData ? 'multipart/form-data' : 'application/json',
       'Accept': 'application/json',
-      //TODO change language dynamically
-      // 'Accect-Language': 'ar',
+      'Accect-Language': locale,
     };
   }
 

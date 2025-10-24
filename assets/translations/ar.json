@@ -51,15 +51,12 @@
   "delivered": "تم التوصيل",
   "canceled": "تم الالغاء",
 
-  "please_enter_name": "برجاء ادخال الاسم رباعي",
   "please_enter_units": "برجاء ادخال عدد الوحدات",
 
   "phone_number": "رقم الهاتف",
-  "please_enter_phone_number": "برجاء ادخال رقم الهاتف",
   "phone_number_not_valid": "رقم الهاتف غير صالح",
 
   "password": "كلمة المرور",
-  "please_enter_password": "برجاء ادخال كلمة المرور",
   "password_not_valid": "كلمة المرور غير صالحة",
   "confirm_password": "تاكيد كلمة المرور",
   "password_not_match": "كلمة المرور غير متطابقة",
@@ -130,5 +127,11 @@
   "order_images": "صور الشحنة",
   "pay_now": "ادفع الان",
   "there_no_notificatation" : "لا توجد إشعارات",
-  "language": "اللغة"
+  "language": "اللغة",
+  "please_enter_name": "من فضلك أدخل الاسم كاملًا (الاسم الأول واسم العائلة)",
+  "please_enter_saudi_phone_number": "أدخل رقم سعودي صحيح يبدأ بـ 5 ويتكون من 9 أرقام",
+  "please_enter_phone_number": "من فضلك أدخل رقم الجوال",
+  "please_enter_valid_phone_number": "من فضلك أدخل رقم جوال صحيح",
+  "please_enter_password": "من فضلك أدخل كلمة المرور",
+  "please_enter_valid_password": "كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير وصغير ورقم ورمز خاص (@$!%*?&=_)"
 }

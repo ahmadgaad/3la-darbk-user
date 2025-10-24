@@ -8,10 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
-import '../../../../core/dependency_injection/di.dart';
-import '../../../../core/widgets/app_toaster.dart';
-import '../manager/change_password/cubit.dart';
-import '../manager/change_password/state.dart';
+import '../../../../../core/dependency_injection/di.dart';
+import '../../../../../core/widgets/app_toaster.dart';
+import '../../view_model/change_password/cubit.dart';
+import '../../view_model/change_password/state.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -131,7 +131,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   20.verticalSpaceFromWidth,
                   ElevatedButton(
                     onPressed: cubit.changePassword,
-                    child: const Text(LocaleKeys.confirm),
+                    child: Text(LocaleKeys.confirm.tr()),
                   ),
                 ],
               ),

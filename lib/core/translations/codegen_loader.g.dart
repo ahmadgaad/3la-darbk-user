@@ -64,10 +64,8 @@ class CodegenLoader extends AssetLoader{
   "picked": "Picked up",
   "delivered": "Delivered",
   "canceled": "Canceled",
-  "please_enter_name": "Please enter full name",
   "please_enter_units": "Please enter number of units",
   "phone_number": "Phone number",
-  "please_enter_phone_number": "Please enter phone number",
   "phone_number_not_valid": "Invalid phone number",
   "password": "Password",
   "please_enter_password": "Please enter password",
@@ -127,13 +125,18 @@ class CodegenLoader extends AssetLoader{
   "invalid_unit": "Units must be greater than 0",
   "order_sent": "Order sent",
   "order_accepted": "Order accepted",
-  "order_picked": "Order picked up",
-  "order_delivered": "Order delivered",
+  "order_picked": "picked up",
+  "order_delivered": "delivered",
   "order_category": "Order category",
   "order_images": "Order images",
   "pay_now": "Pay now",
   "there_no_notificatation": "No notifications",
-  "language": "Language"
+  "language": "Language",
+  "please_enter_name": "Please enter full name (first name and last name)",
+  "please_enter_saudi_phone_number": "Please enter a valid Saudi phone number starting with 5 and containing 9 digits",
+  "please_enter_phone_number": "Please enter phone number",
+  "please_enter_valid_phone_number": "Please enter a valid phone number",
+  "please_enter_valid_password": r"Password must be at least 8 characters long and contain an uppercase letter, a lowercase letter, a number, and a special character (@$!%*?&=_)"
 };
 static const Map<String,dynamic> _ar = {
   "login": "تسجيل الدخول",
@@ -185,13 +188,10 @@ static const Map<String,dynamic> _ar = {
   "picked": "تم الإستلام",
   "delivered": "تم التوصيل",
   "canceled": "تم الالغاء",
-  "please_enter_name": "برجاء ادخال الاسم رباعي",
   "please_enter_units": "برجاء ادخال عدد الوحدات",
   "phone_number": "رقم الهاتف",
-  "please_enter_phone_number": "برجاء ادخال رقم الهاتف",
   "phone_number_not_valid": "رقم الهاتف غير صالح",
   "password": "كلمة المرور",
-  "please_enter_password": "برجاء ادخال كلمة المرور",
   "password_not_valid": "كلمة المرور غير صالحة",
   "confirm_password": "تاكيد كلمة المرور",
   "password_not_match": "كلمة المرور غير متطابقة",
@@ -254,7 +254,13 @@ static const Map<String,dynamic> _ar = {
   "order_images": "صور الشحنة",
   "pay_now": "ادفع الان",
   "there_no_notificatation": "لا توجد إشعارات",
-  "language": "اللغة"
+  "language": "اللغة",
+  "please_enter_name": "من فضلك أدخل الاسم كاملًا (الاسم الأول واسم العائلة)",
+  "please_enter_saudi_phone_number": "أدخل رقم سعودي صحيح يبدأ بـ 5 ويتكون من 9 أرقام",
+  "please_enter_phone_number": "من فضلك أدخل رقم الجوال",
+  "please_enter_valid_phone_number": "من فضلك أدخل رقم جوال صحيح",
+  "please_enter_password": "من فضلك أدخل كلمة المرور",
+  "please_enter_valid_password": r"كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير وصغير ورقم ورمز خاص (@$!%*?&=_)"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }

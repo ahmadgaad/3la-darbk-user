@@ -2,7 +2,10 @@ import 'dart:io' show File;
 
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
 import 'package:ala_darbak_user/core/heplers/location_helper.dart';
+import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:ala_darbak_user/core/widgets/app_toaster.dart';
 import 'package:ala_darbak_user/features/order/data/model/create_order_request_body.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -222,7 +225,7 @@ class OrderCubit extends Cubit<OrderState> {
     );
   }
 
-  updateOrder() async {
+  Future<void> updateOrder() async {
     if (state.orderModel == null) return;
     if (!(state.formKey.currentState?.validate() ?? true)) return;
     emit(state.copyWith(loading: true));
@@ -235,10 +238,14 @@ class OrderCubit extends Cubit<OrderState> {
       ),
     );
     result.fold(
-      (order) => emit(
-        state.copyWith(loading: false, success: true, orderModel: order),
-      ),
-      (error) => emit(state.copyWith(loading: false, success: false)),
+      (order) {
+        emit(state.copyWith(loading: false, success: true, orderModel: order));
+        AppToaster.show(LocaleKeys.updated_successfully.tr(), isError: false);
+      },
+      (error) {
+        emit(state.copyWith(loading: false, success: false));
+        AppToaster.show(error.message, isError: true);
+      },
     );
   }
 

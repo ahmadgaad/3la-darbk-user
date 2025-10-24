@@ -51,11 +51,9 @@
   "delivered": "Delivered",
   "canceled": "Canceled",
 
-  "please_enter_name": "Please enter full name",
   "please_enter_units": "Please enter number of units",
 
   "phone_number": "Phone number",
-  "please_enter_phone_number": "Please enter phone number",
   "phone_number_not_valid": "Invalid phone number",
 
   "password": "Password",
@@ -122,13 +120,18 @@
   "invalid_unit": "Units must be greater than 0",
   "order_sent": "Order sent",
   "order_accepted": "Order accepted",
-  "order_picked": "Order picked up",
-  "order_delivered": "Order delivered",
+  "order_picked": "picked up",
+  "order_delivered": "delivered",
 
   "order_category": "Order category",
 
   "order_images": "Order images",
   "pay_now": "Pay now",
   "there_no_notificatation" : "No notifications",
-  "language": "Language"
+  "language": "Language",
+  "please_enter_name": "Please enter full name (first name and last name)",
+  "please_enter_saudi_phone_number": "Please enter a valid Saudi phone number starting with 5 and containing 9 digits",
+  "please_enter_phone_number": "Please enter phone number",
+  "please_enter_valid_phone_number": "Please enter a valid phone number",
+  "please_enter_valid_password": "Password must be at least 8 characters long and contain an uppercase letter, a lowercase letter, a number, and a special character (@$!%*?&=_)"
 }

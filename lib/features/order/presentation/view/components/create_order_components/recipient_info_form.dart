@@ -35,7 +35,7 @@ class RecipientInfoForm extends StatelessWidget {
           autovalidateMode: AutovalidateMode.disabled,
           validator: (value) {
             if (!RegexHelper.isNameValid(value)) {
-              return "من فضلك أدخل الاسم كاملًا (الاسم الأول واسم العائلة)";
+              return LocaleKeys.please_enter_name.tr();
             }
             return null;
           },
@@ -55,7 +55,7 @@ class RecipientInfoForm extends StatelessWidget {
           autovalidateMode: AutovalidateMode.disabled,
           validator: (value) {
             if (!RegexHelper.isPhoneNumberValid(value)) {
-              return "أدخل رقم سعودي صحيح يبدأ بـ 5 ويتكون من 9 أرقام";
+              return LocaleKeys.please_enter_saudi_phone_number.tr();
             }
             return null;
           },

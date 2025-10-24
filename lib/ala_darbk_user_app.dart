@@ -11,7 +11,8 @@ import 'core/controller/app_cubit.dart';
 import 'core/dependency_injection/di.dart';
 import 'core/widgets/splash_screen.dart';
 import 'features/order/presentation/view_model/order_cubit/cubit.dart';
-import 'features/profile/presentation/manager/profile_cubit/cubit.dart';
+import 'features/profile/presentation/view_model/profile_cubit/profile_cubit.dart';
+import 'features/profile/presentation/view_model/profile_cubit/profile_states.dart';
 import 'features/settings/presentation/manager/cubit.dart';
 
 class AlaDarbkUserApp extends StatelessWidget {
@@ -36,18 +37,25 @@ class AlaDarbkUserApp extends StatelessWidget {
                 lazy: false,
               ),
             ],
-            child: MaterialApp(
-              title: 'علي دربك',
-              debugShowCheckedModeBanner: false,
-              theme: appTheme,
-              themeMode: ThemeMode.light,
-              color: AppColors.backGround,
-              home: const SplashScreen(),
-              navigatorKey: AppRouter.navigatorKey,
-              onGenerateRoute: AppRouter.generateRoute,
-              localizationsDelegates: context.localizationDelegates,
-              supportedLocales: context.supportedLocales,
-              locale: context.locale,
+            child: BlocBuilder<ProfileCubit, ProfileState>(
+              buildWhen:
+                  (previous, current) =>
+                      previous.currentLanguage != current.currentLanguage,
+              builder: (context, state) {
+                return MaterialApp(
+                  title: 'علي دربك',
+                  debugShowCheckedModeBanner: false,
+                  theme: appTheme,
+                  themeMode: ThemeMode.light,
+                  color: AppColors.backGround,
+                  home: const SplashScreen(),
+                  navigatorKey: AppRouter.navigatorKey,
+                  onGenerateRoute: AppRouter.generateRoute,
+                  localizationsDelegates: context.localizationDelegates,
+                  supportedLocales: context.supportedLocales,
+                  locale: context.locale,
+                );
+              },
             ),
           ),
         );
