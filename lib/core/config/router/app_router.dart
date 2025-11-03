@@ -1,8 +1,8 @@
 part of 'app_routes.dart';
 
 class AppRouter {
-  static final GlobalKey<NavigatorState> navigatorKey =
-      GlobalKey<NavigatorState>();
+  // static final GlobalKey<NavigatorState> navigatorKey =
+  //     GlobalKey<NavigatorState>();
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     var args = settings.arguments;
@@ -118,9 +118,9 @@ class AppRouter {
     }
   }
 
-  static BuildContext? get currentContext => navigatorKey.currentContext;
+  // static BuildContext? get currentContext => navigatorKey.currentContext;
 
-  static bool get canPop => navigatorKey.currentState?.canPop() ?? false;
+  // static bool get canPop => navigatorKey.currentState?.canPop() ?? false;
 
   static _animateRouteBuilder(Widget to, {double x = 1, double y = 0}) =>
       PageRouteBuilder(

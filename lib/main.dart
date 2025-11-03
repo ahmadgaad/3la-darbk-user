@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 import 'ala_darbk_user_app.dart';
 import 'core/config/style/app_status_bar.dart';
@@ -37,7 +36,7 @@ void main() async {
       startLocale: startLocale,
       fallbackLocale: const Locale('ar'),
       assetLoader: const CodegenLoader(),
-      child: Phoenix(child: const AlaDarbkUserApp()),
+      child: const AlaDarbkUserApp(),
     ),
   );
 }

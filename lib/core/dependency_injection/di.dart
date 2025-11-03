@@ -1,6 +1,9 @@
 import 'package:ala_darbak_user/features/auth/presentation/view_model/login_cubit/cubit.dart';
 import 'package:ala_darbak_user/features/auth/presentation/view_model/register_cubit/register_cubit.dart';
 import 'package:ala_darbak_user/features/profile/presentation/view_model/profile_cubit/profile_cubit.dart';
+import 'package:alice/alice.dart';
+import 'package:alice/model/alice_configuration.dart';
+import 'package:alice_dio/alice_dio_adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' show Client;
@@ -28,7 +31,13 @@ class InjectionContainer {
     ///Services
     await _initSharedPref();
     _serviceInit();
-    _apiClientInit();
+
+    Alice alice = Alice(
+      configuration: AliceConfiguration(showNotification: true,),
+    );
+    sl.registerSingleton<Alice>(alice);
+
+    _apiClientInit(alice);
 
     ///Repositories
     sl.registerLazySingleton<AuthRepository>(
@@ -62,7 +71,11 @@ class InjectionContainer {
     sl.registerLazySingleton<Client>(() => Client());
   }
 
-  static void _apiClientInit() {
+  static void _apiClientInit(Alice alice) {
+    // Create and configure Alice Dio adapter
+    final aliceDioAdapter = AliceDioAdapter();
+    alice.addAdapter(aliceDioAdapter);
+
     sl.registerSingleton<Dio>(
       Dio(
           BaseOptions(
@@ -75,8 +88,8 @@ class InjectionContainer {
         )
         ..interceptors.addAll([
           AuthInterceptor(),
+          aliceDioAdapter,
           PrettyDioLogger(
-            // logPrint: (obj) => log(obj.toString()),
             requestHeader: true,
             requestBody: true,
             responseBody: true,
@@ -87,7 +100,6 @@ class InjectionContainer {
           ),
         ]),
     );
-
 
     sl.registerSingleton<ApiClient>(ApiClient(dio: sl()));
   }

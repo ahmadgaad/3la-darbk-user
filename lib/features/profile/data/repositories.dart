@@ -81,8 +81,8 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
   @override
   Future<Either<void, AppException>> logout() async {
-    //TODO: call logout api
     try {
+      await _apiClient.post(endPoint: ApiEndPoints.logout);
       await _sharedPreferences.removeToken();
       return const Left(null);
     } on AppException catch (e) {

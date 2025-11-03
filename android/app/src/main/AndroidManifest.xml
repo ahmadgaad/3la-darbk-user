@@ -2,6 +2,7 @@
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 <uses-permission android:name="android.permission.VIBRATE"/>
 <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -9,7 +10,7 @@
     <application
         android:label="ala_darbak_user"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         //TODO: Replace with your API key
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCnRSQue1AwWrx_elyqH_NKQ0jiOl_C56g" />

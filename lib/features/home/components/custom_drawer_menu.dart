@@ -96,11 +96,17 @@ class CustomDrawerMenu extends StatelessWidget {
                     }
                   },
                   child: ListTile(
-                    onTap: () {
-                      context.read<ProfileCubit>().logout();
+                    onTap: () async {
+                      await context.read<ProfileCubit>().logout();
                     },
                     leading: const Icon(Icons.logout),
-                    title: Text(LocaleKeys.logout.tr()),
+                    title: BlocBuilder<ProfileCubit, ProfileState>(
+                      builder: (context, state) {
+                        return state.loading
+                            ? const CircularProgressIndicator.adaptive()
+                            : Text(LocaleKeys.logout.tr());
+                      },
+                    ),
                   ),
                 ),
                 ListTile(

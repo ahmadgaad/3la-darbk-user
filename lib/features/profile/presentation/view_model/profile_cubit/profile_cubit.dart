@@ -35,13 +35,17 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   Future<void> logout() async {
+    emit(state.copyWith(loading: true));
+    await Future.delayed(const Duration(seconds: 1));
     final result = await _profileRepository.logout();
     result.fold(
       (l) {
         emit(state.copyWith(isSuccess: true, isLogedOut: true, loading: false));
       },
       (r) {
-        emit(state.copyWith(loading: false, isSuccess: false));
+        emit(
+          state.copyWith(loading: false, isLogedOut: false, isSuccess: false),
+        );
       },
     );
   }

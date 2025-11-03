@@ -1,4 +1,5 @@
 import 'package:ala_darbak_user/core/config/router/app_routes.dart';
+import 'package:alice/alice.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,9 +39,9 @@ class AlaDarbkUserApp extends StatelessWidget {
               ),
             ],
             child: BlocBuilder<ProfileCubit, ProfileState>(
-              buildWhen:
-                  (previous, current) =>
-                      previous.currentLanguage != current.currentLanguage,
+              buildWhen: (previous, current) {
+                return previous.currentLanguage != current.currentLanguage;
+              },
               builder: (context, state) {
                 return MaterialApp(
                   title: 'علي دربك',
@@ -49,7 +50,8 @@ class AlaDarbkUserApp extends StatelessWidget {
                   themeMode: ThemeMode.light,
                   color: AppColors.backGround,
                   home: const SplashScreen(),
-                  navigatorKey: AppRouter.navigatorKey,
+                  // navigatorKey: AppRouter.navigatorKey,
+                  navigatorKey: sl<Alice>().getNavigatorKey(),
                   onGenerateRoute: AppRouter.generateRoute,
                   localizationsDelegates: context.localizationDelegates,
                   supportedLocales: context.supportedLocales,

@@ -8,6 +8,8 @@ environment:
   sdk: ^3.7.2
 
 dependencies:
+  alice: ^1.0.0
+  alice_dio: ^1.0.7
   cached_network_image: ^3.4.1
   cupertino_icons: ^1.0.8
   dartz: ^0.10.1
@@ -20,7 +22,6 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^9.1.1
   flutter_local_notifications: ^19.0.0
-  flutter_phoenix: ^1.1.1
   flutter_polyline_points: ^2.1.0
   flutter_rating_bar: ^4.0.1
   flutter_screenutil: ^5.9.3
@@ -48,22 +49,18 @@ dependencies:
   url_launcher: ^6.3.1
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.14.1
+  flutter_launcher_icons: "^0.14.4"
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
 
 flutter_launcher_icons:
-  android: true
+  android: "launcher_icon"
   ios: true
-  image_path: "assets/images/launcher_icon.png"
-  remove_alpha_ios: true
+  image_path: "assets/icons/icon.png"
+  min_sdk_android: 21
 
-# flutter_assets:
-#   assets_path: assets/
-#   output_path: lib/generated/
-#   filename: assets.dart
-#   ignore_comments: true
+  
 flutter:
   uses-material-design: true
 
