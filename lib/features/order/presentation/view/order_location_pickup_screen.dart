@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../map/presentation/view/components/order_map.dart';
-import '../view_model/order_cubit/cubit.dart';
-import '../view_model/order_cubit/state.dart';
+import '../view_model/order_cubit/order_cubit.dart';
+import '../view_model/order_cubit/order_states.dart';
 import 'components/order_location_pickup_components/order_locations_selector.dart';
 
 class OrderLocationPickupScreen extends StatelessWidget {
@@ -30,7 +30,7 @@ class OrderLocationPickupScreen extends StatelessWidget {
         ],
       ),
 
-      bottomSheet: BlocBuilder<OrderCubit, OrderState>(
+      bottomSheet: BlocBuilder<OrderCubit, OrderStates>(
         builder: (context, state) {
           final location = state.orderLocationModel;
           return Visibility(
@@ -43,9 +43,9 @@ class OrderLocationPickupScreen extends StatelessWidget {
               initialChildSize: .4,
               minChildSize: 0.15,
               maxChildSize: .4,
-              builder:
-                  (_, scrollController) =>
-                      OrderConfirmationSheet(state, scrollController),
+              builder: (_, scrollController) {
+                return OrderConfirmationSheet(state, scrollController);
+              },
             ),
           );
         },

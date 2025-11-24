@@ -10,8 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
 
 import '../../../../core/widgets/app_toaster.dart';
-import '../view_model/order_cubit/cubit.dart';
-import '../view_model/order_cubit/state.dart';
+import '../view_model/order_cubit/order_cubit.dart';
+import '../view_model/order_cubit/order_states.dart';
 import 'components/create_order_components/additional_details_field.dart';
 import 'components/create_order_components/order_images_add.dart';
 import 'components/create_order_components/order_size_select.dart';
@@ -40,7 +40,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OrderCubit, OrderState>(
+    return BlocBuilder<OrderCubit, OrderStates>(
       builder: (context, state) {
         final cubit = context.read<OrderCubit>();
         return Scaffold(
@@ -98,7 +98,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  final imagesValid = state.images.length >= 3 && state.images.length <= 5;
+                  final imagesValid =
+                      state.images.length >= 3 && state.images.length <= 5;
 
                   if ((state.formKey.currentState!.validate()) && imagesValid) {
                     context.pushNamed(AppRoutes.pickLocation);

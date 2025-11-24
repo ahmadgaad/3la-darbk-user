@@ -11,7 +11,7 @@ import 'core/config/style/app_theme.dart';
 import 'core/controller/app_cubit.dart';
 import 'core/dependency_injection/di.dart';
 import 'core/widgets/splash_screen.dart';
-import 'features/order/presentation/view_model/order_cubit/cubit.dart';
+import 'features/order/presentation/view_model/order_cubit/order_cubit.dart';
 import 'features/profile/presentation/view_model/profile_cubit/profile_cubit.dart';
 import 'features/profile/presentation/view_model/profile_cubit/profile_states.dart';
 import 'features/settings/presentation/manager/cubit.dart';

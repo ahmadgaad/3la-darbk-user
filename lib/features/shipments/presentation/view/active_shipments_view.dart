@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../order/presentation/view_model/order_cubit/cubit.dart';
-import '../../../order/presentation/view_model/order_cubit/state.dart';
+import '../../../order/presentation/view_model/order_cubit/order_cubit.dart';
+import '../../../order/presentation/view_model/order_cubit/order_states.dart';
 import '../view_model/shipments_cubit.dart';
 import '../view_model/shipments_states.dart';
 import 'components/shipment_card.dart';
@@ -25,7 +25,7 @@ class _ActiveShipmentsViewState extends State<ActiveShipmentsView> {
     final _ = Localizations.localeOf(context);
 
     return Scaffold(
-      body: BlocListener<OrderCubit, OrderState>(
+      body: BlocListener<OrderCubit, OrderStates>(
         listener: (context, orderState) {
           // Refresh shipments when a new order is created
           if (orderState.orderCreated == true) {

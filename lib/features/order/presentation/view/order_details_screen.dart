@@ -15,8 +15,8 @@ import '../../../../core/widgets/app_image_view.dart';
 import '../../../../core/widgets/app_toaster.dart';
 import '../../../settings/presentation/manager/cubit.dart';
 import '../../data/model/driver_model.dart';
-import '../view_model/order_cubit/cubit.dart';
-import '../view_model/order_cubit/state.dart';
+import '../view_model/order_cubit/order_cubit.dart';
+import '../view_model/order_cubit/order_states.dart';
 import 'components/order_images.dart';
 import 'components/order_locations.dart';
 import 'components/order_track.dart';
@@ -55,7 +55,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     // final minTripPrice = settingsCubit.state.settingsInfo?.minTripPrice;
     // final maxTripPrice = settingsCubit.state.settingsInfo?.maxTripPrice;
 
-    return BlocConsumer<OrderCubit, OrderState>(
+    return BlocConsumer<OrderCubit, OrderStates>(
       builder: (context, state) {
         final status = state.orderModel?.status ?? 0;
         final isPaid = state.orderModel?.isPaid == 1;
@@ -324,7 +324,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
               ),
             );
       },
-      listener: (BuildContext context, OrderState state) {
+      listener: (BuildContext context, OrderStates state) {
         if (state.canceled) {
           AppToaster.show(LocaleKeys.order_canceled.tr());
 
@@ -368,7 +368,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     ),
   );
 
-  Widget _buildRecipientInfo(OrderState state) {
+  Widget _buildRecipientInfo(OrderStates state) {
     return Column(
       spacing: 10.h,
       crossAxisAlignment: CrossAxisAlignment.start,

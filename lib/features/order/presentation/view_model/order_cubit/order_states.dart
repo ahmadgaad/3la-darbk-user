@@ -8,7 +8,7 @@ import '../../../../trips/data/model/trip_model.dart';
 import '../../../data/model/order_location_model.dart';
 import '../../../data/model/order_model.dart';
 
-class OrderState extends Equatable {
+class OrderStates extends Equatable {
   final int orderSize;
   final TripModel? trip;
 
@@ -28,7 +28,7 @@ class OrderState extends Equatable {
   final bool completed;
   final bool orderCreated;
 
-  const OrderState({
+  const OrderStates({
     this.trip,
     this.orderSize = 0,
     this.selectedPaymentMethod = 0,
@@ -50,7 +50,7 @@ class OrderState extends Equatable {
 
   bool get isFromTrip => trip != null;
 
-  OrderState copyWith({
+  OrderStates copyWith({
     int? orderSize,
     TripModel? trip,
     int? selectedPaymentMethod,
@@ -69,7 +69,7 @@ class OrderState extends Equatable {
     bool? completed,
     bool? orderCreated,
   }) {
-    return OrderState(
+    return OrderStates(
       formKey: formKey ?? this.formKey,
       trip: trip ?? this.trip,
       selectedPaymentMethod:

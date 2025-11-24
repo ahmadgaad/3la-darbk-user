@@ -6,8 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../../core/config/style/app_color.dart';
-import '../../../view_model/order_cubit/cubit.dart';
-import '../../../view_model/order_cubit/state.dart';
+import '../../../view_model/order_cubit/order_cubit.dart';
+import '../../../view_model/order_cubit/order_states.dart';
 import '../../../view_model/order_map_cubit/cubit.dart';
 
 class OrderLocationSelector extends StatelessWidget {
@@ -16,7 +16,7 @@ class OrderLocationSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orderMapCubit = OrderMapCubit.get(context);
-    return BlocBuilder<OrderCubit, OrderState>(
+    return BlocBuilder<OrderCubit, OrderStates>(
       builder: (context, state) {
         final orderCubit = context.read<OrderCubit>();
         final orderLocationModel = state.orderLocationModel;

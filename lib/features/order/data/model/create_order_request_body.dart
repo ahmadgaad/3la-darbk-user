@@ -4,6 +4,7 @@ import 'package:ala_darbak_user/core/heplers/file_utils.dart';
 import 'package:equatable/equatable.dart';
 
 class CreateOrderRequestBody extends Equatable {
+  final int? tripId;
   final int size;
   final String pickupLat;
   final String pickupLng;
@@ -21,6 +22,7 @@ class CreateOrderRequestBody extends Equatable {
   final int categoryId;
 
   const CreateOrderRequestBody({
+    required this.tripId,
     required this.size,
     required this.pickupLat,
     required this.pickupLng,
@@ -40,6 +42,7 @@ class CreateOrderRequestBody extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
+      if (tripId != null) "trip_id": tripId,
       "size": size,
       "pickup_lat": pickupLat,
       "pickup_lng": pickupLng,
@@ -63,6 +66,7 @@ class CreateOrderRequestBody extends Equatable {
 
   @override
   List<Object?> get props => [
+    tripId,
     size,
     pickupLat,
     pickupLng,

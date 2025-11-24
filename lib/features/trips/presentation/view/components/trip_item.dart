@@ -8,7 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../core/config/style/app_color.dart';
 import '../../../../../core/config/style/app_text_styles.dart';
-import '../../../../order/presentation/view_model/order_cubit/cubit.dart';
+import '../../../../order/presentation/view_model/order_cubit/order_cubit.dart';
 import '../../../data/model/trip_model.dart';
 
 class TripItem extends StatelessWidget {

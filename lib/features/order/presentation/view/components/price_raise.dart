@@ -6,8 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/config/style/app_color.dart';
 import '../../../../../core/config/style/app_text_styles.dart';
-import '../../view_model/order_cubit/cubit.dart';
-import '../../view_model/order_cubit/state.dart';
+import '../../view_model/order_cubit/order_cubit.dart';
+import '../../view_model/order_cubit/order_states.dart';
 
 class PriceRaise extends StatelessWidget {
   final double historicalAverage;
@@ -37,7 +37,7 @@ class PriceRaise extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OrderCubit, OrderState>(
+    return BlocBuilder<OrderCubit, OrderStates>(
       builder: (context, state) {
         final cubit = context.read<OrderCubit>();
         final currentPrice =

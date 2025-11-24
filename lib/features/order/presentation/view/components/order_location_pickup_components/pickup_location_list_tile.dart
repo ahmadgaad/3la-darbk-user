@@ -6,7 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../../../core/config/style/app_text_styles.dart';
 import '../../../../../map/presentation/view/location_selection_screen.dart';
-import '../../../view_model/order_cubit/cubit.dart';
+import '../../../view_model/order_cubit/order_cubit.dart';
 import '../../../view_model/order_map_cubit/cubit.dart';
 
 class PickUpLocationListTile extends StatelessWidget {

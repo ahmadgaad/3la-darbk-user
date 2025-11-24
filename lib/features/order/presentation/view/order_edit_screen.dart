@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/config/style/app_color.dart';
-import '../view_model/order_cubit/cubit.dart';
-import '../view_model/order_cubit/state.dart';
+import '../view_model/order_cubit/order_cubit.dart';
+import '../view_model/order_cubit/order_states.dart';
 import 'components/create_order_components/additional_details_field.dart';
 import 'components/create_order_components/recipient_info_form.dart';
 
@@ -16,7 +16,7 @@ class OrderEditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<OrderCubit, OrderState>(
+    return BlocConsumer<OrderCubit, OrderStates>(
       listener: (context, state) {
         if (state.success) {
           Future.delayed(const Duration(milliseconds: 650), () {
