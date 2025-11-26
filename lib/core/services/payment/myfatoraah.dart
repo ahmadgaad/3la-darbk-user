@@ -1,22 +1,28 @@
+import 'dart:developer';
+
 import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
+import 'package:ala_darbak_user/core/widgets/app_toaster.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:myfatoorah_flutter/myfatoorah_flutter.dart';
 
 // Replace with your actual API key
-const String apiKey =
-    "rLtt6JWvbUHDDhsZnfpAhpYk4dxYDQkbcPTyGaKp2TYqQgG7FGZ5Th_WD53Oq8Ebz6A53njUoo1w3pjU1D4vs_ZMqFiz_j0urb_BH9Oq9VZoKFoJEDAbRZepGcQanImyYrry7Kt6MnMdgfG5jn4HngWoRdKduNNyP4kzcp3mRv7x00ahkm9LAK7ZRieg7k1PDAnBIOG3EyVSJ5kK4WLMvYr7sCwHbHcu4A5WwelxYK0GMJy37bNAarSJDFQsJ2ZvJjvMDmfWwDVFEVe_5tOomfVNt6bOg9mexbGjMrnHBnKnZR1vQbBtQieDlQepzTZMuQrSuKn-t5XZM7V6fCW7oP-uXGX-sMOajeX65JOf6XVpk29DP6ro8WTAflCDANC193yof8-f5_EYY-3hXhJj7RBXmizDpneEQDSaSz5sFk0sV5qPcARJ9zGG73vuGFyenjPPmtDtXtpx35A-BVcOSBYVIWe9kndG3nclfefjKEuZ3m4jL9Gg1h2JBvmXSMYiZtp9MR5I6pvbvylU_PP5xJFSjVTIz7IQSjcVGO41npnwIxRXNRxFOdIUHn0tjQ-7LwvEcTXyPsHXcMD8WtgBh-wxR8aKX7WPSsT1O8d8reb2aR7K3rkV3K82K_0OgawImEpwSvp9MNKynEAJQS6ZHe_J_l77652xwPNxMRTMASk1ZsJL";
+// const String apiKey =
+//     "rLtt6JWvbUHDDhsZnfpAhpYk4dxYDQkbcPTyGaKp2TYqQgG7FGZ5Th_WD53Oq8Ebz6A53njUoo1w3pjU1D4vs_ZMqFiz_j0urb_BH9Oq9VZoKFoJEDAbRZepGcQanImyYrry7Kt6MnMdgfG5jn4HngWoRdKduNNyP4kzcp3mRv7x00ahkm9LAK7ZRieg7k1PDAnBIOG3EyVSJ5kK4WLMvYr7sCwHbHcu4A5WwelxYK0GMJy37bNAarSJDFQsJ2ZvJjvMDmfWwDVFEVe_5tOomfVNt6bOg9mexbGjMrnHBnKnZR1vQbBtQieDlQepzTZMuQrSuKn-t5XZM7V6fCW7oP-uXGX-sMOajeX65JOf6XVpk29DP6ro8WTAflCDANC193yof8-f5_EYY-3hXhJj7RBXmizDpneEQDSaSz5sFk0sV5qPcARJ9zGG73vuGFyenjPPmtDtXtpx35A-BVcOSBYVIWe9kndG3nclfefjKEuZ3m4jL9Gg1h2JBvmXSMYiZtp9MR5I6pvbvylU_PP5xJFSjVTIz7IQSjcVGO41npnwIxRXNRxFOdIUHn0tjQ-7LwvEcTXyPsHXcMD8WtgBh-wxR8aKX7WPSsT1O8d8reb2aR7K3rkV3K82K_0OgawImEpwSvp9MNKynEAJQS6ZHe_J_l77652xwPNxMRTMASk1ZsJL";
 
-class PaymentPage extends StatefulWidget {
-  final dynamic paymentAmount; // Default payment amount
+class PaymentDialog extends StatefulWidget {
+  final double paymentAmount;
 
-  const PaymentPage({super.key, this.paymentAmount});
+  const PaymentDialog({super.key, required this.paymentAmount});
 
   @override
-  _PaymentPageState createState() => _PaymentPageState();
+  PaymentDialogState createState() => PaymentDialogState();
 }
 
-class _PaymentPageState extends State<PaymentPage> {
+class PaymentDialogState extends State<PaymentDialog> {
+  // test api key
+  final String apiKey =
+      "SK_KWT_vVZlnnAqu8jRByOWaRPNId4ShzEDNt256dvnjebuyzo52dXjAfRx2ixW5umjWSUx";
   List<MFPaymentMethod> paymentMethods = [];
   int? selectedPaymentMethodId;
   bool isLoading = false;
@@ -27,61 +33,13 @@ class _PaymentPageState extends State<PaymentPage> {
     _initializePayment();
   }
 
-  // Initialize MyFatoorah SDK and fetch payment methods
-  Future<void> _initializePayment() async {
-    setState(() {
-      isLoading = true;
-    });
-    print('Initializing MFSDK...');
-    try {
-      await MFSDK.init(apiKey, MFCountry.SAUDIARABIA, MFEnvironment.TEST);
-      print('MFSDK initialized successfully.');
-      await _fetchPaymentMethods();
-    } catch (e) {
-      print('Error initializing MFSDK: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Error initializing payment system')),
-      );
-    }
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  // Fetch payment methods
-  Future<void> _fetchPaymentMethods() async {
-    print('Fetching payment methods...');
-    var request = MFInitiatePaymentRequest(
-      invoiceAmount: widget.paymentAmount,
-
-      currencyIso: MFCurrencyISO.SAUDIARABIA_SAR, // Change currency if needed
-    );
-    try {
-      var result = await MFSDK.initiatePayment(request, MFLanguage.ARABIC);
-      print('Payment methods fetched successfully: $result');
-      setState(() {
-        paymentMethods = result.paymentMethods ?? [];
-      });
-      if (paymentMethods.isEmpty) {
-        print("no payment method exist");
-      }
-    } catch (e) {
-      print('Error fetching payment methods: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to load payment methods')),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(LocaleKeys.choose_payment_way.tr()),
       content: ConstrainedBox(
         constraints: BoxConstraints(
-          maxHeight:
-              MediaQuery.of(context).size.height *
-              0.7, // Limit the dialog height
+          maxHeight: MediaQuery.of(context).size.height * 0.7,
           maxWidth: MediaQuery.of(context).size.width * 0.9,
         ),
         child:
@@ -123,8 +81,9 @@ class _PaymentPageState extends State<PaymentPage> {
         TextButton(
           onPressed: () async {
             if (selectedPaymentMethodId == null) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Please select a payment method')),
+              AppToaster.show(
+                LocaleKeys.please_select_payment_method.tr(),
+                isError: true,
               );
               return;
             }
@@ -133,8 +92,7 @@ class _PaymentPageState extends State<PaymentPage> {
               invoiceValue: widget.paymentAmount,
               paymentMethodId: selectedPaymentMethodId!,
             );
-            request.displayCurrencyIso =
-                MFCurrencyISO.SAUDIARABIA_SAR; // Change currency if needed
+            request.displayCurrencyIso = MFCurrencyISO.SAUDIARABIA_SAR;
             bool isSuccess = false;
             try {
               final myFatoResponse = await MFSDK.executePayment(
@@ -142,17 +100,17 @@ class _PaymentPageState extends State<PaymentPage> {
                 MFLanguage.ARABIC,
 
                 (invoiceId) {
-                  print('Invoice ID: $invoiceId');
+                  log('Invoice ID: $invoiceId');
                 },
               );
-              print("Invoice Status: ${myFatoResponse.invoiceStatus}");
+              log("Invoice Status: ${myFatoResponse.invoiceStatus}");
               isSuccess = myFatoResponse.invoiceStatus?.toLowerCase() == "paid";
             } catch (e) {
               if (e is MFError) {
-                print('Error executing payment: ${e.message}');
-                print('Error executing payment: ${e.code}');
+                log('Error executing payment: ${e.message}');
+                log('Error executing payment: ${e.code}');
               } else {
-                print('Error executing payment: $e');
+                log('Error executing payment: $e');
               }
             }
             Navigator.pop(context, isSuccess); // Close the dialog
@@ -161,5 +119,65 @@ class _PaymentPageState extends State<PaymentPage> {
         ),
       ],
     );
+  }
+
+  // Initialize MyFatoorah SDK and fetch payment methods
+  Future<void> _initializePayment() async {
+    setState(() {
+      isLoading = true;
+    });
+    log('Initializing MFSDK...');
+    try {
+      await MFSDK.init(apiKey, MFCountry.SAUDIARABIA, MFEnvironment.TEST);
+      log('MFSDK initialized successfully.');
+      await _fetchPaymentMethods();
+    } catch (e) {
+      log('Error initializing MFSDK: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Error initializing payment system')),
+        );
+      }
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  // Fetch payment methods
+  Future<void> _fetchPaymentMethods() async {
+    log('Fetching payment methods...');
+
+    try {
+      final request = MFInitiatePaymentRequest(
+        invoiceAmount: widget.paymentAmount,
+        currencyIso: MFCurrencyISO.SAUDIARABIA_SAR,
+      );
+      final result = await MFSDK.initiatePayment(request, MFLanguage.ARABIC);
+      log('Payment methods fetched successfully: $result');
+      setState(() {
+        paymentMethods = result.paymentMethods ?? [];
+      });
+      if (paymentMethods.isEmpty) {
+        log("no payment method exist");
+      }
+    } on MFError catch (e) {
+      log('Error fetching payment methods: ${e.message}');
+      log('Error fetching payment methods: ${e.code}');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.message ?? 'Failed to load payment methods'),
+          ),
+        );
+      }
+    } catch (e) {
+      log('Error fetching payment methods: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to load payment methods')),
+        );
+      }
+    }
   }
 }

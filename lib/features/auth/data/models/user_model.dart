@@ -21,17 +21,7 @@ class UserModel {
     this.updatedAt,
   });
 
-  String get imageUrl => 'https://aladarabak.com/$image';
-
-  // const UserModel.register({
-  //   required this.imageFile,
-  //   required this.name,
-  //   required this.password,
-  //   required this.mobile,
-  //   this.image,
-  //   this.createdAt,
-  //   this.updatedAt,
-  // });
+  // String get imageUrl => 'https://aladarabak.com/$image';
 
   UserModel copyWith({
     String? name,

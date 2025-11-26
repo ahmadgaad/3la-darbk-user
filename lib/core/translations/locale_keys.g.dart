@@ -125,5 +125,6 @@ abstract class  LocaleKeys {
   static const please_enter_phone_number = 'please_enter_phone_number';
   static const please_enter_valid_phone_number = 'please_enter_valid_phone_number';
   static const please_enter_valid_password = 'please_enter_valid_password';
+  static const please_select_payment_method = 'please_select_payment_method';
 
 }

@@ -268,36 +268,28 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                   ),
                                 ),
                                 if (state.selectedPaymentMethod == 1)
+                                // pay now button
                                   TextButton(
-                                    onPressed: () {
-                                      Payment.pay(
+                                    onPressed: () async {
+                                      final result = await Payment.pay(
                                         context,
-                                        num.tryParse(
+                                        double.tryParse(
                                           orderCubit.state.orderModel?.price ??
                                               "0",
                                         ),
-                                      ).then((value) {
-                                        if (value is bool) {
-                                          if (value) {
-                                            print("Payment Success");
-                                            orderCubit.payOrder();
-                                            AppToaster.show(
-                                              "Payment Success",
-                                              isError: false,
-                                            );
-                                          } else {
-                                            print("Payment Failed");
-                                            AppToaster.show("Payment Failed");
-                                          }
+                                      );
+
+                                      if (result is bool) {
+                                        if (result) {
+                                          await orderCubit.payOrder();
                                         }
-                                      });
+                                      }
                                     },
                                     child: Text(LocaleKeys.pay_now.tr()),
                                   ),
                               ],
                             ),
                             value: 1,
-
                             groupValue: state.selectedPaymentMethod,
                             onChanged: (value) {
                               context.read<OrderCubit>().selectPaymentMethod(
@@ -488,7 +480,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     )) {}
                   },
                   shape: BoxShape.circle,
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                   url: driverModel?.imageCar ?? "",
                 ),
                 Text(

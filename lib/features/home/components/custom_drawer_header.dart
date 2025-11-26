@@ -1,3 +1,4 @@
+import 'package:ala_darbak_user/core/widgets/app_image_view.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +28,8 @@ class CustonDrawerHeader extends StatelessWidget {
               children: [
                 Container(
                   clipBehavior: Clip.antiAlias,
+                  width: 60.w,
+                  height: 60.w,
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
@@ -35,12 +38,16 @@ class CustonDrawerHeader extends StatelessWidget {
                     width: 60.w,
                     height: 60.w,
                     fit: BoxFit.scaleDown,
-                    imageUrl: user?.imageUrl ?? "",
+                    imageUrl: user?.image ?? "",
                     fadeInDuration: const Duration(milliseconds: 0),
                     fadeOutDuration: const Duration(milliseconds: 0),
-                    placeholder: (context, url) => const SizedBox.shrink(),
+                    placeholder:
+                        (context, url) =>
+                            const CircularProgressIndicator.adaptive(),
                     errorWidget: (context, url, error) {
-                      return const SizedBox.shrink();
+                      return const AppImageView(
+                        imagePath: "assets/images/user.png",
+                      );
                     },
                   ),
                 ),

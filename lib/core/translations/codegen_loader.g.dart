@@ -136,7 +136,8 @@ class CodegenLoader extends AssetLoader{
   "please_enter_saudi_phone_number": "Please enter a valid Saudi phone number starting with 5 and containing 9 digits",
   "please_enter_phone_number": "Please enter phone number",
   "please_enter_valid_phone_number": "Please enter a valid phone number",
-  "please_enter_valid_password": r"Password must be at least 8 characters long and contain an uppercase letter, a lowercase letter, a number, and a special character (@$!%*?&=_)"
+  "please_enter_valid_password": "Password must be at least 8 characters long and contain an uppercase letter, a lowercase letter, a number, and a special character (@\$!%*?&=_)",
+  "please_select_payment_method": "Please select a payment method"
 };
 static const Map<String,dynamic> _ar = {
   "login": "تسجيل الدخول",
@@ -260,7 +261,8 @@ static const Map<String,dynamic> _ar = {
   "please_enter_phone_number": "من فضلك أدخل رقم الجوال",
   "please_enter_valid_phone_number": "من فضلك أدخل رقم جوال صحيح",
   "please_enter_password": "من فضلك أدخل كلمة المرور",
-  "please_enter_valid_password": r"كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير وصغير ورقم ورمز خاص (@$!%*?&=_)"
+  "please_enter_valid_password": "كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير وصغير ورقم ورمز خاص (@\$!%*?&=_)",
+  "please_select_payment_method": "من فضلك اختر طريقة الدفع"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }

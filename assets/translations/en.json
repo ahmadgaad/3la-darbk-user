@@ -133,5 +133,6 @@
   "please_enter_saudi_phone_number": "Please enter a valid Saudi phone number starting with 5 and containing 9 digits",
   "please_enter_phone_number": "Please enter phone number",
   "please_enter_valid_phone_number": "Please enter a valid phone number",
-  "please_enter_valid_password": "Password must be at least 8 characters long and contain an uppercase letter, a lowercase letter, a number, and a special character (@$!%*?&=_)"
+  "please_enter_valid_password": "Password must be at least 8 characters long and contain an uppercase letter, a lowercase letter, a number, and a special character (@$!%*?&=_)",
+  "please_select_payment_method": "Please select a payment method"
 }

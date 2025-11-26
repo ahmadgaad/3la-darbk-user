@@ -49,11 +49,17 @@ class OrderCubit extends Cubit<OrderStates> {
     emit(state.copyWith(orderCreated: false));
   }
 
-  payOrder() async {
+  Future<void> payOrder() async {
     if (state.orderModel == null) return;
-    (await _orderRepository.payOrder(
-      state.orderModel?.id ?? 0,
-    )).fold((l) => emit(state.copyWith(orderModel: l)), (r) => emit(state));
+    final result = await _orderRepository.payOrder(state.orderModel?.id ?? 0);
+    result.fold(
+      (l) {
+        emit(state.copyWith(orderModel: l));
+      },
+      (r) {
+        AppToaster.show(r.message, isError: true);
+      },
+    );
   }
 
   setTrip(TripModel? tripModel) {
