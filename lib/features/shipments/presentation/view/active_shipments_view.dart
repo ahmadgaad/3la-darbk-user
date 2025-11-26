@@ -36,7 +36,7 @@ class _ActiveShipmentsViewState extends State<ActiveShipmentsView> {
         },
         child: BlocBuilder<ShipmentsCubit, ShipmentsState>(
           builder: (context, state) {
-            return RefreshIndicator(
+            return RefreshIndicator.adaptive(
               onRefresh: () async {
                 await context.read<ShipmentsCubit>().getActiveShipments();
               },
@@ -54,20 +54,41 @@ class _ActiveShipmentsViewState extends State<ActiveShipmentsView> {
                       (context, index) => 15.verticalSpaceFromWidth,
                   itemCount: 10,
                 ),
-                // const Center(child: CircularProgressIndicator.adaptive()),
-                ShipmentsStatus.error => Center(
-                  child: Text(state.errorMessage ?? ""),
+                ShipmentsStatus.error => ListView(
+                  padding: EdgeInsets.only(
+                    left: 20.w,
+                    right: 20.w,
+                    top: 24.h,
+                    bottom: 115,
+                  ),
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.3),
+                    Center(child: Text(state.errorMessage ?? "")),
+                  ],
                 ),
                 ShipmentsStatus.success =>
                   state.activeShipments.isEmpty
-                      ? Center(
-                        child: Text(
-                          LocaleKeys.no_orders.tr(),
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          ),
+                      ? ListView(
+                        padding: EdgeInsets.only(
+                          left: 20.w,
+                          right: 20.w,
+                          top: 24.h,
+                          bottom: 115,
                         ),
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.3,
+                          ),
+                          Center(
+                            child: Text(
+                              LocaleKeys.no_orders.tr(),
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
                       )
                       : ListView.separated(
                         padding: EdgeInsets.only(

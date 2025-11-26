@@ -1,3 +1,4 @@
+import 'package:ala_darbak_user/core/config/style/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -16,6 +17,8 @@ class CustomTextFormField extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
   final BoxConstraints? suffixIconConstraints;
   final AutovalidateMode? autovalidateMode;
+  final TextDirection? textDirection;
+  final TextStyle? style;
   const CustomTextFormField({
     super.key,
     this.controller,
@@ -32,6 +35,8 @@ class CustomTextFormField extends StatelessWidget {
     this.contentPadding,
     this.suffixIconConstraints,
     this.autovalidateMode,
+    this.textDirection,
+    this.style,
   });
 
   @override
@@ -44,6 +49,8 @@ class CustomTextFormField extends StatelessWidget {
       validator: validator,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
+      textDirection: textDirection,
+      style: style ?? AppTextStyle.font16black500,
       decoration: InputDecoration(
         errorMaxLines: 2,
         hintText: hintText,

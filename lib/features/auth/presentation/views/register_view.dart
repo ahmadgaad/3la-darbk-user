@@ -7,7 +7,7 @@ import 'package:ala_darbak_user/core/heplers/regex_helper.dart';
 import 'package:ala_darbak_user/core/heplers/saudi_number_formater.dart';
 import 'package:ala_darbak_user/core/translations/locale_keys.g.dart';
 import 'package:ala_darbak_user/features/auth/data/models/user_model.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -93,6 +93,7 @@ class _RegisterViewState extends State<RegisterView>
                   controller: nameController,
                   keyboardType: TextInputType.name,
                   hintText: LocaleKeys.name.tr(),
+                  style: AppTextStyle.font16black500,
                   prefixIcon: const Icon(Icons.person, size: 25),
                   validator: (value) {
                     if (!RegexHelper.isNameValid(value)) {
@@ -104,6 +105,8 @@ class _RegisterViewState extends State<RegisterView>
                 CustomTextFormField(
                   controller: phoneController,
                   keyboardType: TextInputType.phone,
+                  textDirection: TextDirection.ltr,
+                  style: AppTextStyle.font16black500,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
                     LengthLimitingTextInputFormatter(9),

@@ -31,7 +31,7 @@ class TripsView extends StatelessWidget {
                   : (element.cityFromId == state.startCity?.id ||
                       element.cityToId == state.destenationCity?.id);
             }).toList();
-        return RefreshIndicator(
+        return RefreshIndicator.adaptive(
           onRefresh: () async {
             await context.read<TripsCubit>().getActiveTrips();
           },

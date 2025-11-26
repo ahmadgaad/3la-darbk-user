@@ -64,6 +64,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             ? const Center(child: CircularProgressIndicator())
             : Scaffold(
               appBar: AppBar(
+                scrolledUnderElevation: 0,
                 title: Text(
                   '${LocaleKeys.order_number.tr()} #${state.orderModel?.numOrder ?? ""}',
                 ),

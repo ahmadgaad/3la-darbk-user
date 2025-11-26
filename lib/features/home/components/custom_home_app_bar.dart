@@ -20,6 +20,7 @@ class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      scrolledUnderElevation: 0,
       leading: IconButton(
         onPressed: () {
           _scaffoldKey.currentState!.openDrawer();

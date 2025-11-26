@@ -29,6 +29,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        scrolledUnderElevation: 0,
         title: Text(LocaleKeys.notifications.tr()),
       ),
       body: BlocBuilder<NotificationsCubit, NotificationsState>(
